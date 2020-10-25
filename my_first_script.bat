@@ -1,0 +1,1 @@
+start pwsh.exe -File "C:\Users\Carl\gitstuff\scripts-pwsh\my_first_script.ps1"
