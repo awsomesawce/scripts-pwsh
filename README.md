@@ -1,5 +1,10 @@
 # scripts-pwsh
 
+## 10-29
+
+Working with pwsh inside code is great in that it has a bunch of options and features, but it takes up a ton of memory.  The integrated Powershell console doesn't have the prompt theme that default profile has.
+Also, syntax highlighting for raw markdown inside code is gone for some reason.  Why is this the case?  I'd rather edit markdown files inside Kate but that will take up another 100MBs of memory that I'd rather not take up!.......
+
 ## Update 10/27
 
 I've added the `*.*~` files to `.gitignore`.  `vim` creates these weird backup files whenever I edit a file with it.
@@ -9,7 +14,7 @@ This git repo contains my personal collection of **Powershell** and **Bash** she
 
 But it also includes batch files which are a little similar to `.ps1` files.
 
-The `gotosleep.bat` file had been created and linked to a custom task using `taskscheduler` on windows. 
+The `gotosleep.bat` file had been created and linked to a custom task using `taskscheduler` on windows.  
 
 ## Personal Update
 
