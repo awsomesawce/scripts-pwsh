@@ -8,7 +8,8 @@ Also, syntax highlighting for raw markdown inside code is gone for some reason. 
 ## Update 10/27
 
 I've added the `*.*~` files to `.gitignore`.  `vim` creates these weird backup files whenever I edit a file with it.
-###### They're useless so I've set them to be ignored in `git`
+
+### They're useless so I've set them to be ignored in `git`
 
 This git repo contains my personal collection of **Powershell** and **Bash** shell scripts.
 
