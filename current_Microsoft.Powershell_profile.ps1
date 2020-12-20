@@ -57,6 +57,7 @@ function gitst {git status}
 Function gpgmee {gpg -se -r Carl}
 Function localAppData {Set-Location -Path C:\Users\Carl\AppData\Local}
 Function globalAppData {Set-Location -Path D:\Carl\AppData}
+Function gcift {Get-ChildItem | Format-Table}
 Function npmDoc {Set-Location -Path 'C:\Program Files\nodejs\node_modules\npm\docs'}
 # Backup folder for dotfiles in both Windows and Ubuntu
 Function dotfiles_backup {Set-Location -Path $oneDrive\dotfiles_backup}
