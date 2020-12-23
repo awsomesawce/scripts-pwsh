@@ -88,3 +88,4 @@ Set-Alias -Name rename -Value Rename-Item -Description "A smart rename alias"
 #Invoke-Expression (&starship init powershell)
 # Source the gh completion script for pwsh.  12/06/2020 does not work currently but loads just fine with no errors.
 . $psDir\Scripts\gh_compPowershell.ps1
+Set-Variable -Name CYGBIN -Value 'D:/Cygwin/bin' -Description 'Location for cygwin binaries'
