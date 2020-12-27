@@ -70,6 +70,7 @@ Function helpless {Get-Help $1 | less}
 # Easily open powershell profile in fvim
 Function psProfileEdit {ii D:\Carl\Documents\Powershell\Microsoft.Powershell_profile.ps1}
 Set-Alias -Name dotdir -Value dotfiles_backup
+Set-Alias -Name archl -Value 'D:/Arch/arch.exe'
 Set-Alias -name localad -Value localappdata
 Set-Alias -Name gitbash -Value 'D:\Program Files\Git\bin\bash.exe'
 Set-Alias -Name ... -Value D:\Carl\Documents\PowerShell\Scripts\backwards_cd.ps1
