@@ -1,0 +1,2 @@
+Create a ps1 script that enables me to do this command all in one go for individual files
+git add . && git commit -m 'add file_name' && git pull && git push
