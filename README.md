@@ -1,5 +1,9 @@
 # scripts-pwsh
 
+## Directories
+
+- `./old`: old stuff
+
 ## 10-29
 
 Working with pwsh inside code is great in that it has a bunch of options and features, but it takes up a ton of memory.  The integrated Powershell console doesn't have the prompt theme that default profile has.
