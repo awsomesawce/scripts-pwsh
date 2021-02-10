@@ -121,8 +121,14 @@ Set-Alias -Name rename -Value Rename-Item -Description "A smart rename alias"
 . $psDir\Scripts\gh_compPowershell.ps1
 Set-Variable -Name CYGBIN -Value 'D:/Cygwin/bin' -Description 'Location for cygwin binaries'
 Set-Variable -Name msysbin -Value D:\MSYS2\usr\bin
+Set-Alias -Name ghlp -Value Get-Help -Description "A shorter gethelp."
+Set-Alias -Name ghp -Value Get-Help -Description "Even shorter gethelp."
+Set-Alias -Name gethelp -Value Get-Help
 Set-Alias -Name ghelp -Value Get-Help
+# Reset rememberfile variable to quicktodo instead
+Set-Variable -Name quicktodo -Value D:\Carl\OneDrive\TODO\quicktodo.md
 Set-Variable -Name rememberfile -Value D:\Carl\OneDrive\TODO\quicktodo.md
+Set-Variable -Name remember -Value $oneDrive/remember.md
 Set-Variable -Name DESKTOP -Value D:\Carl\OneDrive\Desktop\ -Description "Shortcut to the Desktop folder"
 Write-Output "Welcome to Powershell!"
 Set-Alias -Name shmd -Value Show-Markdown -Description "Alias for Show-Markdown"
@@ -132,7 +138,7 @@ Function shmdall {
 Function shmdbrowser {
     Show-Markdown -UseBrowser
 }
-Function chtsh {curl https://cht.sh/$@}  # This currently doesn't work.
+Function chtsh {curl "https://cht.sh/$@"}  # This currently doesn't work.
 # TODO: Organize aliases and functions.
 # TODO: Put all aliases in separate script and source the script.
 # Hello from embedded nvim!
@@ -146,3 +152,4 @@ Set-Variable -Name notes -Value D:\Carl\OneDrive\Notable\notes\ -Description "No
 Set-Alias -Name g -Value git -Description "Git in one letter"
 # Save this and other weird variables to a sourcable pwsh script:
 Set-Variable -Name randomoutput -Value D:\Carl\OneDrive\TODO\randomoutput.md
+Set-Variable pwshsnippets -Value "D:\Carl\OneDrive\snippets\pwsh\powershell_snippets.txt" -Description "out-file for writing quick powershell snippets from the command line"
