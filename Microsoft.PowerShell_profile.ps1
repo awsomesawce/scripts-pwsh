@@ -35,6 +35,7 @@ Function gotodebian {Set-Location \\wsl$\Debian\home\carlc\}
 
 ## Open Powershell profile from anywhere
 Function psconfig {nvim $psDir\Microsoft.Powershell_profile.ps1}
+Function editprofile {nvim $PROFILE}
 ## Nvim config shortcut # remember to use backslashes.
 Function nvimconfig {nvim $localAppData\nvim\init.vim}
 Function neovconfig {neovide.ps1 $localAppData\nvim\init.vim}
@@ -126,8 +127,22 @@ Set-Variable -Name DESKTOP -Value D:\Carl\OneDrive\Desktop\ -Description "Shortc
 Write-Output "Welcome to Powershell!"
 Set-Alias -Name shmd -Value Show-Markdown -Description "Alias for Show-Markdown"
 Function shmdall {
-    shmd -Path *.md
+    Show-Markdown -Path *.md
 }
-Function chtsh {curl https://cht.sh/$@}
+Function shmdbrowser {
+    Show-Markdown -UseBrowser
+}
+Function chtsh {curl https://cht.sh/$@}  # This currently doesn't work.
 # TODO: Organize aliases and functions.
 # TODO: Put all aliases in separate script and source the script.
+# Hello from embedded nvim!
+# Use `K' to see a docstring for the cmdlet at point in `nvim'
+Set-Alias -Name l -Value Get-ChildItem -Description "Super small ls command"
+Set-Variable -Name NVIMINITVIM -Value C:\Users\Carl\AppData\Local\nvim\init.vim -Description "Main config file for neovim"
+Set-Alias -Name w3mducks -Value "w3m duckduckgo.com" -Description "w3m for ducks"
+Function dotgitdiff {Set-Location -Path C:\Users\Carl\gitstuff\my-dotfiles\ && git diff && cd -}
+Function dotgitstatus {Set-Location -Path "$HOME/gitstuff/my-dotfiles" && git status && cd -}
+Set-Variable -Name notes -Value D:\Carl\OneDrive\Notable\notes\ -Description "Notable notes directory"
+Set-Alias -Name g -Value git -Description "Git in one letter"
+# Save this and other weird variables to a sourcable pwsh script:
+Set-Variable -Name randomoutput -Value D:\Carl\OneDrive\TODO\randomoutput.md
