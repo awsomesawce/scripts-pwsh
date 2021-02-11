@@ -23,8 +23,12 @@
     // Each one of them will appear in the 'New Tab' dropdown,
     //   and can be invoked from the commandline with `wt.exe -p xxx`
     // To learn more about profiles, visit https://aka.ms/terminal-profile-settings
+
+    // BEGIN User config
     "launchMode": "maximized",
     "theme": "dark",
+    // Possible values are "mru" (for most recent), inOrder, and none (i think).
+    "tabSwitcherMode": "mru",
     "profiles":
     {
         "defaults":
@@ -39,17 +43,19 @@
             //"fontFace": "Droid Sans Mono for Powerline",
             //"fontFace": "Ubuntu Mono for Powerline",
             //"fontFace": "Cascadia Code PL",
-            // "fontFace": "Cousine for Powerline",
-            "fontFace": "Hack NF",
+            //"fontFace": "Cousine for Powerline",
+            //"fontFace": "Hack NF",
+            //"fontFace": "GoMono NF",
             //"fontFace": "mononoki NF",
+            "fontFace": "SauceCodePro NF",
             //"fontFace": "CodeNewRoman NF",
             //"fontFace": "JetBrains Mono",
             //"fontFace": "agave NF",
             //"fontFace": "Monoid NF",
             //"fontFace": "Victor Mono",
             //"fontFace": "Source Code Variable",
-            "fontSize": 16,
-            "fontWeight":"medium"
+            "fontSize": 14
+            //"fontWeight":"medium"
             //"fontFace": "SpaceMono NF",
             //"fontFace": "Victor Mono",
             // Check profiles for font size
@@ -65,13 +71,6 @@
             //     "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
             //     "name": "Windows PowerShell",
             //     "commandline": "powershell.exe",
-            //     "hidden": true
-            // },
-            // {
-            //     // Make changes here to the cmd.exe profile.
-            //     "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
-            //     "name": "Command Prompt",
-            //     "commandline": "cmd.exe",
             //     "hidden": true
             // },
             {
@@ -103,6 +102,27 @@
                 "startingDirectory": "\\\\wsl$\\Ubuntu-20.04\\home\\carlc",
                 "useAcrylic": true,
                 "acrylicOpacity": 0.90
+            },           
+            {
+                "guid": "{a5a97cb8-8961-5535-816d-772efe0c6a3f}",
+                "hidden": false,
+                "name": "Arch",
+                "source": "Windows.Terminal.Wsl",
+                "tabTitle": "wsl.Arch",
+                //"colorScheme": "PencilDark",
+                //"colorScheme": "Tango Dark",
+                //"colorScheme": "Raspberry",
+                "colorScheme": "One Half Dark",
+                "startingDirectory": "\\\\wsl$\\Arch\\home\\carlc",
+                "useAcrylic": true,
+                "acrylicOpacity": 0.89
+            },
+            {
+                // Make changes here to the cmd.exe profile.
+                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+                "name": "Command Prompt",
+                "commandline": "cmd.exe",
+                "hidden": false
             },
             {
                 "guid": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
@@ -161,6 +181,7 @@
                 "source": "Windows.Terminal.Wsl",
                 "colorScheme": "Monokai Seti Dark"
             }
+            
             
             // {
             //     "guid": "{abcmsys2-0000-0000-0000-000000000000}",
