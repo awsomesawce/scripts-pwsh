@@ -1,40 +1,31 @@
 Import-Module posh-git
 Import-Module oh-my-posh
-# 
+# Set prompt
 Set-PoshPrompt -Theme powerlevel10k_classic
-#Invoke-Expression (oh-my-posh --init --shell pwsh --config ~/.poshthemes/jandedobbeleer.omp.json)
 # set psdir variable to local powershell directory, and set other variables.
-$psDir="D:/Carl/Documents/Powershell"
+$PSDirectory="D:/Carl/Documents/Powershell"
 $gitDir="D:/Carl/Documents/GitHub"
 $oneDrive="D:/Carl/OneDrive"
 $localAppData="C:/Users/Carl/AppData/Local"
 $globalAppData="D:/Carl/Appdata"
-## IMPORTANT: Profile is already set to $PROFILE and $profile
-#$psProfileFile='D:/Carl/Documents/Powershell/Microsoft.Powershell_profile.ps1'
 
-$DOTFILESGIT='~/gitstuff/my-dotfiles'
+## This option sets the command line editor to have Emacs-like keybindings.
+## You can set more options using Set-PSReadlineKeyHandler
+#Set-PSReadLineOption -EditMode Emacs
+$DOTFILESGIT = "$HOME/gitstuff/my-dotfiles"
 function dotFiles {Set-Location $DOTFILESGIT}
 # Aliases
 # use single-quotes for strings with spaces
 Function lsWide {Get-ChildItem | Format-Wide}
-Function lsTable {Get-ChildItem | Format-Table}
 Set-Alias -Name lsw -Value lsWide -Description 'ls but format-wide'
 Set-Alias -Name list -Value Get-ChildItemColorFormatWide
-### BEGIN OLD THEME LIST ###
-#Set-Theme ys
-#Set-Theme pure
-#Set-Theme PowerlinePlus # While in admin mode, this theme correctly displays the prompt
-#Set-Theme Powerlevel9k
-#Set-Theme agnoster
-#Set-Theme zash
-### END OLD THEME LIST ###
 
 ## Set-Location to a wsl distro file system
 Function gotoarch {Set-Location \\wsl$\Arch\home\carlc\}
 Function gotodebian {Set-Location \\wsl$\Debian\home\carlc\}
 
 ## Open Powershell profile from anywhere
-Function psconfig {nvim $psDir\Microsoft.Powershell_profile.ps1}
+Function psconfig {nvim $PSDirectory\Microsoft.Powershell_profile.ps1}
 Function editprofile {nvim $PROFILE}
 ## Nvim config shortcut # remember to use backslashes.
 Function nvimconfig {nvim $localAppData\nvim\init.vim}
@@ -48,7 +39,8 @@ Function fvim22 {fvim -O2 -p2}
 Function nvimdiff {nvim -d}
 Function fvimdiff {fvim -d}
 ## Shortcut for duckduckgo
-function ducks {Start-Process https://duckduckgo.com}
+$duckduck = "https://duckduckgo.com"
+function ducks { Start-Process $duckduck }
 
 Set-Alias -Name np -Value C:\Windows\notepad.exe
 # This one sets an alias for the ri command in ruby
@@ -57,6 +49,7 @@ Set-Alias -Name exp -Value explorer
 Set-Alias -Name man -Value D:\Cygwin\bin\man.exe -Description "Show info file from cygwin which includes a lot more documentation than the windows emacs info"
 Set-Alias -Name lsc -Value Get-ChildItemColorFormatWide -Description "Better alias for color ls"
 Set-Alias -Name rdis -Value rdiscount -Description "Shorter rdiscount"
+Set-Alias -Name kram -Value kramdown -Description "Shorter kramdown"
 Set-Alias -Name pd -Value pandoc -Description "Shorter Pandoc"
 Set-Alias -Name msys -Value D:\MSYS2\msys2_shell.cmd -Description "Use --help for invoke options"
 Set-Alias -Name git-cola -Value C:\Users\Carl\AppData\Local\git-cola\bin\git-cola.exe -Description "Git-cola because "
@@ -67,12 +60,14 @@ Set-Alias -Name cygtcsh -Value D:\Cygwin\bin\tcsh.exe -Description "Cygwin's tcs
 ## Functions
 
 # Next is a function that allows me to change to my powershell directory where my profile is.
-Function PSDir {Set-Location -Path D:\carl\documents\PowerShell\}
+Function GotoPSDir {Set-Location -Path PSDirectory}
+Set-Alias -Name psDir -Value GotoPSDir
 
 # This is just a function to cd to my notes dir
-Function NotesDir {Set-Location -Path $oneDrive\Notable\Notes}
+Set-Variable -Name notesdir -Value D:\Carl\OneDrive\Notable\notes\ -Description "Notable notes directory"
+Function GotoNotesDir {Set-Location -Path $notesdir}
 # Set-Alias to make notes dir even more easily accessible
-Set-Alias -Name ndir -Value NotesDir
+Set-Alias -Name ndir -Value GotoNotesDir
 # Function for invoking ubuntu wsl with carlc user and zsh shell
 Function wslubuntu {wsl -d Ubuntu-20.04 -u carlc -e zsh}
 Function kak {wsl -d Arch -u carlc -e kak}
@@ -115,10 +110,6 @@ Set-Alias -Name list -Value Get-ChildItemColor
 # This attaches the rename command to rename item
 # ren is also an alias for rename-item
 Set-Alias -Name rename -Value Rename-Item -Description "A smart rename alias"
-# Invoke the starship prompt engine
-#Invoke-Expression (&starship init powershell)
-# Source the gh completion script for pwsh.  12/06/2020 does not work currently but loads just fine with no errors.
-. $psDir\Scripts\gh_compPowershell.ps1
 Set-Variable -Name CYGBIN -Value 'D:/Cygwin/bin' -Description 'Location for cygwin binaries'
 Set-Variable -Name msysbin -Value D:\MSYS2\usr\bin
 Set-Alias -Name ghlp -Value Get-Help -Description "A shorter gethelp."
@@ -147,9 +138,14 @@ Set-Alias -Name l -Value Get-ChildItem -Description "Super small ls command"
 Set-Variable -Name NVIMINITVIM -Value C:\Users\Carl\AppData\Local\nvim\init.vim -Description "Main config file for neovim"
 Set-Alias -Name w3mducks -Value "w3m duckduckgo.com" -Description "w3m for ducks"
 Function dotgitdiff {Set-Location -Path C:\Users\Carl\gitstuff\my-dotfiles\ && git diff && cd -}
-Function dotgitstatus {Set-Location -Path "$HOME/gitstuff/my-dotfiles" && git status && cd -}
-Set-Variable -Name notes -Value D:\Carl\OneDrive\Notable\notes\ -Description "Notable notes directory"
+Function dotgitstatus { Set-Location -Path "$HOME/gitstuff/my-dotfiles" && git status && cd - }
 Set-Alias -Name g -Value git -Description "Git in one letter"
 # Save this and other weird variables to a sourcable pwsh script:
 Set-Variable -Name randomoutput -Value D:\Carl\OneDrive\TODO\randomoutput.md
 Set-Variable pwshsnippets -Value "D:\Carl\OneDrive\snippets\pwsh\powershell_snippets.txt" -Description "out-file for writing quick powershell snippets from the command line"
+Set-Alias -Name "sob" -Value "Select-Object" -Description "A shorter select"
+Set-Alias -Name add -Value Add-Content -Description "a shorter Add-content"
+
+## Sourcing Scripts
+. D:\Carl\Documents\PowerShell\Scripts\_rg.ps1 # source rg completion script
+. $PSDirectory\Scripts\other_functions.ps1
