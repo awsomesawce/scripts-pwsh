@@ -8,6 +8,11 @@ $gitDir="D:/Carl/Documents/GitHub"
 $oneDrive="D:/Carl/OneDrive"
 $localAppData="C:/Users/Carl/AppData/Local"
 $globalAppData="D:/Carl/Appdata"
+# The environment variable below sets XDG_CONFIG_HOME, which then tells nvim to look for it's
+# init file in that directory instead of AppData/local/nvim
+# That is bad, we don't want that because it gets rid of our configuration.
+# If you want to start nvim without having any confing, set the $env:XDG_CONFIG_HOME variable.
+#$env:XDG_CONFIG_HOME="C:\Users\Carl\.config"
 
 ## This option sets the command line editor to have Emacs-like keybindings.
 ## You can set more options using Set-PSReadlineKeyHandler
@@ -60,8 +65,8 @@ Set-Alias -Name cygtcsh -Value D:\Cygwin\bin\tcsh.exe -Description "Cygwin's tcs
 ## Functions
 
 # Next is a function that allows me to change to my powershell directory where my profile is.
-Function GotoPSDir {Set-Location -Path PSDirectory}
-Set-Alias -Name psDir -Value GotoPSDir
+Function GotoPSDir {Set-Location -Path $PSDirectory}
+Set-Alias -Name psdir -Value GotoPSDir
 
 # This is just a function to cd to my notes dir
 Set-Variable -Name notesdir -Value D:\Carl\OneDrive\Notable\notes\ -Description "Notable notes directory"
@@ -73,7 +78,7 @@ Function wslubuntu {wsl -d Ubuntu-20.04 -u carlc -e zsh}
 Function kak {wsl -d Arch -u carlc -e kak}
 # Function to get to standard parent git directory
 Function gitdir {Set-Location -Path $gitDir}
-Function nodeschool {Set-Location -Path -Verbose D:\Carl\Documents\GitHub\D:\Carl\Documents\GitHub\node-school}
+Function nodeschool {Set-Location -Path -Verbose "D:\Carl\Documents\GitHub\D:\Carl\Documents\GitHub\node-school"}
 # get to emacs org directory located in OneDrive quickly.
 Function org_dir {Set-Location -Path $oneDrive\org_dir}
 # This is a function for git status, not Get-GitStatus, which is a posh-git cmdlet.
@@ -149,3 +154,7 @@ Set-Alias -Name add -Value Add-Content -Description "a shorter Add-content"
 ## Sourcing Scripts
 . D:\Carl\Documents\PowerShell\Scripts\_rg.ps1 # source rg completion script
 . $PSDirectory\Scripts\other_functions.ps1
+Function Open-Node-Docs {Start-Process https://nodejs.org/dist/latest-v14.x/docs/api/}
+Set-Alias -Name nodedoc -Value Open-Node-Docs -Description "Open NodeJS docs in a browser"
+# TODO: Copy the above two lines to the other_functions.ps1 scriptfile, and set a variable to 
+# refer to the script file for ease of access
