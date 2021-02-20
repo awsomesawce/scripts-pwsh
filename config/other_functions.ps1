@@ -31,3 +31,31 @@ Function editbashrc { wsl nvim ~/.bashrc }
 
 # TODO: test this function for starting a powershell process as Admin.
 function Start-PSAdmin {Start-Process pwsh -Verb RunAs}
+set-alias -Name split -Value Split-Path
+
+
+# This function can be used if sourced by the powershell session.
+# use `. name-of-script.ps1' and the function is then available to use
+# This script makes the Send-Greeting cmdlet available to the host!
+
+function Send-Greeting
+{
+    <#
+    .Description
+    Send-Greeting: Gets a greeting if name is supplied.
+    .PARAMETER Name
+    The name of the person you want to greet!
+    #>
+    [CmdletBinding()]
+    Param(
+	[Parameter(Mandatory=$true,
+	HelpMessage="Enter your name to get a greeting!")]
+	[Alias("greeting","sendgreet")]
+	[string] $Name
+    )
+
+    Process
+    {
+	Write-Output ("Hello " + $Name + "!")
+    }
+}
