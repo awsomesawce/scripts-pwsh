@@ -4,3 +4,4 @@
 *.vcproj        text eol=crlf
 *.sh            text eol=lf
 *.jpg           -text
+*.ps1           text eol=crlf
