@@ -18,7 +18,7 @@ INFO: **DO NOT MOVE**
 
 - [Powershell snippets](D:/Carl/OneDrive/snippets/pwsh/powershell_snippets.txt): location for all snippet related things that are not necessarily
   important enough to be version-controlled.
-- [TODO.txt](.\TODO.txt): todo items relative to powershell programming.
+- [TODO.txt](./TODO.txt): todo items relative to powershell programming.
 
 # List of Directories to copy new config scripts to
 
