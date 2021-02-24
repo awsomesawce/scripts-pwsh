@@ -15,4 +15,4 @@ Set-Variable -Name GitDirectoryD -Value D:\Carl\Documents\GitHub -Description "M
 
 $env:EDITOR = "nvim" # EDITOR variable to use when invoking unix-like programs
 
-Write-Output "Done Processing variables"
+Write-Output "Variables have been imported from $PSScriptRoot"
