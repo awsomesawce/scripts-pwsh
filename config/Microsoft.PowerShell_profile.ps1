@@ -1,5 +1,8 @@
+# Import current modules.
 Import-Module posh-git
 Import-Module oh-my-posh
+# Source variables for current projects into PSSession
+. ~/gitstuff/scripts-pwsh/config/projectvars.ps1
 # Set prompt
 Set-PoshPrompt -Theme powerlevel10k_classic
 # set psdir variable to local powershell directory, and set other variables.
@@ -16,7 +19,7 @@ $globalAppData="D:/Carl/Appdata"
 
 ## This option sets the command line editor to have Emacs-like keybindings.
 ## You can set more options using Set-PSReadlineKeyHandler
-#Set-PSReadLineOption -EditMode Emacs
+#Set-PSReadLineOption -EditMode Windows
 $DOTFILESGIT = "$HOME/gitstuff/my-dotfiles"
 function dotFiles {Set-Location $DOTFILESGIT}
 # Aliases
@@ -28,6 +31,7 @@ Set-Alias -Name list -Value Get-ChildItemColorFormatWide
 ## Set-Location to a wsl distro file system
 Function gotoarch {Set-Location \\wsl$\Arch\home\carlc\}
 Function gotodebian {Set-Location \\wsl$\Debian\home\carlc\}
+Function gotoubuntu {Set-Location \\wsl$\Ubuntu-20.04\home\carlc}
 
 ## Open Powershell profile from anywhere
 Function psconfig {nvim $PSDirectory\Microsoft.Powershell_profile.ps1}
@@ -158,3 +162,4 @@ Function Open-Node-Docs {Start-Process https://nodejs.org/dist/latest-v14.x/docs
 Set-Alias -Name nodedoc -Value Open-Node-Docs -Description "Open NodeJS docs in a browser"
 # TODO: Copy the above two lines to the other_functions.ps1 scriptfile, and set a variable to 
 # refer to the script file for ease of access
+function kak {wsl kak}
