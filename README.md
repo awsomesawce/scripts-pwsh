@@ -20,9 +20,9 @@ INFO: **DO NOT MOVE**
   important enough to be version-controlled.
 - [TODO.txt](.\TODO.txt): todo items relative to powershell programming.
 
-# List of Directories to copy new scripts to
+# List of Directories to copy new config scripts to
 
-- ~/gitstuff/scripts-pwsh
-- D:/Carl/OneDrive/dotfiles_backup/windows
-- PSDirectory
+- `~/gitstuff/scripts-pwsh`
+- `D:/Carl/OneDrive/dotfiles_backup/windows`
+- `D:\Carl\Documents\Powershell`
 
