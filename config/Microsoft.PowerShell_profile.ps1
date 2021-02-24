@@ -130,7 +130,7 @@ Set-Variable -Name quicktodo -Value D:\Carl\OneDrive\TODO\quicktodo.md
 Set-Variable -Name rememberfile -Value D:\Carl\OneDrive\TODO\quicktodo.md
 Set-Variable -Name remember -Value $oneDrive/remember.md
 Set-Variable -Name DESKTOP -Value D:\Carl\OneDrive\Desktop\ -Description "Shortcut to the Desktop folder"
-Write-Output "Welcome to Powershell!"
+Write-Output "Welcome Carl!"
 Set-Alias -Name shmd -Value Show-Markdown -Description "Alias for Show-Markdown"
 Function shmdall {
     Show-Markdown -Path *.md
