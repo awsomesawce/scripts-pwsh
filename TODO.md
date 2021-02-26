@@ -7,4 +7,3 @@
 
 - [ ] TODO: Finish writing project variable script
 - [ ] TODO: write a function that automatically greps all files for the word "TODO"
-- [ ] TODO: 
