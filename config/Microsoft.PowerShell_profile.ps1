@@ -1,12 +1,25 @@
+# Disable Telemetry
+$env:POWERSHELL_TELEMETRY_OPTOUT = 1
 # Import current modules.
 Import-Module posh-git
 Import-Module oh-my-posh
 # Source variables for current projects into PSSession
-. ~/gitstuff/scripts-pwsh/config/projectvars.ps1
+$PSDirectory="D:/Carl/Documents/Powershell"
+if (Test-Path $PSDirectory\Scripts\other_functions.ps1) {
+    . $PSDirectory\Scripts\other_functions.ps1
+} else {
+    "other_functions.ps1 file not found"
+}
+(Test-Path ~/gitstuff/scripts-pwsh/config/projectvars.ps1) ? (. ~/gitstuff/scripts-pwsh/config/projectvars.ps1) : (Write-Output "projectvars.ps1 not found")
+# If ternary operator is incompatible, use this:
+# if (Test-Path ~/gitstuff/scripts-pwsh/config/projectvars.ps1) {
+# . ~/gitstuff/scripts-pwsh/config/projectvars.ps1
+# } else {
+# Write-Output "projectvars.ps1 not found"
+# }
 # Set prompt
 Set-PoshPrompt -Theme powerlevel10k_classic
 # set psdir variable to local powershell directory, and set other variables.
-$PSDirectory="D:/Carl/Documents/Powershell"
 $gitDir="D:/Carl/Documents/GitHub"
 $oneDrive="D:/Carl/OneDrive"
 $localAppData="C:/Users/Carl/AppData/Local"
@@ -93,7 +106,7 @@ Function chdirGAppData {Set-Location -Path $globalAppData}
 Function gcift {Get-ChildItem | Format-Table}
 Function npmDoc {Set-Location -Path 'C:\Program Files\nodejs\node_modules\npm\docs'}
 # Backup folder for dotfiles in both Windows and Ubuntu
-Function dotfiles_backup {Set-Location -Path $oneDrive\dotfiles_backup}
+Function gotodotfilesbackup {Set-Location -Path $oneDrive\dotfiles_backup}
 # Easily page thru long ls lists
 Function lspage {Get-ChildItem | less}
 Set-Alias -name lsless -Value lspage
@@ -101,7 +114,7 @@ Set-Alias -Name lsl -Value lspage
 # Easily page thru get-help output
 Function helpless {Get-Help $1 | less}
 # Easily open powershell profile in fvim
-Function psProfileEdit {Invoke-Item D:\Carl\Documents\Powershell\Microsoft.Powershell_profile.ps1}
+Function psProfileEdit {Start-Process D:\Carl\Documents\Powershell\Microsoft.Powershell_profile.ps1}
 Set-Alias -Name dotdir -Value dotfiles_backup
 Set-Alias -Name archl -Value 'D:/Arch/arch.exe'
 Set-Alias -Name lg -Value 'lazygit'
@@ -157,9 +170,11 @@ Set-Alias -Name add -Value Add-Content -Description "a shorter Add-content"
 
 ## Sourcing Scripts
 . D:\Carl\Documents\PowerShell\Scripts\_rg.ps1 # source rg completion script
-. $PSDirectory\Scripts\other_functions.ps1
-Function Open-Node-Docs {Start-Process https://nodejs.org/dist/latest-v14.x/docs/api/}
-Set-Alias -Name nodedoc -Value Open-Node-Docs -Description "Open NodeJS docs in a browser"
-# TODO: Copy the above two lines to the other_functions.ps1 scriptfile, and set a variable to 
+
+# DONE: Copy the above two lines to .\Scripts\other_functions.ps1 scriptfile, and set a variable to 
 # refer to the script file for ease of access
 function kak {wsl kak}
+# This expression is necessary for python's fuck module to work.
+Invoke-Expression "$(thefuck --alias)"
+$scriptspwsh = "C:\Users\Carl\gitstuff\scripts-pwsh\"
+function gotopwsh { Set-Location $scriptspwsh }
