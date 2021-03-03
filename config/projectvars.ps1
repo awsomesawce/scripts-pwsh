@@ -13,6 +13,8 @@ Set-Variable -Name DESKTOP -Value D:\Carl\OneDrive\Desktop\ -Description "Shortc
 Set-Variable -Name randomoutput -Value D:\Carl\OneDrive\TODO\randomoutput.md -Description "A place to pipe output from pwsh"
 Set-Variable -Name GitDirectoryD -Value D:\Carl\Documents\GitHub -Description "Main directory for github hosted projects"
 
+function nodesch {set-location GitDirectoryD\node-school}
+
 $env:EDITOR = "nvim" # EDITOR variable to use when invoking unix-like programs.
 $env:PAGER = "less" # PAGER variable used by a ton of unix-like programs.
 Write-Output "Set `$env:PAGER to $env:PAGER"
