@@ -3,14 +3,19 @@ $env:POWERSHELL_TELEMETRY_OPTOUT = 1
 # Import current modules.
 Import-Module posh-git
 Import-Module oh-my-posh
+Import-Module z
 # Source variables for current projects into PSSession
 $PSDirectory="D:/Carl/Documents/Powershell"
-if (Test-Path $PSDirectory\Scripts\other_functions.ps1) {
-    . $PSDirectory\Scripts\other_functions.ps1
+$otherFunctionsScript = "$PSDirectory/Scripts/other_functions.ps1"
+if (Test-Path "$otherFunctionsScript") {
+    . "$otherFunctionsScript"
 } else {
     "other_functions.ps1 file not found"
 }
-(Test-Path ~/gitstuff/scripts-pwsh/config/projectvars.ps1) ? (. ~/gitstuff/scripts-pwsh/config/projectvars.ps1) : (Write-Output "projectvars.ps1 not found")
+
+$scriptspwsh = "$HOME\gitstuff\scripts-pwsh\config"
+$projectvarsScript = "$scriptspwsh/projectvars.ps1"
+(Test-Path $projectvarsScript) ? (. $projectvarsScript) : (Write-Output "projectvars.ps1 not found")
 # If ternary operator is incompatible, use this:
 # if (Test-Path ~/gitstuff/scripts-pwsh/config/projectvars.ps1) {
 # . ~/gitstuff/scripts-pwsh/config/projectvars.ps1
@@ -47,7 +52,6 @@ Function gotodebian {Set-Location \\wsl$\Debian\home\carlc\}
 Function gotoubuntu {Set-Location \\wsl$\Ubuntu-20.04\home\carlc}
 
 ## Open Powershell profile from anywhere
-Function psconfig {nvim $PSDirectory\Microsoft.Powershell_profile.ps1}
 Function editprofile {nvim $PROFILE}
 ## Nvim config shortcut # remember to use backslashes.
 Function nvimconfig {nvim $localAppData\nvim\init.vim}
@@ -91,11 +95,9 @@ Function GotoNotesDir {Set-Location -Path $notesdir}
 # Set-Alias to make notes dir even more easily accessible
 Set-Alias -Name ndir -Value GotoNotesDir
 # Function for invoking ubuntu wsl with carlc user and zsh shell
-Function wslubuntu {wsl -d Ubuntu-20.04 -u carlc -e zsh}
-Function kak {wsl -d Arch -u carlc -e kak}
 # Function to get to standard parent git directory
 Function gitdir {Set-Location -Path $gitDir}
-Function nodeschool {Set-Location -Path -Verbose "D:\Carl\Documents\GitHub\D:\Carl\Documents\GitHub\node-school"}
+Function nodeschool {Set-Location -Path "D:\Carl\Documents\GitHub\node-school"}
 # get to emacs org directory located in OneDrive quickly.
 Function org_dir {Set-Location -Path $oneDrive\org_dir}
 # This is a function for git status, not Get-GitStatus, which is a posh-git cmdlet.
@@ -109,14 +111,8 @@ Function npmDoc {Set-Location -Path 'C:\Program Files\nodejs\node_modules\npm\do
 Function gotodotfilesbackup {Set-Location -Path $oneDrive\dotfiles_backup}
 # Easily page thru long ls lists
 Function lspage {Get-ChildItem | less}
-Set-Alias -name lsless -Value lspage
 Set-Alias -Name lsl -Value lspage
-# Easily page thru get-help output
-Function helpless {Get-Help $1 | less}
-# Easily open powershell profile in fvim
-Function psProfileEdit {Start-Process D:\Carl\Documents\Powershell\Microsoft.Powershell_profile.ps1}
-Set-Alias -Name dotdir -Value dotfiles_backup
-Set-Alias -Name archl -Value 'D:/Arch/arch.exe'
+Set-Alias -Name dotdir -Value gotodotfilesbackup
 Set-Alias -Name lg -Value 'lazygit'
 Set-Alias -name localad -Value localappdata
 Set-Alias -Name gitbash -Value 'D:\Program Files\Git\git-bash.exe'
@@ -124,7 +120,6 @@ Set-Alias -Name ... -Value D:\Carl\Documents\PowerShell\Scripts\backwards_cd.ps1
 Set-Alias -Name .. -Value D:\Carl\Documents\PowerShell\Scripts\backwards_cd1.ps1
 Set-Alias -name ipinfo -Value D:\Carl\Documents\PowerShell\Scripts\getipinfo.ps1
 Set-alias -Name invo -Value Invoke-Item -description "Shorter invoke-item"
-#node C:\Users\Carl\node_modules\which\bin\node-which
 # Alias for Get-GitStatus function provided by posh-git
 set-alias -Name gitstat -Value Get-GitStatus
 Set-Alias -Name list -Value Get-ChildItemColor
@@ -135,9 +130,6 @@ Set-Alias -Name rename -Value Rename-Item -Description "A smart rename alias"
 Set-Variable -Name CYGBIN -Value 'D:/Cygwin/bin' -Description 'Location for cygwin binaries'
 Set-Variable -Name msysbin -Value D:\MSYS2\usr\bin
 Set-Alias -Name ghlp -Value Get-Help -Description "A shorter gethelp."
-Set-Alias -Name ghp -Value Get-Help -Description "Even shorter gethelp."
-Set-Alias -Name gethelp -Value Get-Help
-Set-Alias -Name ghelp -Value Get-Help
 # Reset rememberfile variable to quicktodo instead
 Set-Variable -Name quicktodo -Value D:\Carl\OneDrive\TODO\quicktodo.md
 Set-Variable -Name rememberfile -Value D:\Carl\OneDrive\TODO\quicktodo.md
@@ -175,6 +167,4 @@ Set-Alias -Name add -Value Add-Content -Description "a shorter Add-content"
 # refer to the script file for ease of access
 function kak {wsl kak}
 # This expression is necessary for python's fuck module to work.
-Invoke-Expression "$(thefuck --alias)"
-$scriptspwsh = "C:\Users\Carl\gitstuff\scripts-pwsh\"
-function gotopwsh { Set-Location $scriptspwsh }
+#Invoke-Expression "$(thefuck --alias)"

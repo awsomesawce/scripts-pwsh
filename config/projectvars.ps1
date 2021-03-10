@@ -1,8 +1,11 @@
 # A list of variables that point to project directories
+# Use `gf` in vim to goto the file at point.
 # TODO: add second script for sourcing functions
 # Author: Carl C (awsomesawce@outlook.com)
 
 set-variable -Name labscurrent -Value "~/Downloads/labs-node/labs-jan-5-2021/labs" -Description "Current labs"
+
+Set-Variable -Name nodeschool -Value "D:\Carl\Documents\GitHub\node-school\" -Description "node-school directory"
 
 Set-Variable -Name nodewebpackproj -Value "D:\Carl\Documents\GitHub\my-webpack-demo" -Description "My webpack demo git dir"
 
@@ -17,6 +20,5 @@ function nodesch {set-location GitDirectoryD\node-school}
 
 $env:EDITOR = "nvim" # EDITOR variable to use when invoking unix-like programs.
 $env:PAGER = "less" # PAGER variable used by a ton of unix-like programs.
-Write-Output "Set `$env:PAGER to $env:PAGER"
-Write-Output "Set `$env:EDITOR to $env:EDITOR"
 Write-Output "Variables have been imported from $PSScriptRoot\projectvars.ps1"
+Set-Variable -Name cyghome -Value "D:\Cygwin\home\Carl" -Description "Set an env variable for this next time"

@@ -4,3 +4,4 @@
 $curlChtsh = (Invoke-WebRequest -Uri https://cht.sh/curl)
 
 $curlChtsh | Select-Object -ExpandProperty Content # This will show the content just as if curl was called.
+# ($curlChtsh).Content will result in the same output as the above statement.
