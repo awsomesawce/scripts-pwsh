@@ -20,7 +20,9 @@ function getHelpPage {
 ## Aliases for common external commands and programs, like Git
 # INFO: In powershell, Aliases can generally have no arguments.  If you want to add arguments to an alias
 # you need to write a function first.
+#
 Set-Alias -Name g -Value git -Description "Git in one letter"
+Set-Alias -Name l -Value Get-ChildItem -Description "List items in directory in one letter"
 Set-Alias -Name np -Value notepad.exe -Description "A simple way to open notepad"
 Function Open-Node-Docs {Start-Process https://nodejs.org/dist/latest-v14.x/docs/api/}
 Set-Alias -Name nodedocs -Value Open-Node-Docs -Description "Open NodeJS docs in a browser"

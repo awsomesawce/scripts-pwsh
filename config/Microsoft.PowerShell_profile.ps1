@@ -148,17 +148,12 @@ Function chtsh {curl "https://cht.sh/$@"}  # This currently doesn't work.
 # TODO: Put all aliases in separate script and source the script.
 # Hello from embedded nvim!
 # Use `K' to see a docstring for the cmdlet at point in `nvim'
-Set-Alias -Name l -Value Get-ChildItem -Description "Super small ls command"
 Set-Variable -Name NVIMINITVIM -Value C:\Users\Carl\AppData\Local\nvim\init.vim -Description "Main config file for neovim"
-Set-Alias -Name w3mducks -Value "w3m duckduckgo.com" -Description "w3m for ducks"
 Function dotgitdiff {Set-Location -Path C:\Users\Carl\gitstuff\my-dotfiles\ && git diff && cd -}
 Function dotgitstatus { Set-Location -Path "$HOME/gitstuff/my-dotfiles" && git status && cd - }
-Set-Alias -Name g -Value git -Description "Git in one letter"
 # Save this and other weird variables to a sourcable pwsh script:
 Set-Variable -Name randomoutput -Value D:\Carl\OneDrive\TODO\randomoutput.md
 Set-Variable pwshsnippets -Value "D:\Carl\OneDrive\snippets\pwsh\powershell_snippets.txt" -Description "out-file for writing quick powershell snippets from the command line"
-Set-Alias -Name "sob" -Value "Select-Object" -Description "A shorter select"
-Set-Alias -Name add -Value Add-Content -Description "a shorter Add-content"
 
 ## Sourcing Scripts
 . D:\Carl\Documents\PowerShell\Scripts\_rg.ps1 # source rg completion script
