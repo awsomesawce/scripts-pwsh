@@ -40,6 +40,8 @@ Set-Alias -Name wslubu -Value wslubuntu -Description "Shorter wsl ubuntu command
 # TODO: test this function for starting a powershell process as Admin.
 function Start-PSAdmin {Start-Process pwsh -Verb RunAs}
 set-alias -Name split -Value Split-Path
+# Use curl chtsh as a function
+function chtsh { curl cht.sh/$args }
 
 
 # This function can be used if sourced by the powershell session.
@@ -67,3 +69,8 @@ function Send-Greeting
 	Write-Output ("Hello " + $Name + "!")
     }
 }
+function duks {Start-Process https://duckduckgo.com/?q=$args}
+# The above implements what Ive been trying to do for a long time
+# Search from the command line!
+function kaku {wsl -u carlc kak}
+function gitpushsync {git add . && git commit -m "$args" && git pull && git push }

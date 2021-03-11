@@ -143,7 +143,7 @@ Function shmdall {
 Function shmdbrowser {
     Show-Markdown -UseBrowser
 }
-Function chtsh {curl "https://cht.sh/$@"}  # This currently doesn't work.
+Function chtsh {curl "https://cht.sh/$args"}  # This currently doesn't work.
 # TODO: Organize aliases and functions.
 # TODO: Put all aliases in separate script and source the script.
 # Hello from embedded nvim!
@@ -160,6 +160,5 @@ Set-Variable pwshsnippets -Value "D:\Carl\OneDrive\snippets\pwsh\powershell_snip
 
 # DONE: Copy the above two lines to .\Scripts\other_functions.ps1 scriptfile, and set a variable to 
 # refer to the script file for ease of access
-function kak {wsl kak}
 # This expression is necessary for python's fuck module to work.
 #Invoke-Expression "$(thefuck --alias)"
