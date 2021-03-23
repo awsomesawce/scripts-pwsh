@@ -26,3 +26,5 @@ $env:EDITOR = "nvim" # EDITOR variable to use when invoking unix-like programs.
 $env:PAGER = "less" # PAGER variable used by a ton of unix-like programs.
 Write-Output "Variables have been imported from $PSScriptRoot\projectvars.ps1"
 Set-Variable -Name cyghome -Value "D:\Cygwin\home\Carl" -Description "Set an env variable for this next time"
+
+Write-Output "Powershell profile is `$PROFILE: $PROFILE"
