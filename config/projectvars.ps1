@@ -28,3 +28,4 @@ Write-Output "Variables have been imported from $PSScriptRoot\projectvars.ps1"
 Set-Variable -Name cyghome -Value "D:\Cygwin\home\Carl" -Description "Set an env variable for this next time"
 
 Write-Output "Powershell profile is `$PROFILE: $PROFILE"
+($profile -clike "*Microsoft*") ? ("Default powershell profile detected") : ("Powershell profile does not contain `"Microsoft`"")
