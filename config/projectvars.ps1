@@ -4,10 +4,15 @@
 # Author: Carl C (awsomesawce@outlook.com)
 
 # First, set the variable to this script.
-Set-Variable -Name projectVarsScript -Value "C:\Users\Carl\gitstuff\scripts-pwsh\config\projectvars.ps1"
+# TODO: Get this variable from $PSScriptRoot
+Set-Variable -Name projectVarsScript -Value "C:\Users\Carl\gitstuff\scripts-pwsh\config\projectvars.ps1" -Description "Variable pointing to the script."
 
 # Then, set the rest of the current project variables.
 set-variable -Name labscurrent -Value "~/Downloads/labs-node/labs-jan-5-2021/labs" -Description "Current labs"
+
+Set-Variable -Name "UserProfileD" -Value (Get-Item "D:\Carl") -Description "Userprofile directory on data drive"
+
+Set-Variable -Name GitDirectoryD -Value $UserProfileD\Documents\GitHub -Description "Main directory for github hosted projects"
 
 Set-Variable -Name nodeschool -Value "D:\Carl\Documents\GitHub\node-school\" -Description "node-school directory"
 
@@ -18,7 +23,6 @@ Set-Variable -Name pwshsnippets -Value "D:\Carl\OneDrive\snippets\pwsh\powershel
 Set-Variable -Name NVIMINITVIM -Value C:\Users\Carl\AppData\Local\nvim\init.vim -Description "Main config file for neovim"
 Set-Variable -Name DESKTOP -Value D:\Carl\OneDrive\Desktop\ -Description "Shortcut to the Desktop folder"
 Set-Variable -Name randomoutput -Value D:\Carl\OneDrive\TODO\randomoutput.md -Description "A place to pipe output from pwsh"
-Set-Variable -Name GitDirectoryD -Value D:\Carl\Documents\GitHub -Description "Main directory for github hosted projects"
 
 function nodesch {set-location $nodeschool}
 
@@ -29,3 +33,5 @@ Set-Variable -Name cyghome -Value "D:\Cygwin\home\Carl" -Description "Set an env
 
 Write-Output "Powershell profile is `$PROFILE: $PROFILE"
 ($profile -clike "*Microsoft*") ? ("Default powershell profile detected") : ("Powershell profile does not contain `"Microsoft`"")
+# Add variable for perlcbin installed from scoop
+$perlcbin = Get-item $env:USERPROFILE\scoop\apps\perl\current\c\bin\
