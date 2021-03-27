@@ -21,8 +21,8 @@ Set-Variable -Name nodewebpackproj -Value "D:\Carl\Documents\GitHub\my-webpack-d
 Set-Variable -Name pwshsnippets -Value "D:\Carl\OneDrive\snippets\pwsh\powershell_snippets.txt" -Description "out-file for writing quick powershell snippets from the command line"
 
 Set-Variable -Name NVIMINITVIM -Value C:\Users\Carl\AppData\Local\nvim\init.vim -Description "Main config file for neovim"
-Set-Variable -Name DESKTOP -Value D:\Carl\OneDrive\Desktop\ -Description "Shortcut to the Desktop folder"
-Set-Variable -Name randomoutput -Value D:\Carl\OneDrive\TODO\randomoutput.md -Description "A place to pipe output from pwsh"
+Set-Variable -Name DESKTOP -Value $env:OneDrive\Desktop\ -Description "Shortcut to the Desktop folder"
+Set-Variable -Name randomnotes -Value $env:OneDrive\TODO\randomoutput.md -Description "A place to pipe output from pwsh"
 
 function nodesch {set-location $nodeschool}
 
@@ -31,7 +31,12 @@ $env:PAGER = "less" # PAGER variable used by a ton of unix-like programs.
 Write-Output "Variables have been imported from $PSScriptRoot\projectvars.ps1"
 Set-Variable -Name cyghome -Value "D:\Cygwin\home\Carl" -Description "Set an env variable for this next time"
 
-Write-Output "Powershell profile is `$PROFILE: $PROFILE"
-($profile -clike "*Microsoft*") ? ("Default powershell profile detected") : ("Powershell profile does not contain `"Microsoft`"")
+($profile -clike "*Microsoft*") ? ("Default powershell profile " + $PROFILE + " loaded") : ("Powershell profile does not contain `"Microsoft`"")
 # Add variable for perlcbin installed from scoop
 $perlcbin = Get-item $env:USERPROFILE\scoop\apps\perl\current\c\bin\
+$binDirs = "$env:OneDrive\Desktop", "$env:USERPROFILE\bin", "D:\Carl\bin"
+function listBinDirs {
+  Write-Output "This will list all the bin directories and optionally their contents."
+  Write-Output "`$binDirs = $binDirs"
+  Write-Output "`$perlcbin = $perlcbin"
+}

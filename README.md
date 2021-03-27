@@ -10,6 +10,7 @@ It also includes `.bat` files which are similar.
 - `.\config`: config files for `pwsh`, **Windows Terminal**, and other config related to **Powershell**.
 - `.\pwsh_help`: random powershell help files (ignored by git).
 - `.\tests`: test folder for testing output (ignored by git).
+- `.\bin`: Small startup scripts are located here, including a pwsh -noprofile startup script.
 
 The `gotosleep.bat` file had been created and linked to a custom task using `taskscheduler` on windows.  
 INFO: **DO NOT MOVE**
