@@ -74,3 +74,4 @@ function duks {Start-Process https://duckduckgo.com/?q=$args}
 # Search from the command line!
 function kaku {wsl -u carlc kak}
 function gitpushsync {git add . && git commit -m "$args" && git pull && git push }
+function gitpp {git pull && git push}

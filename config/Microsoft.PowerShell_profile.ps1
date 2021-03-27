@@ -3,18 +3,23 @@ $env:POWERSHELL_TELEMETRY_OPTOUT = 1
 # Import current modules.
 Import-Module posh-git
 Import-Module oh-my-posh
-Import-Module z
+#Import-Module z
+# Set prompt
+Set-PoshPrompt -Theme sorin
 # Source variables for current projects into PSSession
 $PSDirectory="D:/Carl/Documents/Powershell"
+
 $otherFunctionsScript = "$PSDirectory/Scripts/other_functions.ps1"
 if (Test-Path "$otherFunctionsScript") {
     . "$otherFunctionsScript"
+    Write-Progress "`$otherFunctionsScript = $otherFunctionsScript and 
+    has been loaded."
 } else {
-    "other_functions.ps1 file not found"
+    "$otherFunctionsScript file not found."
 }
 
-$scriptspwsh = "$HOME\gitstuff\scripts-pwsh\config"
-$projectvarsScript = "$scriptspwsh/projectvars.ps1"
+$scriptspwsh = "$env:USERPROFILE\gitstuff\scripts-pwsh\config"
+$projectvarsScript = "$scriptspwsh\projectvars.ps1"
 (Test-Path $projectvarsScript) ? (. $projectvarsScript) : (Write-Output "projectvars.ps1 not found")
 # If ternary operator is incompatible, use this:
 # if (Test-Path ~/gitstuff/scripts-pwsh/config/projectvars.ps1) {
@@ -42,38 +47,40 @@ $DOTFILESGIT = "$HOME/gitstuff/my-dotfiles"
 function dotFiles {Set-Location $DOTFILESGIT}
 # Aliases
 # use single-quotes for strings with spaces
+# TODO: In progress: Moving Set-Alias declarations to separate
+# file.
 Function lsWide {Get-ChildItem | Format-Wide}
 Set-Alias -Name lsw -Value lsWide -Description 'ls but format-wide'
 Set-Alias -Name list -Value Get-ChildItemColorFormatWide
 
 ## Set-Location to a wsl distro file system
-Function gotoarch {Set-Location \\wsl$\Arch\home\carlc\}
-Function gotodebian {Set-Location \\wsl$\Debian\home\carlc\}
 Function gotoubuntu {Set-Location \\wsl$\Ubuntu-20.04\home\carlc}
 
 ## Open Powershell profile from anywhere
-Function editprofile {nvim $PROFILE}
+## Just type $EDITOR $PROFILE where $EDITOR is any text editor.
 ## Nvim config shortcut # remember to use backslashes.
 Function nvimconfig {nvim $localAppData\nvim\init.vim}
 Function neovconfig {neovide.ps1 $localAppData\nvim\init.vim}
 ## Nvim 2 window shortcut
 Function nvim2 {nvim -O2}
-Function nvim2 {nvim -O2}
-Function fvim2 {fvim -O2}
 Function nvim22 {nvim -O2 -p2}
 Function fvim22 {fvim -O2 -p2}
 Function nvimdiff {nvim -d}
 Function fvimdiff {fvim -d}
+function nvimqtdiff {nvim-qt -d $args}
 ## Shortcut for duckduckgo
 $duckduck = "https://duckduckgo.com"
 function ducks { Start-Process $duckduck }
-
-Set-Alias -Name np -Value C:\Windows\notepad.exe
+$CYGDIR = (Get-Item "D:\Cygwin")
+Set-Variable -Name CYGBIN -Value "$CYGDIR\bin" -Description "Variable that points to Cygwin's bin directory."
+Set-Alias -Name np -Value notepad.exe -Description "A shorter notepad alias."
 # This one sets an alias for the ri command in ruby
 set-alias -name rubyri -value D:\Ruby27-x64\bin\ri.cmd -Description "A workaround for ruby's ri, cuz in pwsh ri is remove-item"
 Set-Alias -Name exp -Value explorer
 Set-Alias -Name man -Value D:\Cygwin\bin\man.exe -Description "Show info file from cygwin which includes a lot more documentation than the windows emacs info"
 Set-Alias -Name lsc -Value Get-ChildItemColorFormatWide -Description "Better alias for color ls"
+function linuxls {D:\Cygwin\ls.exe --color=always --group-directories-first}
+Set-Alias -Name lxls -Value linuxls -Description "Linux type of ls."
 Set-Alias -Name rdis -Value rdiscount -Description "Shorter rdiscount"
 Set-Alias -Name kram -Value kramdown -Description "Shorter kramdown"
 Set-Alias -Name pd -Value pandoc -Description "Shorter Pandoc"
@@ -83,6 +90,7 @@ Set-Alias -Name git-cola -Value C:\Users\Carl\AppData\Local\git-cola\bin\git-col
 ## It will not inherit the necessary env variables from Windows.
 Set-Alias -Name cygbash -Value D:\Cygwin\bin\bash.exe -Description "Use man bash for help"
 Set-Alias -Name cygtcsh -Value D:\Cygwin\bin\tcsh.exe -Description "Cygwin's tcsh"
+## TODO: Move Aliases and Functions into their own respective files and source each file.
 ## Functions
 
 # Next is a function that allows me to change to my powershell directory where my profile is.
@@ -143,7 +151,6 @@ Function shmdall {
 Function shmdbrowser {
     Show-Markdown -UseBrowser
 }
-Function chtsh {curl "https://cht.sh/$args"}  # This currently doesn't work.
 # TODO: Organize aliases and functions.
 # TODO: Put all aliases in separate script and source the script.
 # Hello from embedded nvim!
@@ -152,7 +159,7 @@ Set-Variable -Name NVIMINITVIM -Value C:\Users\Carl\AppData\Local\nvim\init.vim 
 Function dotgitdiff {Set-Location -Path C:\Users\Carl\gitstuff\my-dotfiles\ && git diff && cd -}
 Function dotgitstatus { Set-Location -Path "$HOME/gitstuff/my-dotfiles" && git status && cd - }
 # Save this and other weird variables to a sourcable pwsh script:
-Set-Variable -Name randomoutput -Value D:\Carl\OneDrive\TODO\randomoutput.md
+Set-Variable -Name randomnotes -Value D:\Carl\OneDrive\TODO\randomoutput.md
 Set-Variable pwshsnippets -Value "D:\Carl\OneDrive\snippets\pwsh\powershell_snippets.txt" -Description "out-file for writing quick powershell snippets from the command line"
 
 ## Sourcing Scripts

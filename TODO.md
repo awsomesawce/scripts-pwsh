@@ -1,5 +1,10 @@
 # TODOs 
 
+## 2021-03-26
+
+- [ ] Organize config
+  - [ ] Get aliases in aliasfile, get functions in `other_functions.ps1` file.
+
 - [ ] Create a ps1 script that enables me to do this command all in one go for individual files
 `git add . && git commit -m 'add file_name' && git push`
 
