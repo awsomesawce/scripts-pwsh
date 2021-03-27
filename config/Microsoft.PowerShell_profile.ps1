@@ -5,7 +5,6 @@ Import-Module posh-git
 Import-Module oh-my-posh
 #Import-Module z
 # Set prompt
-Set-PoshPrompt -Theme sorin
 # Source variables for current projects into PSSession
 $PSDirectory="D:/Carl/Documents/Powershell"
 
@@ -27,8 +26,6 @@ $projectvarsScript = "$scriptspwsh\projectvars.ps1"
 # } else {
 # Write-Output "projectvars.ps1 not found"
 # }
-# Set prompt
-Set-PoshPrompt -Theme powerlevel10k_classic
 # set psdir variable to local powershell directory, and set other variables.
 $gitDir="D:/Carl/Documents/GitHub"
 $oneDrive="D:/Carl/OneDrive"
@@ -59,6 +56,8 @@ Function gotoubuntu {Set-Location \\wsl$\Ubuntu-20.04\home\carlc}
 ## Open Powershell profile from anywhere
 ## Just type $EDITOR $PROFILE where $EDITOR is any text editor.
 ## Nvim config shortcut # remember to use backslashes.
+$nvimInitFile = "$localAppData\nvim\init.vim"
+function gotonvimconfig {set-location $localAppData\nvim}
 Function nvimconfig {nvim $localAppData\nvim\init.vim}
 Function neovconfig {neovide.ps1 $localAppData\nvim\init.vim}
 ## Nvim 2 window shortcut

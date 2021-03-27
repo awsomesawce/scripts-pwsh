@@ -17,7 +17,17 @@ $local:listVars = Write-Output @"
 # Some interesting env vars`n
 `t`$env:PAGER = $env:PAGER
 `t`$env:EDITOR = $env:EDITOR
+`t`$env:USERPROFILE = $env:USERPROFILE
+`t`$env:APPDATA = $env:APPDATA
 "@
+
+$listVarHash = @{
+    title="List of important variables"
+    description="This is an _escaped_ list of variables that are important to a standard Powershell configuration."
+    comment="If a variable is empty or not set, the respective hash entry will be empty as well."
+    PAGER="`$env:PAGER = $env:PAGER"
+    EDITOR = "`$env:EDITOR = $env:EDITOR"
+  }
 
 if (test-path Env:\CYGBIN) {
     Write-Output "`$env:CYGBIN has already been set to $env:CYGBIN"
