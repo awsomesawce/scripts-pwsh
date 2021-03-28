@@ -5,7 +5,7 @@ Import-Module posh-git
 Import-Module oh-my-posh
 #Import-Module z
 # Set prompt
-Set-PoshPrompt -Theme zash && Write-Information "Set prompt to zash"
+Set-PoshPrompt -Theme paradox && Write-Output "Set prompt to paradox"
 # Source other_functions script and projectvars script.
 $PSDirectory="D:/Carl/Documents/Powershell"
 $Script:scriptspwsh = "$env:USERPROFILE\gitstuff\scripts-pwsh\config"

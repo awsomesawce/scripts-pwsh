@@ -2,6 +2,7 @@
 # Use `gf` in vim to goto the file at point.
 # TODO: add second script for sourcing functions
 # Author: Carl C (awsomesawce@outlook.com)
+# Date: Mar 28, 2021
 
 # First, set the variable to this script.
 # TODO: Get this variable from $PSScriptRoot
