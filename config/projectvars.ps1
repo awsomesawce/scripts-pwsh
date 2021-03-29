@@ -8,6 +8,12 @@
 # TODO: Get this variable from $PSScriptRoot
 Set-Variable -Name projectVarsScript -Value "C:\Users\Carl\gitstuff\scripts-pwsh\config\projectvars.ps1" -Description "Variable pointing to the script."
 
+$Local:scriptspwshDir = "~/gitstuff/scripts-pwsh"
+$script:configDir = "$Local:scriptspwshDir/config"
+
+# Get the location of the git-tracket pwsh profile and put it in a variable.
+Set-Variable -Name profileGitTracked -Value (Get-Item "$Script:configDir/Microsoft.PowerShell_profile.ps1")
+
 # Then, set the rest of the current project variables.
 set-variable -Name labscurrent -Value "~/Downloads/labs-node/labs-jan-5-2021/labs" -Description "Current labs"
 
