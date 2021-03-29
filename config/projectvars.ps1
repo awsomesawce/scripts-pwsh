@@ -7,8 +7,12 @@
 # First, set the variable to this script.
 # TODO: Get this variable from $PSScriptRoot
 Set-Variable -Name projectVarsScript -Value "C:\Users\Carl\gitstuff\scripts-pwsh\config\projectvars.ps1" -Description "Variable pointing to the script."
-
-$Local:scriptspwshDir = "~/gitstuff/scripts-pwsh"
+# NOTE: Ignore warnings based on method of setting pwsh variables.
+# BEGIN Added Mar 29, 2021
+$gitstuffC = Get-Item "$env:USERPROFILE\gitstuff"
+$myDotfiles = Get-Item "$gitstuffC\my-dotfiles"
+# END Added Mar 29, 2021
+$Local:scriptspwshDir = "$gitstuffC\scripts-pwsh"
 $script:configDir = "$Local:scriptspwshDir/config"
 
 # Get the location of the git-tracket pwsh profile and put it in a variable.
