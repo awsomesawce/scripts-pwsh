@@ -121,3 +121,5 @@ Write-Host "$otherFunctionsScript"
 # This function allows for searching apt-cache database from powershell
 function aptcshow {wsl apt-cache show $args}
 function aptcsearch {wsl -u carlc apt-cache search $args}
+function wslUser {wsl -u carlc}
+set-alias wslu -Value wslUser -Description "Shorter access to wsl -u carlc"
