@@ -41,9 +41,10 @@ Set-Alias -Name wslubu -Value wslubuntu -Description "Shorter wsl ubuntu command
 
 # Next up is editor functions!
 # Neovim config shortcut # remember to use backslashes.
-$nvimInitFile = "$localAppData\nvim\init.vim"
+$nvimInitFile = "$env:LOCALAPPDATA\nvim\init.vim"
 function gotonvimconfig {set-location $localAppData\nvim}
-Function nvimconfig {nvim $nvimInitFile}
+function nvimconfig {nvim $nvimInitFile}
+
 
 # TODO: test this function for starting a powershell process as Admin.
 # EXPERIMENTAL: Function below is experimental.
@@ -117,3 +118,6 @@ function getcommandinfo {
 # Let the user know that this file was sourced
 Write-Host "other_functions file has been loaded from here: "
 Write-Host "$otherFunctionsScript"
+# This function allows for searching apt-cache database from powershell
+function aptcshow {wsl apt-cache show $args}
+function aptcsearch {wsl -u carlc apt-cache search $args}
