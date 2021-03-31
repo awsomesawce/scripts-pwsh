@@ -51,3 +51,4 @@ function listBinDirs {
   Write-Output "`$binDirs = $binDirs"
   Write-Output "`$perlcbin = $perlcbin"
 }
+set-alias -Name dotent -Value dotnet -Description "Start dotnet on spelling error"

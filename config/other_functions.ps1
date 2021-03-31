@@ -123,3 +123,12 @@ function aptcshow {wsl apt-cache show $args}
 function aptcsearch {wsl -u carlc apt-cache search $args}
 function wslUser {wsl -u carlc}
 set-alias wslu -Value wslUser -Description "Shorter access to wsl -u carlc"
+# Some nice functions for listing items and sorting them
+function list-bigfiles {
+get-childitem | where-object -Property length -gt 10000 | sort-object -property Length -Ascending
+}
+set-alias lsbig list-bigfiles -description "Shorter way to list big files"
+function list-hugefiles {
+get-childitem | where-object -Property length -gt 100000 | Sort-Object -Property Length -Descending
+}
+Set-Alias lshuge -Value list-hugefiles -Description "Shorter way to list huge files"
