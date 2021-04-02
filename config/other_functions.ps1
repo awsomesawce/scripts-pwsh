@@ -23,7 +23,8 @@ Set-Alias -Name "hlp" -Value "Help" -Description "An even shorter help.  One les
 # you need to write a function first.
 #
 Set-Alias -Name g -Value git -Description "Git in one letter"
-Function gitst {git status}
+Function GitStatusFunc {git status}
+set-alias -Name gitst -Value GitStatusFunc -Description "Gets git status in one command."
 Set-Alias -Name l -Value Get-ChildItem -Description "List items in directory in one letter"
 Set-Alias -Name np -Value notepad.exe -Description "A simple way to open notepad"
 Function Open-Node-Docs {Start-Process https://nodejs.org/dist/latest-v14.x/docs/api/}
@@ -31,12 +32,10 @@ Set-Alias -Name nodedocs -Value Open-Node-Docs -Description "Open NodeJS docs in
 
 ## Other useful functions
 
-# WSL-specific functions
+## WSL-specific functions
 Function catbashrc { wsl cat ~/.bashrc } # This will output content of ~/.bashrc to terminal.
 Function editbashrc { wsl nvim ~/.bashrc }
-Function wslubuntu {
-    wsl -u carlc
-}
+Function wslubuntu {wsl -u carlc}
 Set-Alias -Name wslubu -Value wslubuntu -Description "Shorter wsl ubuntu command"
 
 # Next up is editor functions!
@@ -100,7 +99,8 @@ function gotoexelocation {
     Set-Location (Split-Path -Parent (get-command $args | Select-Object -ExpandProperty Source))
 }
 Set-Alias -Name ExeLocation -Value gotoexelocation -Description "Shorter gotoexelocation"
-function ndir { set-location $env:OneDrive\Notable\notes }
+function gotoNotesDir { set-location $env:OneDrive\Notable\notes }
+Set-Alias -Name ndir -Value gotoNotesDir -Description "Created alias to short command, function has longer name"
 <#
 # The following command is EXPERIMENTAL
 #
@@ -121,14 +121,16 @@ Write-Host "$otherFunctionsScript"
 # This function allows for searching apt-cache database from powershell
 function aptcshow {wsl apt-cache show $args}
 function aptcsearch {wsl -u carlc apt-cache search $args}
-function wslUser {wsl -u carlc}
-set-alias wslu -Value wslUser -Description "Shorter access to wsl -u carlc"
+function wslUserLogin {wsl -u carlc}
+set-alias wslu -Value wslUserLogin -Description "Shorter access to wsl -u carlc"
 # Some nice functions for listing items and sorting them
 function list-bigfiles {
 get-childitem | where-object -Property length -gt 10000 | sort-object -property Length -Ascending
 }
 set-alias lsbig list-bigfiles -description "Shorter way to list big files"
 function list-hugefiles {
-get-childitem | where-object -Property length -gt 100000 | Sort-Object -Property Length -Descending
+get-childitem | where-object -Property length -gt 100000 | Sort-Object -Property Length -Descending | write-output
 }
 Set-Alias lshuge -Value list-hugefiles -Description "Shorter way to list huge files"
+set-alias -Name hjson -Value "$PWD\hjson.cmd" -Description "Set hjson alias so that it references the npm binary instead of the scoop binary, which itself i believe is based on Python"
+set-alias -Name hjson-js -Value "$PWD\hjson.cmd" -Description "Alias for npms hjson which makes it more clear which binary it links to"

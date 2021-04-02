@@ -52,3 +52,5 @@ function listBinDirs {
   Write-Output "`$perlcbin = $perlcbin"
 }
 set-alias -Name dotent -Value dotnet -Description "Start dotnet on spelling error"
+$snippets = "$oneDrive\snippets"
+$snippets = "$env:OneDrive\snippets"
