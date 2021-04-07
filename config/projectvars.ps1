@@ -54,3 +54,7 @@ function listBinDirs {
 set-alias -Name dotent -Value dotnet -Description "Start dotnet on spelling error"
 $snippets = "$oneDrive\snippets"
 $snippets = "$env:OneDrive\snippets"
+
+$cygwin_installer = C:\Users\Carl\Downloads\Cygwin Package Installer
+
+Write-Output "`$cygwin_installer is set to $cygwin_installer"
