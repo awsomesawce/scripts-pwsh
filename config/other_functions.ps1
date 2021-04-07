@@ -139,3 +139,11 @@ function git-commit {git commit -m "$args"}
 set-alias gcom -Value git-commit -Description "Git commit shortening"
 function git-addcommit {git add . && git commit -m "$args"}
 set-alias gaddcom -Value git-addcommit -Description "Shorter git add and commit.  Use arg as git commit message"
+function parentPath {
+if (Test-Path $args) {
+Split-Path -parent "$args"
+} else {
+write-output "That is not a valid file name"
+}
+}
+# This function needs formatting

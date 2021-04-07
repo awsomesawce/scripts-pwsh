@@ -58,3 +58,5 @@ $snippets = "$env:OneDrive\snippets"
 $cygwin_installer = C:\Users\Carl\Downloads\Cygwin Package Installer
 
 Write-Output "`$cygwin_installer is set to $cygwin_installer"
+$barebonesDir = "D:\Carl\OneDrive\snippets\pwsh\barebones\"
+$barebonesFunctionScript = "D:\Carl\OneDrive\snippets\pwsh\barebones\barebones_Functions.ps1"
