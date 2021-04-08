@@ -147,3 +147,8 @@ write-output "That is not a valid file name"
 }
 }
 # This function needs formatting
+function gpush {git push}
+function gpull {git pull}
+function cdfile { 
+cd (Split-path -Parent $args) }
+# cdfile function allows cding to the parent directory of the named file

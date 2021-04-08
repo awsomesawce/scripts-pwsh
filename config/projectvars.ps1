@@ -55,8 +55,21 @@ set-alias -Name dotent -Value dotnet -Description "Start dotnet on spelling erro
 $snippets = "$oneDrive\snippets"
 $snippets = "$env:OneDrive\snippets"
 
-$cygwin_installer = C:\Users\Carl\Downloads\Cygwin Package Installer
+$cygwin_installer = "C:\Users\Carl\Downloads\Cygwin Package Installer"
 
 Write-Output "`$cygwin_installer is set to $cygwin_installer"
 $barebonesDir = "D:\Carl\OneDrive\snippets\pwsh\barebones\"
 $barebonesFunctionScript = "D:\Carl\OneDrive\snippets\pwsh\barebones\barebones_Functions.ps1"
+function open-abs-guide {
+$local:abslocation = "C:\Users\Carl\Downloads\info\abs-guide\"
+if (test-path "$abslocation") {
+invoke-item "$abslocation/index.html"
+} else {
+echo "the location of abs-guide is not found"
+}
+return "Opening abs guide"
+}
+# The above function is personal to my computer so I put it in projectVars.ps1 instead of other_functions.ps1
+set-alias absguide -Value open-abs-guide -Description "Advanced bash scripting guide"
+$perlbin = C:\Users\Carl\scoop\apps\perl\current\perl\bin
+# Add perlbin variable on 04/08/2021 17:26:03.
