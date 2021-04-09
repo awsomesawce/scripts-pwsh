@@ -1,6 +1,8 @@
 ##### Other PS Functions #####
 # Please add functions to this file instead of the main powershell profile.
 # Author: Carl C. (awsomesawce@github.com)
+# Updated: Friday, April 9, 2021 12:37:35 AM
+
 
 ## Aliases for common Cmdlets
 # These aliases aren't defined by default, but they are quite useful.
@@ -47,9 +49,10 @@ function nvimconfig {nvim $nvimInitFile}
 
 # TODO: test this function for starting a powershell process as Admin.
 # EXPERIMENTAL: Function below is experimental.
-function Start-PSAdmin {Start-Process pwsh -Verb RunAs}
+#function Start-PSAdmin {Start-Process pwsh -Verb RunAs}
 set-alias -Name split -Value Split-Path
 # Use curl chtsh as a function
+# TODO: Do same thing but use invoke-webrequest instead.
 function chtsh { curl cht.sh/$args }
 
 
@@ -132,23 +135,54 @@ function list-hugefiles {
 get-childitem | where-object -Property length -gt 100000 | Sort-Object -Property Length -Descending | write-output
 }
 Set-Alias lshuge -Value list-hugefiles -Description "Shorter way to list huge files"
-set-alias -Name hjson -Value "$PWD\hjson.cmd" -Description "Set hjson alias so that it references the npm binary instead of the scoop binary, which itself i believe is based on Python"
-set-alias -Name hjson-js -Value "$PWD\hjson.cmd" -Description "Alias for npms hjson which makes it more clear which binary it links to"
+# TODO: fix the following two functions
+#set-alias -Name hjson -Value "$PWD\hjson.cmd" -Description "Set hjson alias so that it references the npm binary instead of the scoop binary, which itself i believe is based on Python"
+#set-alias -Name hjson-js -Value "$PWD\hjson.cmd" -Description "Alias for npms hjson which makes it more clear which binary it links to"
 set-alias find -Value "D:\Cygwin\bin\find.exe" -Description "Use a better find than the windows version"
 function git-commit {git commit -m "$args"}
 set-alias gcom -Value git-commit -Description "Git commit shortening"
 function git-addcommit {git add . && git commit -m "$args"}
 set-alias gaddcom -Value git-addcommit -Description "Shorter git add and commit.  Use arg as git commit message"
-function parentPath {
+
+# This function goes to the parent directory of the named file.
+# Useful for going to the directory of a variable pointing to a file.
+# Try `cdto-filelocation $PROFILE`
+function cdto-filelocation {
 if (Test-Path $args) {
-Split-Path -parent "$args"
+set-location (Split-Path -parent "$args")
 } else {
 write-output "That is not a valid file name"
 }
 }
-# This function needs formatting
-function gpush {git push}
+
+# Standard git shortcuts.  These are usually aliases in bash, but Powershell does not
+# allow setting aliases with arguments. Set-Alias won't work.
+# The proper way is to create a function with a very specific name, then set an alias to it.
+# Like this:
+function GitPush {git push}
+Set-Alias -Name gpush -Value GitPush -Description "An alias for git push.  Has to be a function first, then point the alias to the function"
 function gpull {git pull}
+
+# This function is the same as the one above, but shorter and with no else statement.
 function cdfile { 
 cd (Split-path -Parent $args) }
 # cdfile function allows cding to the parent directory of the named file
+# The above function works just like chtsh function in bash.
+function pschtsh {
+Invoke-webrequest -Uri https://cht.sh/$args | select-object -expandProperty content
+}
+# To invoke, type "pschtsh term_to_lookup"
+# Pipe to a file using `Out-File`
+
+# The function below starts the MSYS2 version of Zsh in place from the host terminal.
+# Useful for opening MSYS's zsh _inside_ a modern terminal like Windows Terminal.
+# You need to adjust zshrc in order for it to work with msys pathnames instead of cygwin pathnames.
+function start-MSYS-zsh {
+$function:zshx = "D:\MSYS2\usr\bin\zsh.exe"
+if (Test-Path $function:zshx) {
+invoke-expression "$function:zshx -l -i"
+echo "starting msys zsh"
+} else {
+echo "cannot find msys zsh"
+}
+}

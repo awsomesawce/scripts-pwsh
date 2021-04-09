@@ -73,3 +73,4 @@ return "Opening abs guide"
 set-alias absguide -Value open-abs-guide -Description "Advanced bash scripting guide"
 $perlbin = C:\Users\Carl\scoop\apps\perl\current\perl\bin
 # Add perlbin variable on 04/08/2021 17:26:03.
+$msysZshExe = D:\MSYS2\usr\bin\zsh.exe
