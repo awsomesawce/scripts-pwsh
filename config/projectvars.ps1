@@ -71,6 +71,6 @@ return "Opening abs guide"
 }
 # The above function is personal to my computer so I put it in projectVars.ps1 instead of other_functions.ps1
 set-alias absguide -Value open-abs-guide -Description "Advanced bash scripting guide"
-$perlbin = C:\Users\Carl\scoop\apps\perl\current\perl\bin
+$perlbin = "C:\Users\Carl\scoop\apps\perl\current\perl\bin"
 # Add perlbin variable on 04/08/2021 17:26:03.
-$msysZshExe = D:\MSYS2\usr\bin\zsh.exe
+$msysZshExe = "D:\MSYS2\usr\bin\zsh.exe"

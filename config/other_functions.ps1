@@ -178,10 +178,10 @@ Invoke-webrequest -Uri https://cht.sh/$args | select-object -expandProperty cont
 # Useful for opening MSYS's zsh _inside_ a modern terminal like Windows Terminal.
 # You need to adjust zshrc in order for it to work with msys pathnames instead of cygwin pathnames.
 function start-MSYS-zsh {
-$function:zshx = "D:\MSYS2\usr\bin\zsh.exe"
-if (Test-Path $function:zshx) {
-invoke-expression "$function:zshx -l -i"
+$script:zshx = "D:\MSYS2\usr\bin\zsh.exe"
+if (Test-Path $script:zshx) {
 echo "starting msys zsh"
+invoke-expression "$script:zshx -l -i"
 } else {
 echo "cannot find msys zsh"
 }
