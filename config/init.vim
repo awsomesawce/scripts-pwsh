@@ -4,26 +4,38 @@ let &packpath = &runtimepath
 source ~/_vimrc
 
 "" My nvim init.vim file
-set shiftwidth=4
+
+set shiftwidth=4 expandtab
+"set shellslash " Makes forward-slash paths instead of Windows' back-slashes
+"set shell=pwsh.exe " Shellslash does not work when cmd.exe is shell.
+
 set wildmenu
-filetype plugin on
+filetype plugin indent on
 "" set fileformat to dos to avoid stupid ^M symbols.
 ""set fileformat=dos
 "" disable annoying markdown auto-folding
 let g:vim_markdown_folding_disabled = 1
-set guifont=Cascadia\ Code:h18
+set guifont=Cascadia\ Code:h14
 set ignorecase
+set incsearch
+set inccommand=split " This allows you to see what you're substituting as you type
+set smartcase
 set background=dark
 set autochdir "" automatically change to the directory of the file opened.
               "" Not sure why that isn't default behavior
+              "" NOTE: might have ramifications since "shellslash" is set.
+
 colorscheme desert
 ""colorscheme molokai
 ""colorscheme peachpuff
 call plug#begin('~/.vim/plugged')
 "" TODO: pick either coc.nvim _or_ ALE
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"" INFO: coc extensions are installed in localAppData on Windows.
+""       Location is: ~/AppData/Local/coc/extensions
 "" INFO: This might be bulk because fzf is installed elsewhere in the system!
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'https://github.com/junegunn/fzf.vim'
 Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 Plug 'https://github.com/plasticboy/vim-markdown/'
 Plug 'https://github.com/pangloss/vim-javascript.git'
@@ -34,19 +46,25 @@ Plug 'https://github.com/PProvost/vim-ps1'
 "" Begin Windows only plugin list
 "" These plugins are already installed by the Arch Linux package manager.
 "" IMPORTANT: Make sure to only use one language client at a time.
+Plug 'editorconfig/editorconfig-vim'
 Plug 'https://github.com/ctrlpvim/ctrlp.vim'
 Plug 'vim-latex/vim-latex'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-sensible'
 "" TODO: Ale shouldn't be installed as-well-as Coc.nvim.  Pick one!
-"" DONE: Ale has been uninstalled by :PlugClean
-""Plug 'dense-analysis/ale'
+"" ALE has been reinstalled.
+Plug 'dense-analysis/ale'
 Plug 'preservim/nerdtree', {'branch': 'master'}
 Plug 'vim-airline/vim-airline', {'branch': 'master'}
 Plug 'vim-airline/vim-airline-themes'
 Plug 'https://github.com/tpope/vim-fugitive.git'
 Plug 'https://github.com/vifm/vifm.vim'
 Plug 'https://github.com/z0mbix/vim-shfmt'
+" Add jedi-vim 2/26/2021
+Plug 'davidhalter/jedi-vim'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 """" Install next plugin as an alternative to coc.nvim
 ""Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'make release'}.
 "" End Windows only plugin list.
@@ -55,6 +73,9 @@ call plug#end()
 "" Use :PlugInstall to initiate the installation of the plugins.
 "" Use :CoCInstall to initiate installation of coc-nvim language servers.
 ""let g:deoplete#enable_at_startup = 1
+
+" editorconfig config
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
 "" Begin coc config
 "" Taken from https://github.com/neoclide/coc.nvim
@@ -226,3 +247,42 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 "" End coc config
+
+"" Airline stuff
+let g:airline_filetype_overrides = {
+      \ 'coc-explorer':  [ 'CoC Explorer', '' ],
+      \ 'defx':  ['defx', '%{b:defx.paths[0]}'],
+      \ 'fugitive': ['fugitive', '%{airline#util#wrap(airline#extensions#branch#get_head(),80)}'],
+      \ 'gundo': [ 'Gundo', '' ],
+      \ 'help':  [ 'Help', '%f' ],
+      \ 'minibufexpl': [ 'MiniBufExplorer', '' ],
+      \ 'nerdtree': [ get(g:, 'NERDTreeStatusline', 'NERD'), '' ],
+      \ 'startify': [ 'startify', '' ],
+      \ 'vim-plug': [ 'Plugins', '' ],
+      \ 'vimfiler': [ 'vimfiler', '%{vimfiler#get_status_string()}' ],
+      \ 'vimshell': ['vimshell','%{vimshell#get_status_string()}'],
+      \ 'vaffle' : [ 'Vaffle', '%{b:vaffle.dir}' ],
+      \ }
+
+" "" Start Syntastic Recommended Config
+
+"     set statusline+=%#warningmsg#
+"     set statusline+=%{SyntasticStatuslineFlag()}
+"     set statusline+=%*
+
+"     let g:syntastic_always_populate_loc_list = 1
+"     let g:syntastic_auto_loc_list = 1
+"     let g:syntastic_check_on_open = 1
+"     let g:syntastic_check_on_wq = 0
+" "" End Syntastic Recommended Settings
+" Start ALE Settings 
+" Turn off LSP when coc-nvim is active
+" TODO: make it so Coc-nvim turns off and only use ALE on pwsh files.
+let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_filetype_changed = 1
+"" Disable ALE lsp interaction when Coc-nvim is active.
+"" TODO: add if statement so it is active only on ps1 filetype.
+let g:ale_disable_lsp = 1

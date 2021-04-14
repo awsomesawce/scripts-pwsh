@@ -186,3 +186,18 @@ invoke-expression "$script:zshx -l -i"
 echo "cannot find msys zsh"
 }
 }
+function msys-bash {
+if (test-path "$msysbin") {
+write-host "`$msysbin is set"
+write-host "invoking msys bash with -l and -i options"
+invoke-expression "$msysbin/bash -l -i"
+} else {
+write-error "`$msysbin is not set or is not there"
+write-error "Not starting msys bash"
+}
+}
+function aptitude-show {
+# $function:command could be adapted as a param
+$function:command = "aptitude show"
+Invoke-Expression -Command "wsl -u carlc $function:command $args"
+}
