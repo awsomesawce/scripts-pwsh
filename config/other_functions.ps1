@@ -184,20 +184,23 @@ echo "starting msys zsh"
 invoke-expression "$script:zshx -l -i"
 } else {
 echo "cannot find msys zsh"
-}
-}
-function msys-bash {
-if (test-path "$msysbin") {
-write-host "`$msysbin is set"
-write-host "invoking msys bash with -l and -i options"
-invoke-expression "$msysbin/bash -l -i"
-} else {
-write-error "`$msysbin is not set or is not there"
-write-error "Not starting msys bash"
-}
-}
+}}
+
+
 function aptitude-show {
 # $function:command could be adapted as a param
 $function:command = "aptitude show"
 Invoke-Expression -Command "wsl -u carlc $function:command $args"
 }
+
+# Here is the replacement for msys-bash function
+function start-msys-bash {
+# if the variable is set, start bash
+# if not, don't start and write an error.
+if ("$msysbin") {
+write-output "`$msysbin set, starting bash"
+invoke-expression "$msysbin\bash.exe -l -i"
+} else {
+write-error "`$msysbin not set or cannot find $msysbin\bash.exe"
+write-error "Make sure the proper values are set"
+}}
