@@ -186,13 +186,6 @@ invoke-expression "$script:zshx -l -i"
 echo "cannot find msys zsh"
 }}
 
-
-function aptitude-show {
-# $function:command could be adapted as a param
-$function:command = "aptitude show"
-Invoke-Expression -Command "wsl -u carlc $function:command $args"
-}
-
 # Here is the replacement for msys-bash function
 function start-msys-bash {
 # if the variable is set, start bash
@@ -203,4 +196,15 @@ invoke-expression "$msysbin\bash.exe -l -i"
 } else {
 write-error "`$msysbin not set or cannot find $msysbin\bash.exe"
 write-error "Make sure the proper values are set"
+}}
+
+
+# Use aptitude from powershell with this function
+function wsl-aptitude-show {
+$Local:wslCommand = "wsl -u carlc"
+if (test-path $(gcm wsl).Source) {
+write-output "wsl exists!"
+invoke-expression "$wslCommand aptitude show $args"
+} else {
+write-error "Wsl binary doesnt exist"
 }}
