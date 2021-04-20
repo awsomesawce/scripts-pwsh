@@ -208,3 +208,27 @@ invoke-expression "$wslCommand aptitude show $args"
 } else {
 write-error "Wsl binary doesnt exist"
 }}
+function start-wtAdmin {
+if (gcm wt) {
+Start-Process wt -Verb runAs
+} else {
+write-output "wt exe not found"
+}
+}
+function gotofile {
+# This function allows cding to the location of a file
+if ($args) {
+cd $(split-path -Parent "$args")
+} else {
+Write-Output "Usage: gotofile FILE"
+}
+}
+function gitaddcommit {
+# This function is a crude way of mixing these two commands together
+if ($args) {
+git add . && git commit -m "$args"
+} else {
+write-output "Usage: gitaddcommit `"COMMITMSG`""
+}
+}
+set-alias -Name gadc -Value gitaddcommit -Description "gitaddcommit alias"
