@@ -163,3 +163,11 @@ Set-Variable pwshsnippets -Value "D:\Carl\OneDrive\snippets\pwsh\powershell_snip
 # refer to the script file for ease of access
 # This expression is necessary for python's fuck module to work.
 #Invoke-Expression "$(thefuck --alias)"
+# This is a test
+# PowerShell parameter completion shim for the dotnet CLI
+Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
+     param($commandName, $wordToComplete, $cursorPosition)
+         dotnet complete --position $cursorPosition "$wordToComplete" | ForEach-Object {
+            [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
+         }
+ }
