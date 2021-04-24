@@ -74,3 +74,5 @@ set-alias absguide -Value open-abs-guide -Description "Advanced bash scripting g
 $perlbin = "C:\Users\Carl\scoop\apps\perl\current\perl\bin"
 # Add perlbin variable on 04/08/2021 17:26:03.
 $msysZshExe = "D:\MSYS2\usr\bin\zsh.exe"
+set-variable documents -Value "D:\Carl\Documents" -Description "Documents folder that explorer points to.  Powershell folder is also in this folder"
+$dotfileDirs = (Get-Item D:\Carl\OneDrive\dotfiles_backup\), (Get-Item C:\Users\Carl\gitstuff\my-dotfiles\)
