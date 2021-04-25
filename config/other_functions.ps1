@@ -80,7 +80,7 @@ function Send-Greeting {
 function duks { Start-Process https://duckduckgo.com/?q=$args }
 # The above implements what Ive been trying to do for a long time
 # Search from the command line!
-function kaku { wsl -u carlc kak }
+function kaku { wsl -u carlc kak "$args" }
 function gitpushsync { git add . && git commit -m "$args" && git pull && git push }
 function gitpp { git pull && git push }
 
@@ -117,8 +117,8 @@ function getcommandinfo {
 
 
 # Let the user know that this file was sourced
-Write-Host "other_functions file has been loaded from here: "
-Write-Host "$otherFunctionsScript"
+Write-Output "other_functions file has been loaded from here: "
+Write-Output "$otherFunctionsScript"
 # This function allows for searching apt-cache database from powershell
 function aptcshow { wsl apt-cache show $args }
 function aptcsearch { wsl -u carlc apt-cache search $args }
@@ -138,7 +138,7 @@ Set-Alias lshuge -Value list-hugefiles -Description "Shorter way to list huge fi
 #set-alias -Name hjson-js -Value "$PWD\hjson.cmd" -Description "Alias for npms hjson which makes it more clear which binary it links to"
 set-alias find -Value "D:\Cygwin\bin\find.exe" -Description "Use a better find than the windows version"
 function git-commit { git commit -m "$args" }
-set-alias gcom -Value git-commit -Description "Git commit shortening"
+set-alias gcomm -Value git-commit -Description "Git commit shortening"
 function git-addcommit { git add . && git commit -m "$args" }
 set-alias gaddcom -Value git-addcommit -Description "Shorter git add and commit.  Use arg as git commit message"
 
@@ -244,3 +244,4 @@ function gitaddcommit {
   }
 }
 set-alias -Name gadc -Value gitaddcommit -Description "gitaddcommit alias"
+set-alias -Name nvim-qt -Value nvim-qt.ps1 -Description "Always point to nvim-qt.ps1, so the console is not hung up"
