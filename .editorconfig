@@ -15,21 +15,23 @@ indent_size = 4
 [*.{js,py}]
 charset = utf-8
 indent_size = 2
+end_of_line = lf
 
 # Powershell-specific
-[*.ps{1,d,m}]
+# crlf is preferred
+[*.ps{1,d,m,c}]
 charset = utf-8
-indent_size = 2
-indent_style = space
+end_of_line = crlf
+
+[*.{[Bb][Aa][Tt],[Cc][Mm][Dd]}]
+#[*.{bat,cmd,BAT,CMD}] # Not sure which is better
+# DOS/Win *requires* BAT/CMD files to have CRLF newlines
+end_of_line = crlf
 
 # Markdown-specific
 [*.{md,markdown,mkd}]
-#charset = utf-8
+charset = utf-8
 indent_size = 2
-
-# batch files
-[*.{bat,cmd}]
-end_of_line = crlf
 
 # 4 space indentation
 [*.py]
@@ -47,5 +49,10 @@ indent_size = 2
 
 # Matches the exact files either package.json or .travis.yml
 [{package.json,.travis.yml}]
+indent_style = space
+indent_size = 2
+
+# JSON files
+[*.json]
 indent_style = space
 indent_size = 2

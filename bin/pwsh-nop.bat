@@ -17,9 +17,12 @@ set EDITOR=notepad
 @rem START https://duckduckgo.com
 @rem https://github.com
 :: }}} Explanation ::
-@ECHO ----------------------------------------------
-@ECHO     Welcome to Windows Powershell!
-@ECHO         Please enjoy your stay!
-@ECHO      PAGER is set to %PAGER%
-@ECHO      EDITOR is set to %EDITOR%
-@ECHO ----------------------------------------------
+ECHO ----------------------------------------------
+ECHO     Welcome to Windows Powershell!
+ECHO         Please enjoy your stay!
+ECHO      PAGER is set to %PAGER%
+ECHO      EDITOR is set to %EDITOR%
+ECHO ----------------------------------------------
+
+:: Exit batch process
+EXIT /B
