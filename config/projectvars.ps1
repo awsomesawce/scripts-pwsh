@@ -21,7 +21,7 @@ Set-Variable -Name profileGitTracked -Value (Get-Item "$Script:configDir/Microso
 # Then, set the rest of the current project variables.
 set-variable -Name labscurrent -Value "~/Downloads/labs-node/labs-jan-5-2021/labs" -Description "Current labs"
 
-Set-Variable -Name "UserProfileD" -Value (Get-Item "D:\Carl") -Description "Userprofile directory on data drive"
+Set-Item -Path Env:\UserProfileD -Value (Get-Item "D:\Carl") # This is an 
 
 Set-Variable -Name GitDirectoryD -Value $UserProfileD\Documents\GitHub -Description "Main directory for github hosted projects"
 
@@ -46,20 +46,29 @@ Set-Variable -Name cyghome -Value "D:\Cygwin\home\Carl" -Description "Set an env
 # Add variable for perlcbin installed from scoop
 $perlcbin = Get-item $env:USERPROFILE\scoop\apps\perl\current\c\bin\
 $binDirs = "$env:OneDrive\Desktop", "$env:USERPROFILE\bin", "D:\Carl\bin"
+# Add perlbin variable on 04/08/2021 17:26:03.
+$perlbin = "C:\Users\Carl\scoop\apps\perl\current\perl\bin"
 function listBinDirs {
   Write-Output "This will list all the bin directories and optionally their contents."
   Write-Output "`$binDirs = $binDirs"
   Write-Output "`$perlcbin = $perlcbin"
+  # IN-PROGRESS: Add more directories to these variables.
+  Write-Output "`$perlbin = $perlbin"
 }
+
+# Common Spelling mistakes
 set-alias -Name dotent -Value dotnet -Description "Start dotnet on spelling error"
-$snippets = "$oneDrive\snippets"
+set-alias -Name get-hlep -Value get-help -Description "Spelling error correction"
 $snippets = "$env:OneDrive\snippets"
 
-$cygwin_installer = "C:\Users\Carl\Downloads\Cygwin Package Installer"
+set-variable -Name cygwin_installer -Value "C:\Users\Carl\Downloads\Cygwin Package Installer"
 
 Write-Output "`$cygwin_installer is set to $cygwin_installer"
 $barebonesDir = "D:\Carl\OneDrive\snippets\pwsh\barebones\"
-$barebonesFunctionScript = "D:\Carl\OneDrive\snippets\pwsh\barebones\barebones_Functions.ps1"
+$barebonesFunctionScript = Get-Item "D:\Carl\OneDrive\snippets\pwsh\barebones\barebones_Functions.ps1"
+
+# TODO: Put this function in a _misc_functions.ps1 file or something.
+
 function open-abs-guide {
 $local:abslocation = "C:\Users\Carl\Downloads\info\abs-guide\"
 if (test-path "$abslocation") {
@@ -71,8 +80,6 @@ return "Opening abs guide"
 }
 # The above function is personal to my computer so I put it in projectVars.ps1 instead of other_functions.ps1
 set-alias absguide -Value open-abs-guide -Description "Advanced bash scripting guide"
-$perlbin = "C:\Users\Carl\scoop\apps\perl\current\perl\bin"
-# Add perlbin variable on 04/08/2021 17:26:03.
 $msysZshExe = "D:\MSYS2\usr\bin\zsh.exe"
 set-variable documents -Value "D:\Carl\Documents" -Description "Documents folder that explorer points to.  Powershell folder is also in this folder"
 $dotfileDirs = (Get-Item D:\Carl\OneDrive\dotfiles_backup\), (Get-Item C:\Users\Carl\gitstuff\my-dotfiles\)

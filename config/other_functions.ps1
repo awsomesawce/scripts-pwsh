@@ -35,10 +35,9 @@ Set-Alias -Name nodedocs -Value Open-Node-Docs -Description "Open NodeJS docs in
 ## Other useful functions
 
 ## WSL-specific functions
-Function catbashrc { wsl cat ~/.bashrc } # This will output content of ~/.bashrc to terminal.
-Function editbashrc { wsl nvim ~/.bashrc }
-Function wslubuntu { wsl -u carlc }
-Set-Alias -Name wslubu -Value wslubuntu -Description "Shorter wsl ubuntu command"
+Function start-ubuntu-bash { wsl -u carlc } # Make functions like this more advanced.
+Set-Alias -Name wslubu -Value start-ubuntu-bash -Description "Shorter wsl ubuntu command"
+#
 
 # Next up is editor functions!
 # Neovim config shortcut # remember to use backslashes.
@@ -50,7 +49,6 @@ function nvimconfig { nvim $nvimInitFile }
 # TODO: test this function for starting a powershell process as Admin.
 # EXPERIMENTAL: Function below is experimental.
 #function Start-PSAdmin {Start-Process pwsh -Verb RunAs}
-set-alias -Name split -Value Split-Path
 # Use curl chtsh as a function
 # TODO: Do same thing but use invoke-webrequest instead.
 function chtsh { curl cht.sh/$args }
