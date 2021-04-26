@@ -6,3 +6,12 @@ examples/output
 Modules
 ignore
 .ipynb_checkpoints
+
+# These are some nice glob patterns that make it easy.
+# If a file has the word "test" or "ignore" or "output" in their file name,
+# the file is ignored by git.  Change the name of the file to have it
+# unignored!
+**/*test*
+**/*ignore*
+**/*output*
+*.*swp

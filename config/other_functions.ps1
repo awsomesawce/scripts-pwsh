@@ -118,6 +118,8 @@ function getcommandinfo {
 Write-Output "other_functions file has been loaded from here: "
 Write-Output "$otherFunctionsScript"
 # This function allows for searching apt-cache database from powershell
+# TODO: separate the wsl-specific functions into its own file.
+#       Modules are easier to maintain.
 function aptcshow { wsl apt-cache show $args }
 function aptcsearch { wsl -u carlc apt-cache search $args }
 function wslUserLogin { wsl -u carlc }
@@ -135,8 +137,8 @@ Set-Alias lshuge -Value list-hugefiles -Description "Shorter way to list huge fi
 #set-alias -Name hjson -Value "$PWD\hjson.cmd" -Description "Set hjson alias so that it references the npm binary instead of the scoop binary, which itself i believe is based on Python"
 #set-alias -Name hjson-js -Value "$PWD\hjson.cmd" -Description "Alias for npms hjson which makes it more clear which binary it links to"
 set-alias find -Value "D:\Cygwin\bin\find.exe" -Description "Use a better find than the windows version"
-function git-commit { git commit -m "$args" }
-set-alias gcomm -Value git-commit -Description "Git commit shortening"
+function Committo-Git { git commit -m "$args" }
+set-alias gcomm -Value Committo-Git -Description "Git commit shortening"
 function git-addcommit {
   git add . && git commit -m "$args" }
 set-alias gaddcom -Value git-addcommit -Description "Shorter git add and commit.  Use arg as git commit message"
@@ -191,7 +193,7 @@ function start-MSYS-zsh {
 function start-msys-bash {
   # if the variable is set, start bash
   # if not, don't start and write an error.
-  if ("$msysbin") {
+  if ($msysbin) {
     write-output "`$msysbin set, starting bash"
     invoke-expression "$msysbin\bash.exe -l -i"
   }
