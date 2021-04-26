@@ -139,7 +139,8 @@ Set-Alias lshuge -Value list-hugefiles -Description "Shorter way to list huge fi
 set-alias find -Value "D:\Cygwin\bin\find.exe" -Description "Use a better find than the windows version"
 function git-commit { git commit -m "$args" }
 set-alias gcomm -Value git-commit -Description "Git commit shortening"
-function git-addcommit { git add . && git commit -m "$args" }
+function git-addcommit {
+  git add . && git commit -m "$args" }
 set-alias gaddcom -Value git-addcommit -Description "Shorter git add and commit.  Use arg as git commit message"
 
 # This function goes to the parent directory of the named file.

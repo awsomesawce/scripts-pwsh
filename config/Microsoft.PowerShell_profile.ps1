@@ -1,5 +1,15 @@
+# Carl's kickass Powershell Profile!
+# It's a little messy but it gets the job done.
+# Author: Carl C. (awsomesawce at outlook dot com)
+# Date: 4/26/2021
+# License: MIT
+# GitRepo: https://github.com/awsomesawce/scripts-pwsh/config
+
 # Disable Telemetry
 $env:POWERSHELL_TELEMETRY_OPTOUT = 1
+
+# Check if codepage is set to 65001, and set it if it is not
+($(chcp) -like "*65001*") ? "Code page is set to utf8" : (chcp 65001)
 # Import current modules.
 Import-Module posh-git
 Import-Module oh-my-posh
