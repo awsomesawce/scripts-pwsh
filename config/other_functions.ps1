@@ -246,3 +246,12 @@ function gitaddcommit {
 }
 set-alias -Name gadc -Value gitaddcommit -Description "gitaddcommit alias"
 set-alias -Name nvim-qt -Value nvim-qt.ps1 -Description "Always point to nvim-qt.ps1, so the console is not hung up"
+# Source choco_functions script
+function source-choco-funcs {
+if (test-path "C:\Users\Carl\gitstuff\scripts-pwsh\config\choco_functions.ps1") {
+write-output "Sourcing $scriptspwsh\choco_functions.ps1"
+} else {
+write-error "choco_functions.ps1 script not found, not sourcing"
+}
+}
+source-choco-funcs

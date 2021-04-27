@@ -83,3 +83,4 @@ set-alias absguide -Value open-abs-guide -Description "Advanced bash scripting g
 $msysZshExe = "D:\MSYS2\usr\bin\zsh.exe"
 set-variable documents -Value "D:\Carl\Documents" -Description "Documents folder that explorer points to.  Powershell folder is also in this folder"
 $dotfileDirs = (Get-Item D:\Carl\OneDrive\dotfiles_backup\), (Get-Item C:\Users\Carl\gitstuff\my-dotfiles\)
+$zshlovers = get-item D:\Carl\OneDrive\snippets\bash\zsh-only\zsh-lovers-manpage.html
