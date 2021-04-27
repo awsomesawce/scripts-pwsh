@@ -3,10 +3,10 @@
 # installed in the ~/scoop/apps/ subdirectory and then prints out the script
 # to the console!  Cool, huh?
 
-function testthisfunc {
+function Change-this-dir {
     <#
         .Description
-        testthisfunc: Go to some other directory and get a message printed out!"
+        Change-this-dir: Go to some other directory and get a message printed out!"
         .PARAMETER Path
         The name of the dir you want to change to.
         #>
@@ -20,6 +20,9 @@ function testthisfunc {
     
     begin {
         Write-Output "Going to $Path"
+        if ("$Path" -like "..") {
+            Write-Output "Looks like you are going backwards!"
+        }
     }
     
     process {
