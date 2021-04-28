@@ -255,3 +255,25 @@ write-error "choco_functions.ps1 script not found, not sourcing"
 }
 }
 source-choco-funcs
+# better-chtsh: a better cheatsheet script
+# Use this instead of cheatsheet for better functionality like error-handling aka argument handling
+# TODO: more testing required
+function better-chtsh {
+if ($args) {
+Invoke-WebRequest -Uri "https://cheat.sh/$args" | Select-Object -ExpandProperty Content | out-host
+} else {
+write-error "This function requires an argument to look up a term on cht.sh"
+return 1
+}
+}
+function pschtshPage {
+if ($args) {
+Invoke-WebRequest -Uri "https://cht.sh/$args" | Select-Object -ExpandProperty Content | less -r
+} else {
+write-error "Usage: command needs an argument to function"
+return 1
+}
+}
+# The above pschtshPage function is the same as the previous chtsh command, but it will
+# page the output thru less instead.
+

@@ -18,10 +18,11 @@ indent_size = 2
 end_of_line = lf
 
 # Powershell-specific
-# crlf is preferred
+# crlf is preferred but not required for pwsh scripts
+# I use lf to get rid of stupid "^M" symbols
 [*.ps{1,d,m,c}]
 charset = utf-8
-end_of_line = crlf
+end_of_line = lf
 
 [*.{[Bb][Aa][Tt],[Cc][Mm][Dd]}]
 #[*.{bat,cmd,BAT,CMD}] # Not sure which is better
