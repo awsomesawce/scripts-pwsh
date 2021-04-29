@@ -8,8 +8,9 @@
 # Disable Telemetry
 $env:POWERSHELL_TELEMETRY_OPTOUT = 1
 
+$codepage = $(chcp)
 # Check if codepage is set to 65001, and set it if it is not
-($(chcp) -like "*65001*") ? "Code page is set to utf8" : (chcp 65001)
+($codepage -like "*65001*") ? ("Code page is already set to utf8!  Yay!") : (chcp 65001)
 # Import current modules.
 Import-Module posh-git
 Import-Module oh-my-posh
@@ -17,13 +18,14 @@ Import-Module oh-my-posh
 # Set prompt
 Set-PoshPrompt -Theme paradox && Write-Output "Set prompt to paradox"
 # Source other_functions script and projectvars script.
-$PSDirectory="D:/Carl/Documents/Powershell"
+$PSDirectory="D:\Carl\Documents\Powershell"
 $Script:scriptspwsh = "$env:USERPROFILE\gitstuff\scripts-pwsh\config"
 # Try ternary operation.
-$otherFunctionsScript = "$Script:scriptspwsh/other_functions.ps1"
+$otherFunctionsScript = "$Script:scriptspwsh\other_functions.ps1"
 
 (Test-Path $otherFunctionsScript) ? (. $otherFunctionsScript) : (Write-Output "`$otherFunctionsScript not found here: $otherFunctionsScript")
 
+# Use this if statement if not using Powershell _Core_
 # if (Test-Path "$otherFunctionsScript") {
 #     . "$otherFunctionsScript"
 #     Write-Output "`$otherFunctionsScript has been loaded.  Its path = $otherFunctionsScript"
@@ -49,6 +51,28 @@ $globalAppData="D:/Carl/Appdata"
 # That is bad, we don't want that because it gets rid of our configuration.
 # If you want to start nvim without having any confing, set the $env:XDG_CONFIG_HOME variable.
 #$env:XDG_CONFIG_HOME="C:\Users\Carl\.config"
+
+# Source PATH_mods.ps1
+$Script:pwshconfig = (Get-Item "C:\Users\Carl\gitstuff\scripts-pwsh\config")
+$Script:pwshconfigstr = "C:\Users\Carl\gitstuff\scripts-pwsh\config"
+$Script:pathModsScript = "$pwshconfigstr\PATH_mods.ps1"
+if (Test-Path $pathModsScript) {
+Write-Verbose "Sourcing $pathModsScript"
+. "$pathModsScript"
+} else {
+Write-Error "PATH_mods.ps1 file not existing"
+}
+
+# Source choco_functions.ps1
+function Source-Chocofuncs {
+if (Test-Path "$pwshconfigstr\choco_functions.ps1") {
+Write-Verbose "Sourcing $pwshconfigstr\choco_functions.ps1"
+. "$pwshconfigstr\choco_functions.ps1"
+} else {
+Write-Error "choco_functions script is not where its supposed to be"
+}
+}
+Source-Chocofuncs
 
 ## This option sets the command line editor to have Emacs-like keybindings.
 ## You can set more options using Set-PSReadlineKeyHandler
