@@ -277,3 +277,11 @@ return 1
 # The above pschtshPage function is the same as the previous chtsh command, but it will
 # page the output thru less instead.
 
+function groffunc {
+if ((Get-Command groff -ErrorAction ignore) -and ($args)) {
+groff -man -T utf8 "$args"
+} else {
+Write-Error "Either groff is not available or you typed no args.
+Type in the path of the manpage you want to convert"
+}
+}

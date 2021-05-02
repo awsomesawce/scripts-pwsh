@@ -7,3 +7,10 @@ write-error "choco binary not found in your path"
 }
 } else { write-error "Must provide an argument to this function" }
 }
+function sinfo {
+if ($args) {
+scoop info "$args"
+} else {
+"need argument"
+}
+}
