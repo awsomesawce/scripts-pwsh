@@ -1,7 +1,12 @@
 # Auto detect text files and perform LF normalization
+#
 *               text=auto
 *.txt           text
 *.vcproj        text eol=crlf
 *.sh            text eol=lf
 *.jpg           -text
 *.ps1           text eol=crlf
+*.json          text eol=lf
+*.bat           text eol=crlf
+*.cmd           text eol=crlf
+.git*          text eol=lf
