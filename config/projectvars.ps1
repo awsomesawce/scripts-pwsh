@@ -117,3 +117,8 @@ function ListDocumentDirs {
         $newestDocumentDirs"
     }
 }
+$backupDirs = @{
+# This is a list of backup directories relating to shell config
+tarfiles="D:\Carl\OneDrive\tarfiles\"
+dotfiles_backup="$env:OneDrive\dotfiles_backup"
+}
