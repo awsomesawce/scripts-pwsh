@@ -10,7 +10,8 @@ Set-Variable -Name projectVarsScript -Value "C:\Users\Carl\gitstuff\scripts-pwsh
 # NOTE: Ignore warnings based on method of setting pwsh variables.
 # BEGIN Added Mar 29, 2021
 $gitstuffC = Get-Item "$env:USERPROFILE\gitstuff"
-$myDotfiles = Get-Item "$gitstuffC\my-dotfiles"
+$env:myDotfiles = Get-Item "$gitstuffC\my-dotfiles" # Exported this variable to environment
+$myDotfiles = $env:myDotfiles
 # END Added Mar 29, 2021
 $Local:scriptspwshDir = "$gitstuffC\scripts-pwsh"
 $script:configDir = "$Local:scriptspwshDir/config"
@@ -21,7 +22,7 @@ Set-Variable -Name profileGitTracked -Value (Get-Item "$Script:configDir/Microso
 # Then, set the rest of the current project variables.
 set-variable -Name labscurrent -Value "~/Downloads/labs-node/labs-jan-5-2021/labs" -Description "Current labs"
 
-Set-Item -Path Env:\UserProfileD -Value (Get-Item "D:\Carl") # This is an 
+Set-Item -Path Env:\UserProfileD -Value (Get-Item "D:\Carl") # This is a variable that leads to my D drive user profile.
 
 Set-Variable -Name GitDirectoryD -Value $UserProfileD\Documents\GitHub -Description "Main directory for github hosted projects"
 
@@ -29,7 +30,8 @@ Set-Variable -Name nodeschool -Value "D:\Carl\Documents\GitHub\node-school\" -De
 
 Set-Variable -Name nodewebpackproj -Value "D:\Carl\Documents\GitHub\my-webpack-demo" -Description "My webpack demo git dir"
 
-Set-Variable -Name pwshsnippets -Value "D:\Carl\OneDrive\snippets\pwsh\powershell_snippets.txt" -Description "out-file for writing quick powershell snippets from the command line"
+Set-Variable -Name pwshSnippetsFile -Value "D:\Carl\OneDrive\snippets\pwsh\powershell_snippets.txt" -Description "out-file for writing quick powershell snippets from the command line"
+Set-Variable -Name pwshSnippetsDir -Value (Split-Path -Parent "$pwshSnippetsFile")
 
 Set-Variable -Name NVIMINITVIM -Value C:\Users\Carl\AppData\Local\nvim\init.vim -Description "Main config file for neovim"
 Set-Variable -Name DESKTOP -Value $env:OneDrive\Desktop\ -Description "Shortcut to the Desktop folder"
@@ -61,9 +63,8 @@ set-alias -Name dotent -Value dotnet -Description "Start dotnet on spelling erro
 set-alias -Name get-hlep -Value get-help -Description "Spelling error correction"
 $snippets = "$env:OneDrive\snippets"
 
-set-variable -Name cygwin_installer -Value "C:\Users\Carl\Downloads\Cygwin Package Installer"
+# Mon May  3 20:21:31 EDT 2021 Remove cygwininstaller variables
 
-Write-Output "`$cygwin_installer is set to $cygwin_installer"
 $barebonesDir = "D:\Carl\OneDrive\snippets\pwsh\barebones\"
 $barebonesFunctionScript = Get-Item "D:\Carl\OneDrive\snippets\pwsh\barebones\barebones_Functions.ps1"
 
@@ -86,4 +87,33 @@ $dotfileDirs = (Get-Item D:\Carl\OneDrive\dotfiles_backup\), (Get-Item C:\Users\
 $zshlovers = get-item D:\Carl\OneDrive\snippets\bash\zsh-only\zsh-lovers-manpage.html
 $curSnipFile = Get-Item D:\Carl\OneDrive\snippets\pwsh\powershell_learning_new.ps1
 $editorconfigtemplate = "C:\Users\Carl\gitstuff\my-dotfiles\templates\template.editorconfig"
-$ddownloads = Get-item D:\Carl\Downloads\
+$env:ddownloads = Get-item D:\Carl\Downloads\
+$ddownloads = $env:ddownloads
+
+# List of current document directories for writings:
+$newestDocumentDirs = @{
+    Name = "List of New Document Dirs"
+    NameOfHashTable = "`$newestDocumentDirs"
+    NotableNotes="$env:OneDrive\Notable\notes"
+    MDBook= Get-Item ~/gitstuff/mdbook_test
+    bashSnippets = Get-item "$env:OneDrive\snippets\bash"
+    pwshSnippets = "$pwshSnippetsDir"
+    OneDriveDocuments = "$env:OneDrive\Documents"
+    DESKTOP = "$env:OneDrive\Desktop"
+    CurrentSnippetFile = "$curSnipFile"
+    Downloads = @{
+        CDownloads = Get-Item "~/Downloads"
+        DDownloads = "$ddownloads"
+    }
+    UsefulVars = @("`$documents", "`$zshlovers", "`$editorconfigtemplate", "`$dotfileDirs")
+}
+# functions are allowed in this file as long as they relate to project variables.
+function ListDocumentDirs {
+    if ($args) {
+        write-error "This function does not need args.
+        Try again."
+    } else {
+        Write-Output "List of new Document Dirs:
+        $newestDocumentDirs"
+    }
+}
