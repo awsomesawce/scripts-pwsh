@@ -134,7 +134,21 @@ Set-Alias lshuge -Value list-hugefiles -Description "Shorter way to list huge fi
 #set-alias -Name hjson -Value "$PWD\hjson.cmd" -Description "Set hjson alias so that it references the npm binary instead of the scoop binary, which itself i believe is based on Python"
 #set-alias -Name hjson-js -Value "$PWD\hjson.cmd" -Description "Alias for npms hjson which makes it more clear which binary it links to"
 set-alias find -Value "D:\Cygwin\bin\find.exe" -Description "Use a better find than the windows version"
-function Committo-Git { git commit -m "$args" }
+function Committo-Git { 
+    if (Get-Command git -CommandType Application -ErrorAction Ignore) {
+        # If git command is found, continue.
+        if ($args) {
+            # If there are args, put them into a string as the commit message.
+            git commit -m "$args"
+        } else {
+            # If no args, just do git commit.
+            git commit
+        }
+    } else {
+        # If git executable is not found, write an error.
+        return Write-Error "Did not find git executable"
+    }
+}
 set-alias gcomm -Value Committo-Git -Description "Git commit shortening"
 function git-addcommit {
   git add . && git commit -m "$args" }
