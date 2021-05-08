@@ -176,7 +176,12 @@ function gpull { git pull }
 
 # This function is the same as the one above, but shorter and with no else statement.
 function cdfile { 
-  cd (Split-path -Parent $args) 
+    # Added if statement for handling args
+    if ($args) {
+        Set-Location (Split-path -Parent $args) 
+    } else {
+        Write-Error "Need an arg to this function."
+    }
 }
 # cdfile function allows cding to the parent directory of the named file
 # The above function works just like chtsh function in bash.
@@ -259,14 +264,6 @@ set-alias -Name gadc -Value gitaddcommit -Description "gitaddcommit alias"
 set-alias -Name nvim-qt -Value nvim-qt.ps1 -Description "Always point to nvim-qt.ps1, so the console is not hung up"
 # Source choco_functions script
 # TODO: Put this function inside the actual $PROFILE rather than source from here.
-function source-choco-funcs {
-if (test-path "C:\Users\Carl\gitstuff\scripts-pwsh\config\choco_functions.ps1") {
-write-output "Sourcing $scriptspwsh\choco_functions.ps1"
-} else {
-write-error "choco_functions.ps1 script not found, not sourcing"
-}
-}
-source-choco-funcs
 
 # better-chtsh: a better cheatsheet script
 # Use this instead of cheatsheet for better functionality like error-handling aka argument handling
@@ -280,21 +277,21 @@ return 1
 }
 }
 function pschtshPage {
-if ($args) {
-Invoke-WebRequest -Uri "https://cht.sh/$args" | Select-Object -ExpandProperty Content | less -r
-} else {
-write-error "Usage: command needs an argument to function"
-return 1
-}
+    if ($args) {
+        Invoke-WebRequest -Uri "https://cht.sh/$args" | Select-Object -ExpandProperty Content | less -r
+    } else {
+        write-error "Usage: command needs an argument to function"
+        return 1
+    }
 }
 # The above pschtshPage function is the same as the previous chtsh command, but it will
 # page the output thru less instead.
 
 function groffunc {
-if ((Get-Command groff -ErrorAction ignore) -and ($args)) {
-groff -man -T utf8 "$args"
-} else {
-Write-Error "Either groff is not available or you typed no args.
-Type in the path of the manpage you want to convert"
-}
+    if ((Get-Command groff -ErrorAction ignore) -and ($args)) {
+        groff -man -T utf8 "$args"
+    } else {
+        Write-Error "Either groff is not available or you typed no args.
+        Type in the path of the manpage you want to convert"
+    }
 }

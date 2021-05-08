@@ -4,13 +4,14 @@
 # Date: 4/26/2021
 # License: MIT
 # GitRepo: https://github.com/awsomesawce/scripts-pwsh/config
+# OriginalLocation: Documents\Powershell
 
 # Disable Telemetry
 $env:POWERSHELL_TELEMETRY_OPTOUT = 1
 
 $codepage = $(chcp)
 # Check if codepage is set to 65001, and set it if it is not
-($codepage -like "*65001*") ? ("Code page is already set to utf8!  Yay!") : (chcp 65001)
+($codepage -like "*65001*") ? ("Code page is already set to utf8!  Yay!") : (chcp 65001 > $null)
 # Import current modules.
 Import-Module posh-git
 Import-Module oh-my-posh
