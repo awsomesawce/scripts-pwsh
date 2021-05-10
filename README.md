@@ -11,6 +11,7 @@ It also includes `.bat` files which are similar.
 - `.\pwsh_help`: random powershell help files (ignored by git).
 - `.\tests`: test folder for testing output (ignored by git).
 - `.\bin`: Small startup scripts are located here, including a pwsh -noprofile startup script.
+- `.\Scripts`: Useful scripts for maintenance and convenience.  This is the default location of future scripts.
 
 The `gotosleep.bat` file had been created and linked to a custom task using `taskscheduler` on windows.  
 INFO: **DO NOT MOVE**
@@ -19,7 +20,8 @@ INFO: **DO NOT MOVE**
 
 - [Powershell snippets](D:/Carl/OneDrive/snippets/pwsh/powershell_snippets.txt): location for all snippet related things that are not necessarily
   important enough to be version-controlled.
-- [TODO.txt](./TODO.txt): todo items relative to powershell programming.
+- [TODO.md](./TODO.md): todo items relative to powershell programming.
+- `.\Scripts\create-psconfigarchive.ps1`: Contains a function that uses the `Compress-Archive` cmdlet to create a zip file containing the contents of the `.\config` dir.  There are no args needed, and it automatically dates the new file.
 
 ## List of Directories to copy new config scripts to
 
