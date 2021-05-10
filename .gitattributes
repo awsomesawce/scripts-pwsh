@@ -5,7 +5,9 @@
 *.vcproj        text eol=crlf
 *.sh            text eol=lf
 *.jpg           -text
-*.ps?1           text eol=lf
+*.ps1           text eol=lf
+*.psm1		text eol=lf
+*.psd1		text eol=lf
 *.json          text eol=lf
 *.bat           text eol=crlf
 *.cmd           text eol=crlf
