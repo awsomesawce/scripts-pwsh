@@ -1,8 +1,17 @@
+#!/usr/bin/env pwsh
+
 function create-PSConfigArchive {
-if (Test-Path "$scriptspwsh") {
-Write-Output "Creating pwsh config archive"
-Compress-archive -Path "$scriptspwsh" -DestinationPath "$env:OneDrive\snippets\pwsh\scriptspwshConfig$(Get-Date -Format FileDate).zip" -Confirm
-} else {
-Write-Error "Something went wrong.  Check the function"
+        $compParams = @{
+            Path="$scriptspwsh"
+            DestinationPath="$pwshConfBackupDir\scriptspwshConfig$(Get-Date -Format FileDate).zip"
+            Confirm=$true
+        }
+    if (Test-Path "$scriptspwsh") {
+        Compress-archive @compParams
+        } else {
+        Write-Error "Something went wrong.  Check the function"
+    }
 }
-}
+Write-Output "Executing create-PSConfigArchive function"
+create-PSConfigArchive
+Write-Output "Function execute end"

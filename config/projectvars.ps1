@@ -4,6 +4,9 @@
 # Author: Carl C (awsomesawce@outlook.com)
 # Date: Mar 28, 2021
 
+# UPDATE: Monday, May 10, 2021 7:05:44 PM
+# TODO: This is getting pretty big and variables are getting redundent.
+
 # First, set the variable to this script.
 # TODO: Get this variable from $PSScriptRoot
 Set-Variable -Name projectVarsScript -Value "C:\Users\Carl\gitstuff\scripts-pwsh\config\projectvars.ps1" -Description "Variable pointing to the script."
@@ -17,11 +20,14 @@ $Local:scriptspwshDir = "$gitstuffC\scripts-pwsh"
 $script:configDir = "$Local:scriptspwshDir/config"
 
 # Get the location of the git-tracket pwsh profile and put it in a variable.
-Set-Variable -Name profileGitTracked -Value (Get-Item "$Script:configDir/Microsoft.PowerShell_profile.ps1")
+# Just get the string.
+Set-Variable -Name profileGitTracked -Value "$Script:configDir/Microsoft.PowerShell_profile.ps1"
 
 # Then, set the rest of the current project variables.
 set-variable -Name labscurrent -Value "~/Downloads/labs-node/labs-jan-5-2021/labs" -Description "Current labs"
 
+# NOTE: This is a demonstration on how to create a environment variable using Set-Item.
+# NOTE: Set-Variable only refers to the scope of the Powershell session, and doesn't share vars with other processes.
 Set-Item -Path Env:\UserProfileD -Value (Get-Item "D:\Carl") # This is a variable that leads to my D drive user profile.
 
 Set-Variable -Name GitDirectoryD -Value $UserProfileD\Documents\GitHub -Description "Main directory for github hosted projects"
@@ -52,6 +58,7 @@ $binDirs = "$env:OneDrive\Desktop", "$env:USERPROFILE\bin", "D:\Carl\bin"
 $perlbin = "C:\Users\Carl\scoop\apps\perl\current\perl\bin"
 function listBinDirs {
   Write-Output "This will list all the bin directories and optionally their contents."
+  Write-Output "`$binDirs is an array"
   Write-Output "`$binDirs = $binDirs"
   Write-Output "`$perlcbin = $perlcbin"
   # IN-PROGRESS: Add more directories to these variables.
@@ -87,7 +94,8 @@ $dotfileDirs = (Get-Item D:\Carl\OneDrive\dotfiles_backup\), (Get-Item C:\Users\
 $zshlovers = get-item D:\Carl\OneDrive\snippets\bash\zsh-only\zsh-lovers-manpage.html
 $curSnipFile = Get-Item D:\Carl\OneDrive\snippets\pwsh\powershell_learning_new.ps1
 $editorconfigtemplate = "C:\Users\Carl\gitstuff\my-dotfiles\templates\template.editorconfig"
-$env:ddownloads = Get-item D:\Carl\Downloads\
+# Don't use `Get-Item` for ddownloads.
+$env:ddownloads = "D:\Carl\Downloads\"
 $ddownloads = $env:ddownloads
 
 # List of current document directories for writings:
@@ -108,17 +116,26 @@ $newestDocumentDirs = @{
     UsefulVars = @("`$documents", "`$zshlovers", "`$editorconfigtemplate", "`$dotfileDirs")
 }
 # functions are allowed in this file as long as they relate to project variables.
+# NOTE: It might be better to offload certain functions as a script file. 
+# NOTE: Functions are sourced and are executed from memory while the PSSession is active.
+# NOTE: Powershell Scripts, however, are executed from the filesystem.
 function ListDocumentDirs {
     if ($args) {
         write-error "This function does not need args.
         Try again."
     } else {
-        Write-Output "List of new Document Dirs:
-        $newestDocumentDirs"
+        Write-Output "List of new Document Dirs:"
+        Write-Output $newestDocumentDirs
     }
 }
+# TODO: Shorten this script and make it so it is not so big.
+# IMPORTANT: this is the preferred way of naming project variables.  Be specific.
+$windowsDotfilesBackup = "$($dotfileDirs[0])windows"
+# TODO: backupDirs and dotfileDirs are very similar, might just remove one.
 $backupDirs = @{
 # This is a list of backup directories relating to shell config
-tarfiles="D:\Carl\OneDrive\tarfiles\"
+tarfiles="D:\Carl\OneDrive\tarfiles\configstuff"
 dotfiles_backup="$env:OneDrive\dotfiles_backup"
+windows_dotfiles_backup="$windowsDotfilesBackup"
+
 }
