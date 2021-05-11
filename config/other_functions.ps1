@@ -295,3 +295,4 @@ function groffunc {
         Type in the path of the manpage you want to convert"
     }
 }
+Set-Alias -Name chtsh -Value better-chtsh -Description "Using a new function for chtsh"
