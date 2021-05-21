@@ -4,7 +4,7 @@
 # Date: 4/26/2021
 # License: MIT
 # GitRepo: https://github.com/awsomesawce/scripts-pwsh/config
-# OriginalLocation: Documents\Powershell
+# OriginalLocation: D:\Carl\Documents\Powershell
 
 # Disable Telemetry
 $env:POWERSHELL_TELEMETRY_OPTOUT = 1
@@ -17,23 +17,23 @@ Import-Module posh-git
 Import-Module oh-my-posh
 #Import-Module z
 # Set prompt
-Set-PoshPrompt -Theme paradox && Write-Output "Set prompt to paradox"
+Set-PoshPrompt -Theme fish && Write-Verbose "Set posh prompt to fish"
 # Source other_functions script and projectvars script.
-$PSDirectory="D:\Carl\Documents\Powershell"
+$PSDirectory = (Split-path -Parent $PROFILE)
 $Script:scriptspwsh = "$env:USERPROFILE\gitstuff\scripts-pwsh\config"
 # Try ternary operation.
 $otherFunctionsScript = "$Script:scriptspwsh\other_functions.ps1"
 
 (Test-Path $otherFunctionsScript) ? (. $otherFunctionsScript) : (Write-Output "`$otherFunctionsScript not found here: $otherFunctionsScript")
-
-# Use this if statement if not using Powershell _Core_
-# if (Test-Path "$otherFunctionsScript") {
-#     . "$otherFunctionsScript"
-#     Write-Output "`$otherFunctionsScript has been loaded.  Its path = $otherFunctionsScript"
-# } else {
-#     "$otherFunctionsScript file not found."
-# }
-
+<#
+ Use this if statement if not using Powershell _Core_
+ if (Test-Path "$otherFunctionsScript") {
+     . "$otherFunctionsScript"
+     Write-Output "`$otherFunctionsScript has been loaded.  Its path = $otherFunctionsScript"
+ } else {
+     "$otherFunctionsScript file not found."
+ }
+#>
 $projectvarsScript = "$Script:scriptspwsh\projectvars.ps1"
 (Test-Path $projectvarsScript) ? (. $projectvarsScript) : (Write-Output "projectvars.ps1 not found")
 # If ternary operator is incompatible, use this:
@@ -49,8 +49,8 @@ $localAppData="C:/Users/Carl/AppData/Local"
 $globalAppData="D:/Carl/Appdata"
 # The environment variable below sets XDG_CONFIG_HOME, which then tells nvim to look for it's
 # init file in that directory instead of AppData/local/nvim
-# That is bad, we don't want that because it gets rid of our configuration.
-# If you want to start nvim without having any confing, set the $env:XDG_CONFIG_HOME variable.
+# That is bad, we have no configuration in ~/.config.
+# If you want to start nvim without having any config, set the $env:XDG_CONFIG_HOME variable.
 #$env:XDG_CONFIG_HOME="C:\Users\Carl\.config"
 
 # Source PATH_mods.ps1

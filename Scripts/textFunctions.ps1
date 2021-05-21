@@ -1,6 +1,7 @@
 # Author: Carl C.
 # Date: $(Get-Date).ToString()
 # Nice text functions for convenience's sake.
+# OriginalLocation: ~/gitstuff/scripts-pwsh/Scripts
 
 function Format-Script {
 
