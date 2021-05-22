@@ -1,3 +1,7 @@
+# FileSystem functions
+# Author: Carl C.
+# OriginalLocation: "$env:OneDrive\snippets\pwsh\FileSystemFunctions\fileFunctions.ps1"
+
 function Count-Files {
 
 <#
