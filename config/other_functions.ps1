@@ -118,33 +118,31 @@ Write-Output "other_functions file has been loaded from here: $otherFunctionsScr
 # This function allows for searching apt-cache database from powershell
 # TODO: separate the wsl-specific functions into its own file.
 #       Modules are easier to maintain.
-function aptcshow { 
-    param([string]$Term)
-    if ($Term) {
-	wsl apt-cache show "$Term"
-    } else {
-	Write-Host -ForegroundColor red "Need search term"
-    }
-}
-function aptcsearch {
-    param([string]$Term)
-    if ($Term) {
-	wsl -u carlc apt-cache search $Term 
-    } else {
-	Write-Error "Need search term"
-    }
-}
-function wslUserLogin { wsl -u carlc }
-set-alias wslu -Value wslUserLogin -Description "Shorter access to wsl -u carlc"
+#### Source WSL-Functions Script
+$wslFuncs = ".\wslFunctions.ps1"
+if (Test-Path $wslFuncs) { . "$wslFuncs"} # Apology for weird indentation here.
+    else {Write-Error "$wslFuncs script could not be located"
+	}
+# BEGIN File-System functions {{{
+
 # Some nice functions for listing items and sorting them
 function list-bigfiles {
-  get-childitem | where-object -Property length -gt 10000 | sort-object -property Length -Ascending
+    param([int]$Len)
+    # if user enters length, show files greater than that length.
+    if ($Len) {
+	get-childitem | where-object -Property length -gt $Len | sort-object -property Length -Ascending
+    } else {
+	get-childitem | where-object -Property length -gt 10000 | sort-object -property Length -Ascending
+    }
 }
 set-alias lsbig list-bigfiles -description "Shorter way to list big files"
 function list-hugefiles {
   get-childitem | where-object -Property length -gt 100000 | Sort-Object -Property Length -Descending | write-output
 }
 Set-Alias lshuge -Value list-hugefiles -Description "Shorter way to list huge files"
+
+# END File System Functions }}}
+
 # TODO: fix the following two functions
 #set-alias -Name hjson -Value "$PWD\hjson.cmd" -Description "Set hjson alias so that it references the npm binary instead of the scoop binary, which itself i believe is based on Python"
 #set-alias -Name hjson-js -Value "$PWD\hjson.cmd" -Description "Alias for npms hjson which makes it more clear which binary it links to"
