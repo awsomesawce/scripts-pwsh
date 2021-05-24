@@ -4,26 +4,25 @@
 
 function Count-Files {
 
-<#
-.Description
-Count-Files: Count the files in a directory
-.PARAMETER Path
-The path of the directory to count files in.
-#>
-[CmdletBinding()]
-Param(
-    [Parameter(Mandatory = $true,
-        HelpMessage = "Enter the path")]
-    [string]$Path
-)
+    <#
+    .Description
+    Count-Files: Count the files in a directory
+    .PARAMETER Path
+    The path of the directory to count files in.
+    #>
+    [CmdletBinding()]
+    Param(
+	[Parameter(Mandatory = $false,
+	    HelpMessage = "Enter the path")]
+	[string]$Path
+    )
 
-Process {
-    if ($Path) {
-        Write-Output $(Get-ChildItem $Path).Count
+    Process {
+	if ($Path) {
+	    return $(Get-ChildItem $Path).Count
+	}
+	else {
+	    return Write-Error "Need to enter path"
+	}
     }
-    else {
-        Write-Error "Need to enter path"
-    }
-}
-
 }

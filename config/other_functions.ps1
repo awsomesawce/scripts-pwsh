@@ -35,11 +35,6 @@ Set-Alias -Name nodedocs -Value Open-Node-Docs -Description "Open NodeJS docs in
 
 ## Other useful functions
 
-## WSL-specific functions
-Function start-ubuntu-bash { wsl -u carlc } # Make functions like this more advanced.
-Set-Alias -Name wslubu -Value start-ubuntu-bash -Description "Shorter wsl ubuntu command"
-#
-
 # Next up is editor functions!
 # Neovim config shortcut # remember to use backslashes.
 $nvimInitFile = "$env:LOCALAPPDATA\nvim\init.vim"
@@ -119,10 +114,18 @@ Write-Output "other_functions file has been loaded from here: $otherFunctionsScr
 # TODO: separate the wsl-specific functions into its own file.
 #       Modules are easier to maintain.
 #### Source WSL-Functions Script
-$wslFuncs = ".\wslFunctions.ps1"
-if (Test-Path $wslFuncs) { . "$wslFuncs"} # Apology for weird indentation here.
-    else {Write-Error "$wslFuncs script could not be located"
-	}
+$scrps = "~/gitstuff/scripts-pwsh"
+$wslFuncs = "$scrps\config\wslFunctions.ps1"
+
+if (Test-Path $wslFuncs) {
+    Write-Verbose "Sourcing wslFunctions.ps1 script"
+    . $wslFuncs
+} else {
+    Write-Error "$wslFuncs file not found"
+}
+
+# TODO: reorganize variables
+
 # BEGIN File-System functions {{{
 
 # Some nice functions for listing items and sorting them
@@ -146,48 +149,40 @@ Set-Alias lshuge -Value list-hugefiles -Description "Shorter way to list huge fi
 # TODO: fix the following two functions
 #set-alias -Name hjson -Value "$PWD\hjson.cmd" -Description "Set hjson alias so that it references the npm binary instead of the scoop binary, which itself i believe is based on Python"
 #set-alias -Name hjson-js -Value "$PWD\hjson.cmd" -Description "Alias for npms hjson which makes it more clear which binary it links to"
-set-alias find -Value "D:\Cygwin\bin\find.exe" -Description "Use a better find than the windows version"
+set-alias cygfind -Value "D:\Cygwin\bin\find.exe" -Description "Use a better find than the windows version, Cygwin version."
 function Committo-Git { 
+    param([string]$Message)
     if (Get-Command git -CommandType Application -ErrorAction Ignore) {
         # If git command is found, continue.
-        if ($args) {
+        if ($Message) {
             # If there are args, put them into a string as the commit message.
-            git commit -m "$args"
+            git commit -m "$Message"
         } else {
             # If no args, just do git commit.
             git commit
         }
     } else {
-        # If git executable is not found, write an error.
-        return Write-Error "Did not find git executable"
+        # If git executable is not found, throw.
+        throw "Did not find git executable"
     }
 }
 set-alias gcomm -Value Committo-Git -Description "Git commit shortening"
-function git-addcommit {
-  git add . && git commit -m "$args" }
-set-alias gaddcom -Value git-addcommit -Description "Shorter git add and commit.  Use arg as git commit message"
 
 # This function goes to the parent directory of the named file.
 # Useful for going to the directory of a variable pointing to a file.
 # Try `cdto-filelocation $PROFILE`
-function cdto-filelocation {
-  if (Test-Path $args) {
-    set-location (Split-Path -parent "$args")
+function Set-filelocation {
+    param([string]$Path)
+  if (Test-Path $Path) {
+    set-location (Split-Path -parent "$Path")
   }
   else {
-    write-output "That is not a valid file name"
+    write-Error "That particular file name has not been found."
   }
 }
 
-# Standard git shortcuts.  These are usually aliases in bash, but Powershell does not
-# allow setting aliases with arguments. Set-Alias won't work.
-# The proper way is to create a function with a very specific name, then set an alias to it.
-# Like this:
-function GitPush { git push }
-Set-Alias -Name gpush -Value GitPush -Description "An alias for git push.  Has to be a function first, then point the alias to the function"
-function gpull { git pull }
-
 # This function is the same as the one above, but shorter and with no else statement.
+# It also uses `$args` as opposed to the `$Path` positional parameter.
 function cdfile { 
     # Added if statement for handling args
     if ($args) {
@@ -199,7 +194,12 @@ function cdfile {
 # cdfile function allows cding to the parent directory of the named file
 # The above function works just like chtsh function in bash.
 function pschtsh {
-  Invoke-webrequest -Uri https://cht.sh/$args | select-object -expandProperty content
+    param([string]$SearchTerm)
+    if ($SearchTerm) {
+      Invoke-webrequest -Uri "https://cht.sh/$SearchTerm" | select-object -expandProperty content
+    } else {
+      Write-Error "Need search term"
+    }
 }
 # To invoke, type "pschtsh term_to_lookup"
 # Pipe to a file using `Out-File`
