@@ -1,7 +1,8 @@
 ##### Other PS Functions #####
 # Please add functions to this file instead of the main powershell profile.
 # Author: Carl C. (awsomesawce@github.com)
-# Updated: Friday, April 9, 2021 12:37:35 AM
+# Updated: Monday, May 24, 2021 6:30:53 AM
+# Note: Added `param()` to multiple functions.
 
 
 ## Aliases for common Cmdlets
@@ -117,8 +118,22 @@ Write-Output "other_functions file has been loaded from here: $otherFunctionsScr
 # This function allows for searching apt-cache database from powershell
 # TODO: separate the wsl-specific functions into its own file.
 #       Modules are easier to maintain.
-function aptcshow { wsl apt-cache show $args }
-function aptcsearch { wsl -u carlc apt-cache search $args }
+function aptcshow { 
+    param([string]$Term)
+    if ($Term) {
+	wsl apt-cache show "$Term"
+    } else {
+	Write-Host -ForegroundColor red "Need search term"
+    }
+}
+function aptcsearch {
+    param([string]$Term)
+    if ($Term) {
+	wsl -u carlc apt-cache search $Term 
+    } else {
+	Write-Error "Need search term"
+    }
+}
 function wslUserLogin { wsl -u carlc }
 set-alias wslu -Value wslUserLogin -Description "Shorter access to wsl -u carlc"
 # Some nice functions for listing items and sorting them
@@ -235,29 +250,33 @@ function wsl-aptitude-show {
 
 # This function starts windows terminal in Admin mode
 function start-wtAdmin {
-  if (Get-Command wt) {
+  if (Get-Command wt -errorAction Ignore) {
     Start-Process wt -Verb runAs
   }
   else {
-    write-output "wt exe not found"
+    write-error "Windows Terminal executable not found"
   }
 }
 function gotofile {
   # This function allows cding to the location of a file
-  if ($args) {
-    Set-Location $(split-path -Parent "$args")
+  # TODO: Add help message
+  param([string]$File)
+  if ($File) {
+    Set-Location $(split-path -Parent "$File")
   }
   else {
     Write-Output "Usage: gotofile FILE"
   }
 }
 function gitaddcommit {
-  # This function is a crude way of mixing these two commands together
-  if ($args) {
-    git add . && git commit -m "$args"
+  # This function is a crude way of mixing `git add` and `git commit` together.
+  param([string]$Message)
+  if ($Message) {
+    git add . && git commit -m "$Message"
   }
   else {
-    write-output "Usage: gitaddcommit `"COMMITMSG`""
+    Write-Verbose "No commit message added, starting editor"
+    git add . && git commit
   }
 }
 set-alias -Name gadc -Value gitaddcommit -Description "gitaddcommit alias"
@@ -269,12 +288,12 @@ set-alias -Name nvim-qt -Value nvim-qt.ps1 -Description "Always point to nvim-qt
 # Use this instead of cheatsheet for better functionality like error-handling aka argument handling
 # TODO: more testing required
 function better-chtsh {
-if ($args) {
-Invoke-WebRequest -Uri "https://cheat.sh/$args" | Select-Object -ExpandProperty Content | out-host
-} else {
-write-error "This function requires an argument to look up a term on cht.sh"
-return 1
-}
+    param([string]$SearchTerm)
+    if ($SearchTerm) {
+	Invoke-RestMethod -Uri "https://cheat.sh/$SearchTerm"
+    } else {
+	write-error "This function requires an argument to look up a term on cht.sh"
+    }
 }
 function pschtshPage {
     if ($args) {

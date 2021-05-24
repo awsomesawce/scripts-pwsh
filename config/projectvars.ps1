@@ -134,8 +134,13 @@ $windowsDotfilesBackup = "$($dotfileDirs[0])windows"
 # TODO: backupDirs and dotfileDirs are very similar, might just remove one.
 $backupDirs = @{
 # This is a list of backup directories relating to shell config
-tarfiles="D:\Carl\OneDrive\tarfiles\configstuff"
-dotfiles_backup="$env:OneDrive\dotfiles_backup"
-windows_dotfiles_backup="$windowsDotfilesBackup"
+    tarfiles="D:\Carl\OneDrive\tarfiles\configstuff"
+    dotfiles_backup="$env:OneDrive\dotfiles_backup"
+    windows_dotfiles_backup="$windowsDotfilesBackup"
 
+}
+# This is the simplest function for listing powershell notes in my Notable
+#+ directory.
+function listPowershellNotes {
+    Get-Childitem "$env:OneDrive\Notable\notes\Powershell*"
 }
