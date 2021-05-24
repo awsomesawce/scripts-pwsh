@@ -150,24 +150,7 @@ Set-Alias lshuge -Value list-hugefiles -Description "Shorter way to list huge fi
 #set-alias -Name hjson -Value "$PWD\hjson.cmd" -Description "Set hjson alias so that it references the npm binary instead of the scoop binary, which itself i believe is based on Python"
 #set-alias -Name hjson-js -Value "$PWD\hjson.cmd" -Description "Alias for npms hjson which makes it more clear which binary it links to"
 set-alias cygfind -Value "D:\Cygwin\bin\find.exe" -Description "Use a better find than the windows version, Cygwin version."
-function Committo-Git { 
-    param([string]$Message)
-    if (Get-Command git -CommandType Application -ErrorAction Ignore) {
-        # If git command is found, continue.
-        if ($Message) {
-            # If there are args, put them into a string as the commit message.
-            git commit -m "$Message"
-        } else {
-            # If no args, just do git commit.
-            git commit
-        }
-    } else {
-        # If git executable is not found, throw.
-        throw "Did not find git executable"
-    }
-}
-set-alias gcomm -Value Committo-Git -Description "Git commit shortening"
-
+# Committo-Git already in different file.
 # This function goes to the parent directory of the named file.
 # Useful for going to the directory of a variable pointing to a file.
 # Try `cdto-filelocation $PROFILE`
@@ -232,19 +215,7 @@ function start-msys-bash {
   }
 }
 
-
-# Use aptitude from powershell with this function
-# It says to not use invoke-expression, but I say use it when it is needed.
-function wsl-aptitude-show {
-  $Local:wslCommand = "wsl -u carlc"
-  if (test-path $(Get-Command wsl).Source) {
-    write-output "wsl exists!"
-    invoke-expression "$wslCommand aptitude show $args"
-  }
-  else {
-    write-error "Wsl binary doesnt exist"
-  }
-}
+# Wsl-functions moved to .\wslFunctions.ps1
 
 # This function starts windows terminal in Admin mode
 function start-wtAdmin {
@@ -266,18 +237,7 @@ function gotofile {
     Write-Output "Usage: gotofile FILE"
   }
 }
-function gitaddcommit {
-  # This function is a crude way of mixing `git add` and `git commit` together.
-  param([string]$Message)
-  if ($Message) {
-    git add . && git commit -m "$Message"
-  }
-  else {
-    Write-Verbose "No commit message added, starting editor"
-    git add . && git commit
-  }
-}
-set-alias -Name gadc -Value gitaddcommit -Description "gitaddcommit alias"
+
 set-alias -Name nvim-qt -Value nvim-qt.ps1 -Description "Always point to nvim-qt.ps1, so the console is not hung up"
 # Source choco_functions script
 # TODO: Put this function inside the actual $PROFILE rather than source from here.

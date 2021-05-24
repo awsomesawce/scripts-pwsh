@@ -13,5 +13,14 @@ if ($Path) {
 else {
     throw "Need to enter path of script file to format."
 }
+}
 
+function OpenIn-Vim {
+    param([string]$File)
+    if (Get-Command vim -ErrorAction Ignore) {
+	# Simple if statement
+	if ($File) {vim -u "~/.vimrc" "$File"} else {vim -u "~/.vimrc"}
+    } else {
+	Write-error "Vim executable not found in `"`$env:PATH`""
+    }
 }

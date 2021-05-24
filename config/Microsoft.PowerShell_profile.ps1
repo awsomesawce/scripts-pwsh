@@ -5,8 +5,12 @@
 # License: MIT
 # GitRepo: https://github.com/awsomesawce/scripts-pwsh/config
 # OriginalLocation: D:\Carl\Documents\Powershell
+# Notes: Adding params to used functions.
+# 	> All small functions are not indented the same way as fleshed-out functions.
+# 	> I try to keep them at max 2 lines.
+# 	> In 2 line if statements, the else statement is the 2nd line.
 
-# Disable Telemetry
+# Disable Microsoft Telemetry
 $env:POWERSHELL_TELEMETRY_OPTOUT = 1
 
 $codepage = $(chcp)
@@ -20,33 +24,41 @@ Import-Module oh-my-posh
 Set-PoshPrompt -Theme fish && Write-Verbose "Set posh prompt to fish"
 # Source other_functions script and projectvars script.
 $PSDirectory = (Split-path -Parent $PROFILE)
-$Script:scriptspwsh = "$env:USERPROFILE\gitstuff\scripts-pwsh\config"
-# Try ternary operation.
+
+# BEGIN Source Scripts {{{
+# TODO: Clean this up a bit.
+if ([string]::IsNullOrWhitespace($scrps)) {
+    $scrps = "$env:USERPROFILE\gitstuff\scripts-pwsh"} else {Write-Error "`$scrps var empty"
+    }
+$Script:scriptspwsh = "$scrps\config"
 $otherFunctionsScript = "$Script:scriptspwsh\other_functions.ps1"
 
-(Test-Path $otherFunctionsScript) ? (. $otherFunctionsScript) : (Write-Output "`$otherFunctionsScript not found here: $otherFunctionsScript")
-<#
- Use this if statement if not using Powershell _Core_
- if (Test-Path "$otherFunctionsScript") {
-     . "$otherFunctionsScript"
-     Write-Output "`$otherFunctionsScript has been loaded.  Its path = $otherFunctionsScript"
- } else {
-     "$otherFunctionsScript file not found."
- }
-#>
+# Try ternary operation.
+# TODO: Add a failsafe so it works with Windows Powershell too.
+if (Test-Path "$otherFunctionsScript") {
+    . "$otherFunctionsScript"
+    Write-Verbose "`$otherFunctionsScript has been loaded.  Its path = $otherFunctionsScript"
+} else {
+    Write-Error "$otherFunctionsScript file not found."
+}
+
 $projectvarsScript = "$Script:scriptspwsh\projectvars.ps1"
-(Test-Path $projectvarsScript) ? (. $projectvarsScript) : (Write-Output "projectvars.ps1 not found")
-# If ternary operator is incompatible, use this:
-# if (Test-Path ~/gitstuff/scripts-pwsh/config/projectvars.ps1) {
-# . ~/gitstuff/scripts-pwsh/config/projectvars.ps1
-# } else {
-# Write-Output "projectvars.ps1 not found"
-# }
-# set psdir variable to local powershell directory, and set other variables.
+if ($PSVersionTable.PSVersion.Major -gt 5) {
+    # Use ternary operator
+    (Test-Path $projectvarsScript) ? (. $projectvarsScript) : (Write-Output "projectvars.ps1 not found")
+} else {
+    if (Test-Path "$projectvarsScript") {
+	. "$projectvarsScript"
+    } else {
+	Write-Error "Could not find $projectvarsScript"
+    }
+}
+# BEGIN set psdir variable to local powershell directory, and set other variables.
 $gitDir="D:/Carl/Documents/GitHub"
 $oneDrive="$env:OneDrive"
 $localAppData="C:/Users/Carl/AppData/Local"
 $globalAppData="D:/Carl/Appdata"
+# END set psdir variable to local powershell directory, and set other variables.
 # The environment variable below sets XDG_CONFIG_HOME, which then tells nvim to look for it's
 # init file in that directory instead of AppData/local/nvim
 # That is bad, we have no configuration in ~/.config.
@@ -58,28 +70,43 @@ $Script:pwshconfig = (Get-Item "C:\Users\Carl\gitstuff\scripts-pwsh\config")
 $Script:pwshconfigstr = "C:\Users\Carl\gitstuff\scripts-pwsh\config"
 $Script:pathModsScript = "$pwshconfigstr\PATH_mods.ps1"
 if (Test-Path $pathModsScript) {
-Write-Verbose "Sourcing $pathModsScript"
-. "$pathModsScript"
+    Write-Verbose "Sourcing $pathModsScript"
+    . "$pathModsScript"
 } else {
-Write-Error "PATH_mods.ps1 file not existing"
+    Write-Error "PATH_mods.ps1 file not existing"
 }
 
 # Source choco_functions.ps1
 function Source-Chocofuncs {
-if (Test-Path "$pwshconfigstr\choco_functions.ps1") {
-Write-Verbose "Sourcing $pwshconfigstr\choco_functions.ps1"
-. "$pwshconfigstr\choco_functions.ps1"
-} else {
-Write-Error "choco_functions script is not where its supposed to be"
-}
+    if (Test-Path "$pwshconfigstr\choco_functions.ps1") {
+	Write-Verbose "Sourcing $pwshconfigstr\choco_functions.ps1"
+	. "$pwshconfigstr\choco_functions.ps1"
+    } else {
+	Write-Error "choco_functions script is not where its supposed to be"
+    }
 }
 Source-Chocofuncs
+
+function Source-UsefulNavFunctions {
+    $usefulNavFunctions = "C:\Users\Carl\gitstuff\scripts-pwsh\Scripts\useful-nav-functions.ps1"
+    if (Test-Path "$usefulNavFunctions") {
+	Write-Information "Dot-Sourcing $usefulNavFunctions"
+	. "$usefulNavFunctions"
+    } else {
+	return Write-Error "$usefulNavFunctions script not found."
+    }
+}
+Source-UsefulNavFunctions
+
+# END Source Scripts }}}
 
 ## This option sets the command line editor to have Emacs-like keybindings.
 ## You can set more options using Set-PSReadlineKeyHandler
 #Set-PSReadLineOption -EditMode Windows
 $DOTFILESGIT = "$env:USERPROFILE\gitstuff\my-dotfiles"
-function dotFiles {Set-Location $DOTFILESGIT}
+# Fixing functions
+function dotFiles {if (Test-Path "$DOTFILESGIT") {Set-Location $DOTFILESGIT} 
+    else {Write-Error "`$DOTFILESGIT variable not found"}}
 # Aliases
 # use single-quotes for strings with spaces
 # TODO: In progress: Moving Set-Alias declarations to separate
