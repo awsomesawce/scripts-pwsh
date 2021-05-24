@@ -1,0 +1,11 @@
+{
+  "chocoFunctions": "C:\\Users\\Carl\\gitstuff\\scripts-pwsh\\config\\choco_functions.ps1",
+  "projectvars": "C:\\Users\\Carl\\gitstuff\\scripts-pwsh\\config\\projectvars.ps1",
+  "otherFunctions": "C:\\Users\\Carl\\gitstuff\\scripts-pwsh\\config\\other_functions.ps1",
+  "wslFunctions": "C:\\Users\\Carl\\gitstuff\\scripts-pwsh\\config\\wslFunctions.ps1",
+  "gitFunctions": "C:\\Users\\Carl\\gitstuff\\scripts-pwsh\\config\\git_functions.ps1",
+  "PATH_mods": "C:\\Users\\Carl\\gitstuff\\scripts-pwsh\\config\\PATH_mods.ps1",
+  "profile": "D:\\Carl\\Documents\\PowerShell\\Microsoft.PowerShell_profile.ps1",
+  "PSDirectory": "D:\\Carl\\Documents\\PowerShell",
+  "useful_nav_functions": "C:\\Users\\Carl\\gitstuff\\scripts-pwsh\\Scripts\\useful-nav-functions.ps1"
+}
