@@ -39,14 +39,26 @@ Set-Alias -Name nodedocs -Value Open-Node-Docs -Description "Open NodeJS docs in
 # Neovim config shortcut # remember to use backslashes.
 $nvimInitFile = "$env:LOCALAPPDATA\nvim\init.vim"
 function gotonvimconfig { set-location $localAppData\nvim }
-function nvimconfig { nvim $nvimInitFile }
+function nvimconfig {
+    if (Get-Command nvim -ErrorAction Ignore) {
+	nvim $nvimInitFile
+    } else {
+	Write-Error -category NotInstalled "You must have nvim installed on your system."
+    }
+}
 
 
 # TODO: test this function for starting a powershell process as Admin.
 # EXPERIMENTAL: Function below is experimental.
 #function Start-PSAdmin {Start-Process pwsh -Verb RunAs}
-# Use curl chtsh as a function
-# TODO: Do same thing but use invoke-webrequest instead.
+# C
+function Start-wtAdminn {
+    if (Get-Command wt -erroraction ignore) {
+	Start-Process wt -Verb RunAs
+    } else {
+	Write-Error -Category NotInstalled "Windows Terminal is not installed on your system"
+    }
+}
 
 # This function serves as an example on how to write advanced functions.
 
