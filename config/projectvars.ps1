@@ -45,7 +45,7 @@ Set-Variable -Name randomnotes -Value $env:OneDrive\TODO\randomoutput.md -Descri
 
 function nodesch {set-location $nodeschool}
 
-$env:EDITOR = "nvim" # EDITOR variable to use when invoking unix-like programs.
+$env:EDITOR = "vim" # EDITOR variable to use when invoking unix-like programs.
 $env:PAGER = "less" # PAGER variable used by a ton of unix-like programs.
 Write-Output "Variables have been imported from $PSScriptRoot\projectvars.ps1"
 Set-Variable -Name cyghome -Value "D:\Cygwin\home\Carl" -Description "Set an env variable for this next time"
