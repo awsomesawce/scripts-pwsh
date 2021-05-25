@@ -36,3 +36,33 @@ function wslUserLogin {
     }
 }
 set-alias wslu -Value wslUserLogin -Description "Shorter access to wsl -u carlc"
+
+# Super-neat Manpager in traditional Verb-Noun format.
+function Get-UbuntuManpage {
+
+    Param([string]$SearchTerm)
+    Begin {
+	if (Get-Command wsl -ErrorAction Ignore) {
+	    Write-Host -ForegroundColor Green -Object "WSL is installed."
+	}
+	else {
+	    throw "WSL is not installed"
+	}
+    }
+    Process {
+	if ($SearchTerm) {
+	    Write-Verbose "Looking up `$SearchTerm $SearchTerm"
+	    wsl -u carlc man "$SearchTerm"
+	}
+	else {
+	    Write-Error -Category InvalidArgument "Need search term to look up manpage"
+	}
+    }
+    End {
+	Write-Host -ForegroundColor Magenta "Operation succeeded"
+    }
+
+}
+
+# Create alias because Get-UbuntuManpage is just too long
+set-alias -Name uman -Value Get-UbuntuManpage -Description "Shorter manpaging for easier typing"
