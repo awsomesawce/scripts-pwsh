@@ -39,9 +39,11 @@ $PSDirectory = (Split-path -Parent $PROFILE)
 
 # BEGIN Source Scripts {{{
 # TODO: Clean this up a bit.
-if ([string]::IsNullOrWhitespace($scrps)) {
-    $scrps = "$env:USERPROFILE\gitstuff\scripts-pwsh"} else {Write-Error "`$scrps var empty"
-    }
+
+$mainConfigScripts = @("$projectvarsScript", "$PROFILE", "$otherFunctionsScript")
+
+$scrps = if ([string]::IsNullOrWhitespace($scrps)) {
+    "$env:USERPROFILE\gitstuff\scripts-pwsh"}
 $Script:scriptspwsh = "$scrps\config"
 $otherFunctionsScript = "$Script:scriptspwsh\other_functions.ps1"
 
