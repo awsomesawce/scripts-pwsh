@@ -66,3 +66,24 @@ function Get-UbuntuManpage {
 
 # Create alias because Get-UbuntuManpage is just too long
 set-alias -Name uman -Value Get-UbuntuManpage -Description "Shorter manpaging for easier typing"
+
+function aptitudeshow {
+    <#
+    .Description
+    Use aptitude show from powershell
+    #>
+    param([string]$Term, [switch]$Page)
+    if (Get-Command wsl -erroraction ignore) {
+	if (($Term) -and ($Page)) {
+	    "Showing $Term on 'aptitude' with $env:Pager"
+	    wsl -u carlc aptitude show $Term | less -r
+	} elseif ($Term) {
+	    wsl -u carlc aptitude show $Term | less -r
+	} else {
+	    Write-Error "Need search term"
+	}
+    } else {
+	Write-Error "Wsl command not found" -Category NotInstalled
+    }
+}
+

@@ -149,3 +149,10 @@ $ImportantHashArr = @($backupDirs, $newestDocumentDirs)
 function listPowershellNotes {
     Get-Childitem "$env:OneDrive\Notable\notes\Powershell*"
 }
+
+# This function goes to the specific directory
+function go2perlsnips {
+    $perlsnips = "$snippets\perl"
+    (Test-Path $perlsnips) ? (Set-Location $perlsnips) : (
+    Write-Error "`$snippets\perl not there")
+}

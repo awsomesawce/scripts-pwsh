@@ -19,3 +19,8 @@ function rgtodo { rg TODO . }
 # Or for regular grep
 function greptodo {grep TODO .}
 ```
+
+## 5/30/2021
+
+currentFile = "./config/moduleHash.ps1"
+- [ ] Finish `$currentFile`, then use `Convertto-Json` to use it in other languages and apis.
