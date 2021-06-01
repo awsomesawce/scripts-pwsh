@@ -20,8 +20,9 @@ function OpenIn-Vim {
     if (Get-Command vim -ErrorAction Ignore) {
 	# Simple if statement
 	if ($File) {vim -u "~/.vimrc" "$File"} else {vim -u "~/.vimrc"}
+	return Set-Alias myVim -Value OpenIn-Vim -Description "An alternative to setting an alias for vim"
     } else {
 	Write-error "Vim executable not found in `"`$env:PATH`""
     }
 }
-# This is just to set the length to be longer than a specific number.
+# Set an alias for this vim function

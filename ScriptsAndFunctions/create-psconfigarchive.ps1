@@ -5,7 +5,7 @@
 # Set-Alias -Name psconfArchive -Value "$scrps\Scripts\create-psconfigarchive.ps1"
 
 function create-PSConfigArchive {
-    $pwshConfigBackupDir = "$($dotfileDirs[0])windows\dest"
+    $pwshConfigBackupDir = "$($dotfileDirs[0])windows\destination"
     $compParams = @{
 	Path="$scriptspwsh"
 	DestinationPath="$pwshConfigBackupDir\pwshConfig_$(Get-Date -Format FileDate).zip"

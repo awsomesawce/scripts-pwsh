@@ -44,11 +44,11 @@ Param(
 )
 
 if ($Path) {
-    Start-Process "$Path"
+    Invoke-item "$Path"
 } else {
     $Path = "D:\Carl\Downloads\Latest-Import-From-C\info\abs-guide\index.html"
     Write-Verbose "Opening abs-guide index"
-    Start-Process "$Path"
+    Invoke-Item "$Path"
 }
 
 Write-Verbose "Script complete"
