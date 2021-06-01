@@ -102,7 +102,7 @@ function Source-Chocofuncs {
 Source-Chocofuncs
 
 function Source-UsefulNavFunctions {
-    $usefulNavFunctions = "C:\Users\Carl\gitstuff\scripts-pwsh\Scripts\useful-nav-functions.ps1"
+    $usefulNavFunctions = "C:\Users\Carl\gitstuff\scripts-pwsh\ScriptsAndFunctions\useful-nav-functions.ps1"
     if (Test-Path "$usefulNavFunctions") {
 	Write-Information "Dot-Sourcing $usefulNavFunctions"
 	. "$usefulNavFunctions"
@@ -111,6 +111,13 @@ function Source-UsefulNavFunctions {
     }
 }
 Source-UsefulNavFunctions
+
+$Script:textFunctions = if ($scrps) {"$scrps\ScriptsAndFunctions\textFunctions.ps1"}
+if (Test-Path $Script:textFunctions) {
+    . "$Script:textFunctions"
+} else {
+    Write-Error "$Script:textFunctions not found"
+}
 
 # END Source Scripts }}}
 
@@ -121,16 +128,12 @@ $DOTFILESGIT = "$env:USERPROFILE\gitstuff\my-dotfiles"
 # use single-quotes for strings with spaces
 # TODO: In progress: Moving Set-Alias declarations to separate
 # file. other_functions.ps1 in config dir.
-Function lsWide {Get-ChildItem | Format-Wide}
-Set-Alias -Name lsw -Value lsWide -Description 'ls but format-wide'
-Set-Alias -Name list -Value Get-ChildItemColorFormatWide
 Set-Alias -Name lsc -Value Get-ChildItemColorFormatWide -Description "A better color ls"
 
 # This one sets an alias for the ri command in ruby
 set-alias -name rubyri -value D:\Ruby27-x64\bin\ri.cmd -Description "A workaround for ruby's ri, cuz in pwsh ri is remove-item"
 Set-Alias -Name exp -Value explorer.exe
 Set-Alias -Name man -Value D:\Cygwin\bin\man.exe -Description "Show info file from cygwin which includes a lot more documentation than the windows emacs info"
-#Set-Alias -Name lsc -Value Get-ChildItemColorFormatWide -Description "Better alias for color ls"
 ## TODO: Move Aliases and Functions into their own respective files and source each file.
 ## Functions
 
@@ -188,7 +191,6 @@ Set-Variable pwshsnippets -Value "D:\Carl\OneDrive\snippets\pwsh\powershell_snip
 # refer to the script file for ease of access
 # This expression is necessary for python's fuck module to work.
 #Invoke-Expression "$(thefuck --alias)"
-# This is a test
 # PowerShell parameter completion shim for the dotnet CLI
 Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
      param($commandName, $wordToComplete, $cursorPosition)
