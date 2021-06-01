@@ -27,12 +27,44 @@ function aptcsearch {
 	Write-Error "Need search term"
     }
 }
+#
+# TODO: Invoke a function that removes Nodejs' PATH entry before logging into UBUNTU.
+#
+
+function Change-WSLPATH {
+    <#
+    .Description
+    Changes PATH specifically before logging into UBUNTU's shell
+    .NOTES
+    INPROGRESS: Add options for removing certain parts of PATH.
+    #>
+
+    if ($env:PATH.Contains('npm')) {
+	$pathconf = $env:PATH.Replace('C:\Program Files\nodejs\;', '')
+	$pathconfnew = $pathconf.Replace('D:\Carl\AppData\npm;', '')
+    }
+}
+
 function wslUserLogin {
+    <#
+    .Description
+    Log into wsl with optional args
+    .NOTES
+    Adding PATH changer to get rid of NODEJS entry before logging in.
+    #>
     # Check and make sure wsl is installed.
-    if (Get-Command wsl -ErrorAction ignore) {
-	wsl -u carlc 
-    } else {
-	Write-Error "wsl executable not found in Path."
+    Begin {
+	Change-WSLPATH
+    }
+    Process {
+	if (Get-Command wsl -ErrorAction ignore) {
+	    wsl -u carlc 
+	} else {
+	    Write-Error "wsl executable not found in Path."
+	}
+    }
+    End {
+	Write-Output "Done"
     }
 }
 set-alias wslu -Value wslUserLogin -Description "Shorter access to wsl -u carlc"

@@ -11,12 +11,14 @@ I personally like using unix filepaths because the forward-slash key is easier t
   Even when using `pwsh -c "Some-Command"`, it will load the main profile and then exit.
   However, you can use `pwsh -noprofile` (or `pwsh -nop`) to tell pwsh to _not_ load a profile.
 
-- `./Profile.ps1`: This is the _system_'s powershell profile while the one with "Microsoft*" in the name is the _user's_ powershell profile.
+- `./Profile.ps1`: This is the _system_'s powershell profile while the one with "Microsoft" in the name is the _user's_ powershell profile.
   You can test which profile your current powershell session is using by referencing the `"$PROFILE"` variable.
 - `.\other_functions.ps1`: This is my main function and alias script which I source from `$PROFILE`
 
-- `.\projectVars.ps1`: This is a script that contains a lot of my project directories and files as `$variables`.  
+- `.\projectVars.ps1`: This is a script that contains a lot of my project directories and files as `$variables`.
   This allows me to quickly switch between projects as long as I know the variable name.
+
+- `.\wslFunctions.ps1`: This list of functions allows me to interact with certain wsl programs like `apt` straight from __Powershell__
 
 ## Variables pointing to config files
 
