@@ -258,19 +258,29 @@ set-alias -Name nvim-qt -Value nvim-qt.ps1 -Description "Always point to nvim-qt
 # Use this instead of cheatsheet for better functionality like error-handling aka argument handling
 # TODO: more testing required
 function better-chtsh {
-    param([string]$SearchTerm)
-    if ($SearchTerm) {
-	Invoke-RestMethod -Uri "https://cheat.sh/$SearchTerm"
+    <#
+    .Description
+    better-chtsh: a better cheatsheet script
+    .Notes
+    Adding a `$Page parameter soon.
+    #>
+    param([string]$SearchTerm, [switch]$UseCurl)
+    if (($SearchTerm) -and ($UseCurl)) {
+	curl "https://cht.sh/$SearchTerm"
+    } elseif ($SearchTerm) {
+	Invoke-RestMethod -Method Get -Uri "https://cht.sh/$SearchTerm"
     } else {
 	write-error "This function requires an argument to look up a term on cht.sh"
     }
 }
+
+Set-Alias -Name chtsh -Value better-chtsh -Description "Using a new function for chtsh"
 function pschtshPage {
     if ($args) {
         Invoke-WebRequest -Uri "https://cht.sh/$args" | Select-Object -ExpandProperty Content | less -r
     } else {
         write-error "Usage: command needs an argument to function"
-        return 1
+        return
     }
 }
 # The above pschtshPage function is the same as the previous chtsh command, but it will
@@ -284,4 +294,3 @@ function groffunc {
         Type in the path of the manpage you want to convert"
     }
 }
-Set-Alias -Name chtsh -Value better-chtsh -Description "Using a new function for chtsh"

@@ -64,3 +64,22 @@ function Committo-GitSimple {
         return
     }
 }
+function myGitStatus {
+<#
+.Description
+A more consise git status with parameters added in.
+#>
+	
+param([switch]$Short, [switch]$Verbose)
+if ($Short) {
+    git status -s
+}
+elseif ($Verbose) {
+    git status -v
+}
+else {
+    git status
+}
+
+}
+Set-Alias gitst -Value myGitStatus -Description "A better version of the gitst alias/function"

@@ -11,7 +11,9 @@ It also includes `.bat` files which are similar.
 - `.\pwsh_help`: random powershell help files (ignored by git).
 - `.\tests`: test folder for testing output (ignored by git).
 - `.\bin`: Small startup scripts are located here, including a pwsh -noprofile startup script.
-- `.\Scripts`: Useful scripts for maintenance and convenience.  This is the default location of future scripts.
+- `.\learning`: Scripts that are strictly for my learning purposes.
+- `.\docs`: New documentation will be located in the wiki portion of the repo.  URL [here]("https://github.com/awsomesawce/scripts-pwsh/wiki")
+- `.\ScriptsAndFunctions`: Useful scripts for maintenance and convenience.  This is the default location of future scripts.
 
 The `gotosleep.bat` file had been created and linked to a custom task using `taskscheduler` on windows.  
 INFO: **DO NOT MOVE**

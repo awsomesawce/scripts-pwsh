@@ -24,3 +24,4 @@ function OpenIn-Vim {
 	Write-error "Vim executable not found in `"`$env:PATH`""
     }
 }
+# This is just to set the length to be longer than a specific number.
