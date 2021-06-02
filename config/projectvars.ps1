@@ -23,17 +23,19 @@ $script:configDir = "$Local:scriptspwshDir/config"
 # Just get the string.
 Set-Variable -Name profileGitTracked -Value "$Script:configDir/Microsoft.PowerShell_profile.ps1"
 # Then, set the rest of the current project variables.
-set-variable -Name labscurrent -Value "~/Downloads/labs-node/labs-jan-5-2021/labs" -Description "Current labs"
 
 # NOTE: This is a demonstration on how to create a environment variable using Set-Item.
 # NOTE: Set-Variable only refers to the scope of the Powershell session, and doesn't share vars with other processes.
 Set-Item -Path Env:\UserProfileD -Value (Get-Item "D:\Carl") # This is a variable that leads to my D drive user profile.
+set-variable -Name UserProfileD -Value $env:UserProfileD
 
 # TODO: Consolidate some important project vars into arrays or hash tables!  
 #+ Great idea!
 
 Set-Variable -Name GitDirectoryD -Value $UserProfileD\Documents\GitHub -Description "Main directory for github hosted projects"
 Set-Variable -Name nodeschool -Value "D:\Carl\Documents\GitHub\node-school\" -Description "node-school directory"
+# TODO: fix labscurrent variable
+#set-variable -Name labscurrent -Value "~/Downloads/labs-node/labs-jan-5-2021/labs" -Description "Current labs"
 Set-Variable -Name nodewebpackproj -Value "D:\Carl\Documents\GitHub\my-webpack-demo" -Description "My webpack demo git dir"
 Set-Variable -Name pwshSnippetsFile -Value "D:\Carl\OneDrive\snippets\pwsh\powershell_snippets.txt" -Description "out-file for writing quick powershell snippets from the command line"
 Set-Variable -Name pwshSnippetsDir -Value (Split-Path -Parent "$pwshSnippetsFile")
@@ -53,17 +55,20 @@ function Goto-NodeSchool {
 }
 
 # UPDATE: Added EDITOR and PAGER declarations to main $PROFILE
-#$env:EDITOR = "vim" # EDITOR variable to use when invoking unix-like programs.
-#$env:PAGER = "less" # PAGER variable used by a ton of unix-like programs.
-Write-Output "Variables have been imported from $PSScriptRoot\projectvars.ps1"
 Set-Variable -Name cyghome -Value "D:\Cygwin\home\Carl" -Description "Set an env variable for this next time"
 
 ($profile -clike "*Microsoft*") ? ("Default powershell profile " + $PROFILE + " loaded") : ("Powershell profile does not contain `"Microsoft`"")
 # Add variable for perlcbin installed from scoop
 $perlcbin = Get-item $env:USERPROFILE\scoop\apps\perl\current\c\bin\
-$binDirs = "$env:OneDrive\Desktop", "$env:USERPROFILE\bin", "D:\Carl\bin"
+# Add variable that represents the most common bin dirs
+$binDirs = @("$env:OneDrive\Desktop\bin", "$env:USERPROFILE\bin", "D:\Carl\bin")
 # Add perlbin variable on 04/08/2021 17:26:03.
 $perlbin = "C:\Users\Carl\scoop\apps\perl\current\perl\bin"
+
+# Add rakubin variables
+$env:rakubin = "C:\Users\Carl\scoop\apps\rakudo-star\current\share\perl6\site\bin\"
+$rakubin = $env:rakubin
+
 function listBinDirs {
   Write-Output "This will list all the bin directories and optionally their contents."
   Write-Output "`$binDirs is an array"
@@ -71,20 +76,24 @@ function listBinDirs {
   Write-Output "`$perlcbin = $perlcbin"
   # IN-PROGRESS: Add more directories to these variables.
   Write-Output "`$perlbin = $perlbin"
+  Write-Output "`$rakubin = $rakubin"
 }
 
 # Common Spelling mistakes
 set-alias -Name dotent -Value dotnet -Description "Start dotnet on spelling error"
 set-alias -Name get-hlep -Value get-help -Description "Spelling error correction"
+
 $snippets = "$env:OneDrive\snippets"
 
+# Set barebones profile variables for easy navigation.
 $barebonesDir = "D:\Carl\OneDrive\snippets\pwsh\barebones\"
 $barebonesFunctionScript = Get-Item "D:\Carl\OneDrive\snippets\pwsh\barebones\barebones_Functions.ps1"
 
 # TODO: Put this function in a _misc_functions.ps1 file or something. :DONE:
 
 set-variable documents -Value "D:\Carl\Documents" -Description "Documents folder that explorer points to.  Powershell folder is also in this folder"
-$dotfileDirs = @((Get-Item D:\Carl\OneDrive\dotfiles_backup\), (Get-Item C:\Users\Carl\gitstuff\my-dotfiles\))
+# dotfileDirs now outputs the full name of the items in question.
+$dotfileDirs = @((Get-Item D:\Carl\OneDrive\dotfiles_backup\).FullName, (Get-Item C:\Users\Carl\gitstuff\my-dotfiles\).FullName) # TODO: Hope that works.
 $zshlovers = get-item D:\Carl\OneDrive\snippets\bash\zsh-only\zsh-lovers-manpage.html
 $curSnipFile = Get-Item D:\Carl\OneDrive\snippets\pwsh\powershell_learning_new.ps1
 $editorconfigtemplate = "C:\Users\Carl\gitstuff\my-dotfiles\templates\template.editorconfig"
@@ -97,7 +106,7 @@ $newestDocumentDirs = @{
     Name = "List of New Document Dirs"
     NameOfHashTable = "`$newestDocumentDirs"
     NotableNotes="$env:OneDrive\Notable\notes"
-    MDBook= Get-Item ~/gitstuff/mdbook_test
+    MDBook= Get-Item "$env:USERPROFILE\gitstuff\mdbook_test"
     bashSnippets = Get-item "$env:OneDrive\snippets\bash"
     pwshSnippets = "$pwshSnippetsDir"
     OneDriveDocuments = "$env:OneDrive\Documents"
@@ -134,6 +143,19 @@ $backupDirs = @{
 
 }
 
+$msysFiles = @{
+    description = "Hash table consisting of deterministic way of finding msys files."
+    msysDotfilesGitDir = if ($env:myDotfiles) {"$env:myDotfiles\msys2"} else {"$env:USERPROFILE\gitstuff\my-dotfiles\msys2"}
+    msysDotfilesBackupDir = if (Test-Path $dotfileDirs[0]) {"$($dotfileDirs[0])\msys2"}
+    msysShellFiles = @{
+	msysBashRc = (Test-Path "~/.bashrc") ? ("$env:HOME\.bashrc") : ($null && Write-Error "bashrc not found")
+	msysZshRc = if (Test-Path "~/.zshrc.local") {"$env:USERPROFILE\.zshrc.local"}
+	msysEntryFile = if (Test-Path "~/.msysEntry") {"$env:USERPROFILE\.msysEntry"}
+	msysEnvFile = "$($msysFiles.msysDotfilesGitDir)\.msysEnv" || ($env:myDotfiles) ? `
+	    ("$env:myDotfiles\msys2\.msysenv") : (Write-Error "Something is wrong")
+    }
+}
+
 # ImportantHash hash table
 # EXPERIMENTAL: This is for testing nested hash tables
 
@@ -147,7 +169,13 @@ $ImportantHashArr = @($backupDirs, $newestDocumentDirs)
 # This is the simplest function for listing powershell notes in my Notable
 #+ directory.
 function listPowershellNotes {
-    Get-Childitem "$env:OneDrive\Notable\notes\Powershell*"
+    if (Test-Path "$env:OneDrive\Notable\notes") {
+	Get-Childitem "$env:OneDrive\Notable\notes\Powershell*"
+    }
+    if (Test-Path "$env:UserProfile\gitstuff\scripts-pwsh-wiki") {
+	Get-ChildItem "$env:UserProfile\gitstuff\scripts-pwsh-wiki"
+    }
+    return $pwshNotes = @((Get-Childitem "$env:OneDrive\Notable\notes\Powershell*"), (gci "$env:UserProfile\gitstuff\scripts-pwsh-wiki"))
 }
 
 # This function goes to the specific directory

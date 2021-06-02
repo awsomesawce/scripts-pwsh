@@ -294,3 +294,4 @@ function groffunc {
         Type in the path of the manpage you want to convert"
     }
 }
+set-alias p6d -Value "C:\Users\Carl\scoop\apps\rakudo-star\current\share\perl6\site\bin\p6doc.bat" -Description "perl6 documentation tool"
