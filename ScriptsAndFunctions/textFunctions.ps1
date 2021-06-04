@@ -15,14 +15,9 @@ else {
 }
 }
 
-function OpenIn-Vim {
-    param([string]$File)
-    if (Get-Command vim -ErrorAction Ignore) {
+function Open-inVim {
 	# Simple if statement
-	if ($File) {vim -u "~/.vimrc" "$File"} else {vim -u "~/.vimrc"}
-	return Set-Alias myVim -Value OpenIn-Vim -Description "An alternative to setting an alias for vim"
-    } else {
-	Write-error "Vim executable not found in `"`$env:PATH`""
-    }
+	if ($args) {vim -u "~/.vimrc" "$args"} else {vim -u "~/.vimrc"}
 }
 # Set an alias for this vim function
+
