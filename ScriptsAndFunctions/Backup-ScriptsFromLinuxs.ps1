@@ -1,4 +1,3 @@
-function Backup-ScriptsFromLinuxs {
 <#
 .Description
 A backup script with many conditionals and tests on the way down.
@@ -24,7 +23,5 @@ Process {
 }
 End {
     Write-Output "You have reached the end of the script, congratulations!"
-}
-
 }
 

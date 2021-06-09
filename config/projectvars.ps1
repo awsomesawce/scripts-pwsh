@@ -184,3 +184,7 @@ function go2perlsnips {
     (Test-Path $perlsnips) ? (Set-Location $perlsnips) : (
     Write-Error "`$snippets\perl not there")
 }
+$newestDocumentDirs.Add("json_data_learning", "$PWD")
+# TODO: Correct variable name from rememberfile to todo or todofile.
+$todo = $rememberfile
+$nodedocs = C:\Users\Carl\dumps\nodedocs\latest-fermium\api

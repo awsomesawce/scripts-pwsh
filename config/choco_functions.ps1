@@ -10,6 +10,7 @@ function chocosearch {
     } else { write-error "Must provide an argument to this function" }
 }
 function scoopinfo {
+
     $Function:usage = "Usage: sinfo `"program_to_lookup`""
     if ($args) {
         if (Get-Command scoop -ErrorAction Ignore) {
@@ -50,3 +51,21 @@ function chocoinfo {
 }
 
 
+function iterate-cinfo {
+<#
+.Description
+Set $pkgarr to an array of patterns you want to look up with choco info
+.NOTES
+Designed to be used with choco_functions.ps1
+.TODO
+Create option for picking filepath for Tee-Object
+#>
+
+if ($pkgarr) {
+    foreach ($pkg in $pkgarr) {
+        cinfo -Pattern $pkg | Tee-Object -FilePath "cinfo_test.txt" -Append -Verbose
+    }
+}
+else { throw "Need `$pkgarr set with values to look up in cinfo" }
+
+}

@@ -1,0 +1,18 @@
+
+    Directory: C:\Users\Carl\gitstuff\scripts-pwsh\ScriptsAndFunctions
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a---            5/8/2021  5:26 AM           1290 copyto-backup-dirs.ps1
+-a---           2/26/2021 11:58 PM            598 cp_nvim_config.ps1
+-a---           5/10/2021  6:40 PM            411 create-7z-archive.ps1
+-a---            6/1/2021  8:19 AM            891 create-psconfigarchive.ps1
+-a---            6/2/2021  7:27 PM              0 dirsize.txt
+-a---           5/31/2021 11:03 PM           1186 fileFunctions.ps1
+-a---            6/1/2021  8:36 AM            476 msysFunctions.ps1
+-a---            6/1/2021  8:53 AM            823 open-AbsGuide.ps1
+-a---            6/2/2021  7:25 PM            592 README.scripts.md
+-a---            6/2/2021  4:43 PM            578 textFunctions.ps1
+-a---           5/31/2021 12:21 AM           1158 updatePSProfileFunc.ps1
+-a---           5/24/2021 11:58 AM            514 useful-nav-functions.ps1
+
