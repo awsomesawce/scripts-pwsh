@@ -145,9 +145,9 @@ function list-bigfiles {
     param([int]$Len)
     # if user enters length, show files greater than that length.
     if ($Len) {
-	get-childitem | where-object -Property length -gt $Len | sort-object -property Length -Ascending
+	get-childitem | where-object -Property length -gt $Len | sort-object -property Length -Decending
     } else {
-	get-childitem | where-object -Property length -gt 10000 | sort-object -property Length -Ascending
+	get-childitem | where-object -Property length -gt 10000 | sort-object -property Length -Decending
     }
 }
 set-alias lsbig list-bigfiles -description "Shorter way to list big files"
