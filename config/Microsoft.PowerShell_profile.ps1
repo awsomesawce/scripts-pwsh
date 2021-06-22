@@ -13,6 +13,9 @@
 # Disable Microsoft Telemetry
 $env:POWERSHELL_TELEMETRY_OPTOUT = 1
 
+# Adjust Python Path.
+${env:Python PATH} = "C:\Users\Carl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache"
+
 # Add requires statements because I'm using ternary operators.
 #Requires -Version 6.2
 #Requires -PSEdition Core
@@ -25,9 +28,15 @@ $env:POWERSHELL_TELEMETRY_OPTOUT = 1
 $env:PAGER = "less" # TODO: add if statements for env var declaration.
 $env:EDITOR = "vim" # TODO: Use `Set-Item Env:\VAR` syntax instead.
 
+# Nifty code block:
+# Sets the windows code page to UTF8 if it is not set, and reports back if it is correctly set.
+($codepage.EndsWith("65001")) ? (Write-Output "codepage is correctly set") : $(
+Write-Output "Setting codepage"
+chcp 65001 | Out-Null
 $codepage = $(chcp)
-# Check if codepage is set to 65001, and set it if it is not
-($codepage -like "*65001*") ? ("Code page is already set to utf8!  Yay!") : (chcp 65001 > $null)
+Write-Output "Codepage is now set to 65001"
+)
+
 # Import current modules.
 Import-Module posh-git
 Import-Module oh-my-posh
@@ -40,12 +49,12 @@ $PSDirectory = (Split-path -Parent $PROFILE)
 # BEGIN Source Scripts {{{
 # TODO: Clean this up a bit.
 
-$mainConfigScripts = @("$projectvarsScript", "$PROFILE", "$otherFunctionsScript")
 
 $scrps = if ([string]::IsNullOrWhitespace($scrps)) {
     "$env:USERPROFILE\gitstuff\scripts-pwsh"}
 $Script:scriptspwsh = "$scrps\config"
 $otherFunctionsScript = "$Script:scriptspwsh\other_functions.ps1"
+$mainConfigScripts = @("$projectvarsScript", "$PROFILE", "$otherFunctionsScript")
 
 # Try ternary operation.
 # TODO: Add a failsafe so it works with Windows Powershell too.
@@ -198,3 +207,4 @@ Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
             [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
          }
  }
+
