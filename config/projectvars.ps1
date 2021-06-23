@@ -188,3 +188,4 @@ $newestDocumentDirs.Add("json_data_learning", "$PWD")
 # TODO: Correct variable name from rememberfile to todo or todofile.
 $todo = $rememberfile
 $nodedocs = "C:\Users\Carl\dumps\nodedocs\latest-fermium\api"
+$templates = "C:\Users\Carl\gitstuff\my-dotfiles\templates\"

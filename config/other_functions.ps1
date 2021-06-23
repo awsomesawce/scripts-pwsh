@@ -81,10 +81,20 @@ function Send-Greeting {
     Write-Output ("Hello " + $Name + "!")
   }
 }
-function duks { Start-Process https://duckduckgo.com/?q=$args }
+function duks {
+    param([System.String]$SearchTerm)
+    if ($SearchTerm) {
+    Start-Process https://duckduckgo.com/?q=$args
+    }
+    # Fix the elseif
+    elseif ($SearchTerm -eq "github") {
+	Start-Process "https://github.com/awsomesawce/scripts-pwsh"
+    } else {
+	Start-Process "https://duckduckgo.com"
+    }
+}
 # The above implements what Ive been trying to do for a long time
 # Search from the command line!
-function kaku { wsl -u carlc kak "$args" }
 function gitpushsync { git add . && git commit -m "$args" && git pull && git push }
 function gitpp { git pull && git push }
 
@@ -96,12 +106,11 @@ function gitpp { git pull && git push }
 #
 # psWhich is a function that mimicks the output of the `which` unix command.
 function psWhich { Get-Command $args | Select-Object -ExpandProperty Source }
-# duks allows the user to search from the command line.
-function duks { Start-Process https://duckduckgo.com/?q=$args }
 # gotoexelocation is a nice command that allows you to chdir right to the directory where 
 # the executable is located.  Pretty neat, huh?
 function gotoexelocation {
-  Set-Location (Split-Path -Parent (get-command $args | Select-Object -ExpandProperty Source))
+    
+    Set-Location (Split-Path -Parent (get-command $args | Select-Object -ExpandProperty Source))
 }
 Set-Alias -Name ExeLocation -Value gotoexelocation -Description "Shorter gotoexelocation"
 function gotoNotesDir { set-location $env:OneDrive\Notable\notes }
@@ -126,17 +135,18 @@ Write-Output "other_functions file has been loaded from here: $otherFunctionsScr
 # TODO: separate the wsl-specific functions into its own file.
 #       Modules are easier to maintain.
 #### Source WSL-Functions Script
-$scrps = "~/gitstuff/scripts-pwsh"
+# IMPORTANT: This must be done from $PROFILE instead of this script!
+# NOTE: All external scripts must be sourced directly from $PROFILE
+# TODO: Fix this up!
+$scrps = "$env:USERPROFILE\gitstuff\scripts-pwsh"
 $wslFuncs = "$scrps\config\wslFunctions.ps1"
 
 if (Test-Path $wslFuncs) {
-    Write-Verbose "Sourcing wslFunctions.ps1 script"
+    Write-Host -ForegroundColor Yellow "Sourcing wslFunctions.ps1 script"
     . $wslFuncs
 } else {
     Write-Error "$wslFuncs file not found"
 }
-
-# TODO: reorganize variables
 
 # BEGIN File-System functions {{{
 
@@ -301,3 +311,4 @@ set-alias tar -Value tar.ps1 -Description "Makes sure to reference the updated t
 function Sort-ByWriteTime {
 (Get-Childitem | sort -Property LastWriteTime)
 }
+set-alias -Name wh -Value Write-Host
