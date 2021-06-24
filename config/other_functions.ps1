@@ -81,13 +81,15 @@ function Send-Greeting {
     Write-Output ("Hello " + $Name + "!")
   }
 }
+
 function duks {
     param([System.String]$SearchTerm)
     if ($SearchTerm) {
-    Start-Process https://duckduckgo.com/?q=$args
+        Start-Process "https://duckduckgo.com/?q=$SearchTerm"
     }
     # Fix the elseif
     elseif ($SearchTerm -eq "github") {
+        Write-Verbose "Opening awsomesawce/scripts-pwsh url in browser."
 	Start-Process "https://github.com/awsomesawce/scripts-pwsh"
     } else {
 	Start-Process "https://duckduckgo.com"
