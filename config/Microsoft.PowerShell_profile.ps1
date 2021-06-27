@@ -1,7 +1,8 @@
 # Carl's kickass Powershell Profile!
-# It's a little messy but it gets the job done.
+# Description: Powershell Profile that is sourced at every invocation of Powershell.
+# 	Use `pwsh -nop` for cli scripting from another shell.
 # Author: Carl C. (awsomesawce at outlook dot com)
-# Date: 4/26/2021
+# Date: 6/22/2021
 # License: MIT
 # GitRepo: https://github.com/awsomesawce/scripts-pwsh/config
 # OriginalLocation: D:\Carl\Documents\Powershell
@@ -25,11 +26,17 @@ ${env:Python PATH} = "C:\Users\Carl\AppData\Local\Packages\PythonSoftwareFoundat
 #([string]::IsNullOrWhiteSpace($env:PAGER)) ? ($env:PAGER = "less" && Write-Output "Set `$env:PAGER to $env:PAGER.") : (Write-Output "`$env:PAGER already set to $env:PAGER")
 # Set `$env:EDITOR` if it is null or empty, otherwise leave it alone and report back.
 #([string]::IsNullOrWhitespace($env:EDITOR)) ? ($env:EDITOR = "vim" && Write-Output "Set `$env:EDITOR to $env:EDITOR.") : (Write-Output "`$env:EDITOR already set to $env:EDITOR")
-$env:PAGER = "less" # TODO: add if statements for env var declaration.
+
+# This little block of code tests whether Env:\PAGER has the correct
+# value, then it acts accordingly.
+((Get-Item Env:\PAGER).Value -eq "less") ? $(Write-Output "``less`` is already _set_ as the value for ``env:PAGER``") : $(Write-Output "_less_ is not the pager")
+# TODO: add if statements for env var declaration.
 $env:EDITOR = "vim" # TODO: Use `Set-Item Env:\VAR` syntax instead.
 
 # Nifty code block:
 # Sets the windows code page to UTF8 if it is not set, and reports back if it is correctly set.
+# TODO: Fix this.
+$codepage = $(chcp)
 ($codepage.EndsWith("65001")) ? (Write-Output "codepage is correctly set") : $(
 Write-Output "Setting codepage"
 chcp 65001 | Out-Null
@@ -196,7 +203,7 @@ Set-Variable pwshsnippets -Value "D:\Carl\OneDrive\snippets\pwsh\powershell_snip
 ## Sourcing Scripts
 . D:\Carl\Documents\PowerShell\Scripts\_rg.ps1 # source rg completion script
 
-# DONE: Copy the above two lines to .\Scripts\other_functions.ps1 scriptfile, and set a variable to 
+# DONE: Copy the above two lines to .\Scripts\other_functions.ps1 scriptfile, and set a variable to
 # refer to the script file for ease of access
 # This expression is necessary for python's fuck module to work.
 #Invoke-Expression "$(thefuck --alias)"
@@ -207,4 +214,3 @@ Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
             [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
          }
  }
-
