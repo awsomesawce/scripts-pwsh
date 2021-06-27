@@ -28,11 +28,12 @@ ${env:Python PATH} = "C:\Users\Carl\AppData\Local\Packages\PythonSoftwareFoundat
 #([string]::IsNullOrWhitespace($env:EDITOR)) ? ($env:EDITOR = "vim" && Write-Output "Set `$env:EDITOR to $env:EDITOR.") : (Write-Output "`$env:EDITOR already set to $env:EDITOR")
 
 # This little block of code tests whether Env:\PAGER has the correct
-# value, then it acts accordingly.
-((Get-Item Env:\PAGER).Value -eq "less") ? $(Write-Output "``less`` is already _set_ as the value for ``env:PAGER``") : $(Write-Output "_less_ is not the pager")
+# value, then it acts accordingly .
+($env:PAGER -eq "less") ? $(Write-Output "``less`` is already _set_ as the value for ``env:PAGER``") : `
+$(Write-Output "``less`` is not the pager, setting less as pager."` 
+$env:PAGER = "less")
 # TODO: add if statements for env var declaration.
-$env:EDITOR = "vim" # TODO: Use `Set-Item Env:\VAR` syntax instead.
-
+$env:EDITOR = "vim"
 # Nifty code block:
 # Sets the windows code page to UTF8 if it is not set, and reports back if it is correctly set.
 # TODO: Fix this.
