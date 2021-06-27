@@ -29,6 +29,8 @@ function chocoinfo {
     <#
     .Description
     Chocolatey info function
+    .NOTES
+    This is a purely experimental function.
     #>
     [cmdletbinding()]
     Param(

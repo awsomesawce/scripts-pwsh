@@ -314,3 +314,4 @@ function Sort-ByWriteTime {
 (Get-Childitem | sort -Property LastWriteTime)
 }
 set-alias -Name wh -Value Write-Host
+set-alias -Name cvfm -Value ConvertFrom-Markdown -Description "Easier to type convertfrom-markdown"
