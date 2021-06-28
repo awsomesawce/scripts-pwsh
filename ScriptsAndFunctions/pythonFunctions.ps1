@@ -1,5 +1,10 @@
 function pyhelp {
-
+<#
+.Description
+Open help articles directly from the Powershell terminal
+.Notes
+TODO: Write an equivalent bash script for this.
+#>
 param(
     [string]
     $HelpTerm
