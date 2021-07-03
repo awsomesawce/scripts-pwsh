@@ -189,3 +189,4 @@ $newestDocumentDirs.Add("json_data_learning", "$PWD")
 $todo = $rememberfile
 $nodedocs = "C:\Users\Carl\dumps\nodedocs\latest-fermium\api"
 $templates = "C:\Users\Carl\gitstuff\my-dotfiles\templates\"
+$pipxPath = "C:\Users\Carl\.local\bin\"

@@ -24,3 +24,4 @@ Set-Alias add -Value Add-Content -Description "An alias for Add-Content that jus
 Set-Alias -Name "sob" -Value "Select-Object" -Description "A shorter select"
 Set-Alias ghlp -Value Get-Help -Description "A short get-help"
 Set-Alias -Name "hlp" -Value "Help" -Description "An even shorter help.  One less letter."
+Set-Alias -Name "ll", "l" -Value Get-ChildItem -Description "All aliases for ls"

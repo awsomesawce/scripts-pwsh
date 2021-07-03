@@ -1,0 +1,41 @@
+{
+  "psake": {
+    "allCommands": "Assert Exec FormatTaskName Framework Get-PSakeScriptTasks Include Invoke-psake Invoke-Task Properties Task TaskSetup TaskTearDown",
+    "description": "A Powershell build tool similar to **Rake** in ruby",
+    "location": {
+      "value": "D:\\Carl\\Documents\\PowerShell\\Modules\\psake\\4.9.0",
+      "PSPath": "Microsoft.PowerShell.Core\\FileSystem::D:\\Carl\\Documents\\PowerShell\\Modules\\psake\\4.9.0",
+      "PSParentPath": "Microsoft.PowerShell.Core\\FileSystem::D:\\Carl\\Documents\\PowerShell\\Modules\\psake",
+      "PSChildName": "4.9.0",
+      "PSDrive": "D",
+      "PSProvider": "Microsoft.PowerShell.Core\\FileSystem",
+      "PSIsContainer": true,
+      "Mode": "d----",
+      "ModeWithoutHardLink": "d----",
+      "BaseName": "4.9.0",
+      "Target": null,
+      "LinkType": null
+    },
+    "commands": "Invoke-psake Exec"
+  },
+  "poshgit": {
+    "allCommands": "Add-PoshGitToProfile Expand-GitCommand Format-GitBranchName Get-GitBranchStatusColor Get-GitDirectory Get-GitStatus Get-PromptConnectionInfo Get-PromptPath New-GitPromptSettings Remove-GitBranch tgit Update-AllBranches Write-GitBranchName Write-GitBranchStatus Write-GitIndexStatus Write-GitStashCount Write-GitStatus Write-GitWorkingDirStatus Write-GitWorkingDirStatusSummary Write-Prompt Write-VcsStatus",
+    "description": "The most popular Powershell module for git integration",
+    "tags": "git automation completion",
+    "location": {
+      "value": "D:\\Carl\\Documents\\PowerShell\\Modules\\posh-git\\0.7.3\\",
+      "PSPath": "Microsoft.PowerShell.Core\\FileSystem::D:\\Carl\\Documents\\PowerShell\\Modules\\posh-git\\0.7.3\\",
+      "PSParentPath": "Microsoft.PowerShell.Core\\FileSystem::D:\\Carl\\Documents\\PowerShell\\Modules\\posh-git",
+      "PSChildName": "0.7.3",
+      "PSDrive": "D",
+      "PSProvider": "Microsoft.PowerShell.Core\\FileSystem",
+      "PSIsContainer": true,
+      "Mode": "da---",
+      "ModeWithoutHardLink": "da---",
+      "BaseName": "0.7.3",
+      "Target": null,
+      "LinkType": null
+    },
+    "commands": ""
+  }
+}
