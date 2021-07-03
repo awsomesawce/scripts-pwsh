@@ -96,6 +96,10 @@ $globalAppData="D:/Carl/Appdata"
 # If you want to start nvim without having any config, set the $env:XDG_CONFIG_HOME variable.
 #$env:XDG_CONFIG_HOME="C:\Users\Carl\.config"
 
+### BEGIN SOURCING PROFILE SCRIPTS
+### TODO: Make this a sourcable module for easy maintainability.
+
+
 # Source PATH_mods.ps1
 $Script:pwshconfig = (Get-Item "C:\Users\Carl\gitstuff\scripts-pwsh\config")
 $Script:pwshconfigstr = "C:\Users\Carl\gitstuff\scripts-pwsh\config"
@@ -136,6 +140,12 @@ if (Test-Path $Script:textFunctions) {
     Write-Error "$Script:textFunctions not found"
 }
 
+# NOTE: Array that lists every script file that is sourced upon pwsh init. INCOMPLETE
+$Script:sourcedPwshFiles = @("$pathModsScript", "$pwshconfigstr\choco_functions.ps1", "$scrps\ScriptsAndFunctions\useful-nav-functions.ps1", "$Script:textFunctions", "$scrps\config\other_functions.ps1")
+
+foreach ($i in $Script:sourcedPwshFiles) {
+    Write-Output "Sourced $i"
+}
 # END Source Scripts }}}
 
 $DOTFILESGIT = "$env:USERPROFILE\gitstuff\my-dotfiles"

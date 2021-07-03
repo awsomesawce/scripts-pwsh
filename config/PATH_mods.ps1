@@ -1,4 +1,4 @@
-# PATH_mods.ps1
+# Name: PATH_mods.ps1
 # Description: This is a small file implementing certain aliases that act as
 # a redirect to the proper command.
 # This is especially useful when the same command is installed in multiple locations and you want to use
@@ -21,6 +21,7 @@ $Script:msysbin = "D:\MSYS2\usr\bin"
 set-alias -Name msysbashalias -Value "$msysbin\bash.exe"
 
 # TODO: How to get rid of a PATH entry before loading wsl:
+# TLDR: I ended up installing nodejs to WSL using the default way.
 # Here's the situation:
 # I'm trying to reinstall nodejs on my Ubuntu WSL distro because nvm was giving me issues.
 # I decided to use [n](https://www.npmjs.com/package/n) instead.
