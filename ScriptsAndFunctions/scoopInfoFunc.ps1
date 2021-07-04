@@ -1,6 +1,5 @@
 #!/usr/bin/env -S pwsh -nop
 
-function scinfo {
     <#
     .Description
     Scoop info: Small script which allows multiple arguments to
@@ -15,6 +14,7 @@ param([string[]]$Name)
 if ($Name -and $(Get-Command scoop -ErrorAction ignore)) {
     if ($Name.Count -gt 1) {
         Write-Verbose "Count is greater than one"
+        Write-Information "Getting info for $Name"
         foreach ($thing in $Name) {
             scoop info "$thing"
         }
@@ -26,6 +26,4 @@ if ($Name -and $(Get-Command scoop -ErrorAction ignore)) {
 }
 else {
     Write-Error -Category SyntaxError "Must have an argument to the `$Name parameter."
-}
-
 }

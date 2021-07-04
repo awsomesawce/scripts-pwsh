@@ -212,6 +212,7 @@ Set-Variable -Name randomnotes -Value D:\Carl\OneDrive\TODO\randomoutput.md
 Set-Variable pwshsnippets -Value "D:\Carl\OneDrive\snippets\pwsh\powershell_snippets.txt" -Description "out-file for writing quick powershell snippets from the command line"
 
 ## Sourcing Scripts
+# TODO: Put all sourced scripts in the same place.
 . D:\Carl\Documents\PowerShell\Scripts\_rg.ps1 # source rg completion script
 
 # DONE: Copy the above two lines to .\Scripts\other_functions.ps1 scriptfile, and set a variable to
@@ -225,3 +226,6 @@ Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
             [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
          }
  }
+# ScoopInfoFunc alias.  This would usually go in other_functions.
+# It is a link to an external script, so to keep better track of it i am putting it in profile.
+set-alias scinfo -Value C:\Users\Carl\gitstuff\scripts-pwsh\ScriptsAndFunctions\scoopInfoFunc.ps1 -Description "Script for showing `"scoop info`" on multiple queries." -Option AllScope
