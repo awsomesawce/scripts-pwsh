@@ -2,9 +2,10 @@
 
 <#PSScriptInfo
 
-.VERSION 0.0.1
+.VERSION 0.1.0
 
-.GUID
+.GUID f1776f96-c3e8-4a8d-b5c2-788dc892e96f
+
 
 .AUTHOR Carl Capodice
 
@@ -14,9 +15,9 @@
 
 .TAGS TestModule TestScript
 
-.LICENSEURI 
+.LICENSEURI
 
-.PROJECTURI 
+.PROJECTURI
 
 .ICONURI
 
@@ -33,13 +34,15 @@ No release notes
 
 <#
 .DESCRIPTION
- Check for module updates from the PowerShell gallery and create a comparison object.
-
+Opens advanced bash scripting guide in the browser if no `-Path` is given.
+Otherwise invokes the item at path.
+.NOTES
+Located in scripts-pwsh/ScriptsAndFunctions
 #>
 
 [CmdletBinding()]
 Param(
-    [Parameter(Position = 0, HelpMessage = "Opens ABS Guide in the browser")]
+    [Parameter(Mandatory = $false, Position = 0, HelpMessage = "Opens ABS Guide in the browser")]
     [string[]]$Path
 )
 
