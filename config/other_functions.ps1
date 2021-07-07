@@ -333,3 +333,19 @@ Pip39 = "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.15
 InProgramFiles = "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.1520.0_x64__qbz5n2kfra8p0\python3.9.exe"
 }
 }
+
+# Very simple way to get-childitem format-wide without using color
+# The powershell module Get-ChildItemColor has some issues regarding showing
+# info about symbolic links (for python3.8.exe specifically) and others.
+
+function get-childitemwide {
+<#
+.Description
+Very simple way to list items in wide format
+#>
+
+Get-ChildItem | Format-Wide
+
+}
+set-alias -Name lsw -Value get-childitemwide -Description "New ls format-wide" -Option AllScope
+set-alias -Name subl -Value .\subl.exe -Description "Sublime Text 4 alias." -Option AllScope

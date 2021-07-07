@@ -10,15 +10,11 @@ function chocosearch {
     } else { write-error "Must provide an argument to this function" }
 }
 function scoopinfo {
-
-    $Function:usage = "Usage: sinfo `"program_to_lookup`""
     if ($args) {
         if (Get-Command scoop -ErrorAction Ignore) {
         scoop info "$args"
         } else {
             Write-Error "Scoop executable not found in PATH"
-            Write-Error -Message "$usage"
-            return
         }
     } else {
         "Usage: need argument"
@@ -53,21 +49,58 @@ function chocoinfo {
 }
 
 
-function iterate-cinfo {
+#function iterate-clist {
+#<#
+#.Description
+#Set $pkgarr to an array of patterns you want to look up with choco info
+#.NOTES
+#Designed to be used with choco_functions.ps1
+#.TODO
+#Create option for picking filepath for Tee-Object
+##>
+#param([string[]]$pkgarr)
+#if ($pkgarr) {
+#    foreach ($pkg in $pkgarr) {
+#        clist $pkg | Tee-Object -FilePath "~/dumps/txtfiles/cinfo_test.txt" -Append -Verbose
+#    }
+#}
+#else { throw "Need `$pkgarr set with values to look up in cinfo" }
+#
+#}
+
+function cinfo {
 <#
 .Description
-Set $pkgarr to an array of patterns you want to look up with choco info
+cinfo takes an array of pkg names and shows info about them
 .NOTES
-Designed to be used with choco_functions.ps1
-.TODO
-Create option for picking filepath for Tee-Object
+If it only detects one arg, it will act accordingly.
 #>
-
-if ($pkgarr) {
-    foreach ($pkg in $pkgarr) {
-        cinfo -Pattern $pkg | Tee-Object -FilePath "cinfo_test.txt" -Append -Verbose
+param([string[]]$Pkg)
+begin {
+    if (Get-Command -Name choco -CommandType Application -ErrorAction Ignore) {
+        Write-Output "Looking up $Pkg"
+    }
+    else {
+        throw "choco not found!"
     }
 }
-else { throw "Need `$pkgarr set with values to look up in cinfo" }
+process {
+    if ($Pkg) {
+        if ($Pkg.Count -gt 1) {
+            Write-Output "More than one pkg"
+            foreach ($p in $Pkg) {
+                choco info $p
+            }
+        }
+        else {
+            Write-Output "Just one package"
+            choco info $Pkg
+        }
+    }
+    else {
+        Write-Error "need package names"
+        throw
+    }
+}
 
 }
