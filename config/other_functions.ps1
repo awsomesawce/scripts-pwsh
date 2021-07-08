@@ -30,7 +30,7 @@ Function GitStatusFunc { git status }
 set-alias -Name gitst -Value GitStatusFunc -Description "Gets git status in one command."
 Set-Alias -Name l -Value Get-ChildItem -Description "List items in directory in one letter"
 Set-Alias -Name np -Value notepad.exe -Description "A simple way to open notepad"
-Function Open-Node-Docs { Start-Process https://nodejs.org/dist/latest-v14.x/docs/api/ }
+Function Open-Node-Docs { Start-Process "https://nodejs.org/dist/latest-v14.x/docs/api/" }
 Set-Alias -Name nodedocs -Value Open-Node-Docs -Description "Open NodeJS docs in a browser"
 
 ## Other useful functions
@@ -46,17 +46,21 @@ function nvimconfig {
 	Write-Error -category NotInstalled "You must have nvim installed on your system."
     }
 }
-
+set-alias nvimconf -Value nvimconfig -Description "Opens nvim init.vim file in nvim."
 
 # TODO: test this function for starting a powershell process as Admin.
 # EXPERIMENTAL: Function below is experimental.
 #function Start-PSAdmin {Start-Process pwsh -Verb RunAs}
 # C
 function Start-wtAdminn {
+    <#
+    .Definition
+    Simply starts Windows Terminal in Admin mode
+    #>
     if (Get-Command wt -erroraction ignore) {
 	Start-Process wt -Verb RunAs
     } else {
-	Write-Error -Category NotInstalled "Windows Terminal is not installed on your system"
+	Write-Error -Category NotInstalled "Windows Terminal is not installed on your `$env:PATH"
     }
 }
 
@@ -349,3 +353,6 @@ Get-ChildItem | Format-Wide
 }
 set-alias -Name lsw -Value get-childitemwide -Description "New ls format-wide" -Option AllScope
 set-alias -Name subl -Value .\subl.exe -Description "Sublime Text 4 alias." -Option AllScope
+set-alias -name wt -Value ((resolve-path ./wt.exe).Path)
+set-alias -Name pydocwin -Value "C:\Program Files\Python38\Tools\scripts\pydoc3.py" -Description "Location of pydoc3 script installed by python38.  It is not installed to path by default!"
+set-alias -Name psWhich -Value ".\ScriptsAndFunctions\stdaloneScripts\psWhich.ps1" -Description "Amazing little which script that emulates the which commmand in unix" -Option AllScope

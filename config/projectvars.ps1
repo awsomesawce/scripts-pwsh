@@ -187,6 +187,21 @@ function go2perlsnips {
 $newestDocumentDirs.Add("json_data_learning", "$PWD")
 # TODO: Correct variable name from rememberfile to todo or todofile.
 $todo = $rememberfile
-$nodedocs = "C:\Users\Carl\dumps\nodedocs\latest-fermium\api"
+$nodedocs = "C:\Users\Carl\dumps\nodedocs\latest-fermium\api" # TODO: move nodedocs somewhere else (D:)
 $templates = "C:\Users\Carl\gitstuff\my-dotfiles\templates\"
 $pipxPath = "C:\Users\Carl\.local\bin\"
+function gotoPythonSnips {
+<#
+.Description
+Simply goes to python snippets directory
+#>
+
+$x = "$snippets/python"
+if (Test-Path $x) {
+    cd $x
+}
+else {
+    Write-Error "$x not found"
+}
+
+}
