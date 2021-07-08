@@ -320,6 +320,8 @@ function Sort-ByWriteTime {
 set-alias -Name wh -Value Write-Host
 set-alias -Name cvfm -Value ConvertFrom-Markdown -Description "Easier to type convertfrom-markdown"
 set-alias -Name ll -Value Get-ChildItem -Description "Similar to bash ll"
+# TODO Add this to separate script file:
+# pythondirs {{{
 $listOfPythonDirs = @{
 Python38 = @{
 InLocalAppData = "C:\Users\Carl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.8_qbz5n2kfra8p0\LocalCache\local-packages\Python38\Scripts"
@@ -337,22 +339,24 @@ Pip39 = "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.15
 InProgramFiles = "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.9_3.9.1520.0_x64__qbz5n2kfra8p0\python3.9.exe"
 }
 }
-
+# }}}
 # Very simple way to get-childitem format-wide without using color
 # The powershell module Get-ChildItemColor has some issues regarding showing
 # info about symbolic links (for python3.8.exe specifically) and others.
 
 function get-childitemwide {
-<#
-.Description
-Very simple way to list items in wide format
-#>
+    <#
+    .Description
+    Very simple way to list items in wide format
+    #>
 
-Get-ChildItem | Format-Wide
+    Get-ChildItem | Format-Wide
 
 }
 set-alias -Name lsw -Value get-childitemwide -Description "New ls format-wide" -Option AllScope
-set-alias -Name subl -Value .\subl.exe -Description "Sublime Text 4 alias." -Option AllScope
-set-alias -name wt -Value ((resolve-path ./wt.exe).Path)
+# TODO: FIX THIS
+#set-alias -Name subl -Value .\subl.exe -Description "Sublime Text 4 alias." -Option AllScope
+# Find wt command...
+(Get-Command wt -ErrorAction Ignore) ? (Write-Output "Windows terminal found as `"wt`"") : (Write-Output "Windows Terminal not found on path.")
 set-alias -Name pydocwin -Value "C:\Program Files\Python38\Tools\scripts\pydoc3.py" -Description "Location of pydoc3 script installed by python38.  It is not installed to path by default!"
 set-alias -Name psWhich -Value ".\ScriptsAndFunctions\stdaloneScripts\psWhich.ps1" -Description "Amazing little which script that emulates the which commmand in unix" -Option AllScope

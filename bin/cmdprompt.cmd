@@ -6,7 +6,7 @@
 :: OriginalLocation: %USERPROFILE%\dumps\cmdprompt.cmd
 
 @ECHO off
-wt.exe new-tab
+start wt.exe new-tab
 cmd.exe /K
 @PROMPT $C$T$F$M$_$L$P$G$$
 ECHO "Prompt string has been set"
