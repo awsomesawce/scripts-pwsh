@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Initializing gitpod bash environment
+# My personal adjustments
+
+if [[ "$PWD" == "/workspace/scripts-pwsh" ]]; then
+    echo "You are in the root workspace directory"
+fi
+
+# Convenience variables {{{
+export ws=/workspace/scripts-pwsh
+# }}}
+
+# Common aliases {{{
+alias gohome="cd ~/"
+alias goback="cd /workspace/scripts-pwsh"
+alias ..='cd ..'
+alias ...="cd ../.."
+alias ....="cd ../../.."
+# }}}
