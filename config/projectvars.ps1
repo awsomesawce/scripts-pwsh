@@ -190,18 +190,22 @@ $todo = $rememberfile
 $nodedocs = "C:\Users\Carl\dumps\nodedocs\latest-fermium\api" # TODO: move nodedocs somewhere else (D:)
 $templates = "C:\Users\Carl\gitstuff\my-dotfiles\templates\"
 $pipxPath = "C:\Users\Carl\.local\bin\"
+
+# Ubuntu home directory path
+$UbuntuHome = "\\wsl$\Ubuntu-20.04\home\carlc"
+
 function gotoPythonSnips {
 <#
-.Description
-Simply goes to python snippets directory
+    .Description
+    Simply goes to python snippets directory
 #>
-
-$x = "$snippets/python"
-if (Test-Path $x) {
-    cd $x
+    $s = "$snippets/python"
+    if (Test-Path $s) {
+	cd $s
+    }
+    else {
+	Write-Error "$s not found"
+    }
 }
-else {
-    Write-Error "$x not found"
-}
-
-}
+# Set alias for sublime text, because it is not in path.
+set-alias subl -Value "D:\Program Files\Sublime Text\subl.exe" -Description "Sublime text executable" -Option None

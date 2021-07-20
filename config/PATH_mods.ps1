@@ -3,22 +3,35 @@
 # a redirect to the proper command.
 # This is especially useful when the same command is installed in multiple locations and you want to use
 # a specific version.
-# For instance, I have the program `which.exe` installed in 3 places: "D:\Cygwin\bin\which.exe", "D:\MSYS2\usr\bin\which.exe",
-# and "$env:USERPROFILE\bin\which.exe".
-# I want to use the `which` command located in "$env:USERPROFILE\bin\which.exe" because it is a 
-# _Windows_ port of the famous `which` command, which means it will print _Windows_
-# paths by default.
-
-# NOTES: Why do this?
-# I originally had installed `which` by way of `scoop install which` and this worked out fine, 
-# but the version that `scoop` has in their database is part of gnuwin which is an aging project.
-# There is a way to get the same results by using a Powershell function, but I want to be able to 
-# use this `which` command no matter what shell I'm using, whether it be cmd.exe or Powershell.
 
 set-alias -Name which -Value C:\Users\Carl\bin\which.exe -Description "Use the Windows version of which.  I uninstalled the Scoop version and unzipped the ezwinports version of which.exe into ~/bin"
 
-$Script:msysbin = "D:\MSYS2\usr\bin"
+if (Get-Item "D:\MSYS2\usr\bin" -ErrorAction SilentlyContinue) {
+$msysbin = "D:\MSYS2\usr\bin"} else {Write-Error -Category ObjectNotFound -Message "Cannot find MSYS2 install dir, not setting `$msysbin"}
 set-alias -Name msysbashalias -Value "$msysbin\bash.exe"
+
+# Check for npm global prefix to be on $env:PATH:
+
+function checkNPMPath {
+<#
+    .Description
+    Adjusts/appends PATH so that globally installed npm packages are accessible from
+    the command line.
+    .NOTES
+    Copied from Notable/notes/npm_append_path.ps1
+    Also in ../ScriptsAndFunctions/npm_append_path.ps1
+#>
+
+    if ($env:PATH.Contains('npm')) {
+        Write-Host -ForegroundColor Cyan "Success! ``npm`` global prefix is already in path!"
+    }
+    else {
+        Write-Host -ForegroundColor Yellow "$(npm prefix -g) is not in `$env:PATH.  Attempting to append path"
+        $env:PATH = "$(npm prefix -g);$env:PATH"
+        ($env:PATH.Contains('npm')) ? (Write-Host -ForegroundColor Cyan "Success!  Appended path with npm global prefix") : (Write-Error -Category InvalidOperation -Message "Unsuccessful attempt at appending PATH with npm global prefix.")
+    }
+}
+checkNPMPath
 
 # TODO: How to get rid of a PATH entry before loading wsl:
 # TLDR: I ended up installing nodejs to WSL using the default way.

@@ -359,4 +359,12 @@ set-alias -Name lsw -Value get-childitemwide -Description "New ls format-wide" -
 # Find wt command...
 (Get-Command wt -ErrorAction Ignore) ? (Write-Output "Windows terminal found as `"wt`"") : (Write-Output "Windows Terminal not found on path.")
 set-alias -Name pydocwin -Value "C:\Program Files\Python38\Tools\scripts\pydoc3.py" -Description "Location of pydoc3 script installed by python38.  It is not installed to path by default!"
-set-alias -Name psWhich -Value ".\ScriptsAndFunctions\stdaloneScripts\psWhich.ps1" -Description "Amazing little which script that emulates the which commmand in unix" -Option AllScope
+if ($scrps) {
+    Write-Host -ForegroundColor Yellow "psWhich script located here: 
+    $scrps\ScriptsAndFunctions\stdaloneScripts\psWhich.ps1"
+    set-alias -Name psWhich -Value "$scrps\ScriptsAndFunctions\stdaloneScripts\psWhich.ps1" -Description "Amazing little which script that emulates the which commmand in unix" -Option AllScope
+} else {
+    Write-Error -Category NotImplemented -Message "This alias is not implemented yet"
+    # set-alias -name psWhich -value "$PSScriptRoot/ScriptsAndFunctions/stdaloneScripts/psWhich.ps1" `
+    # -Description:"Alternate which using only powershell"
+}
