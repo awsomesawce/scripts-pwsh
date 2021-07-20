@@ -25,5 +25,5 @@ if ($Name -and $(Get-Command scoop -ErrorAction ignore)) {
     }
 }
 else {
-    Write-Error -Category SyntaxError "Must have an argument to the `$Name parameter."
+    return Write-Error -Category SyntaxError "Must have an argument to the `$Name parameter."
 }

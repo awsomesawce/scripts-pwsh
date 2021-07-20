@@ -1,8 +1,7 @@
 ##### Other PS Functions #####
 # Please add functions to this file instead of the main powershell profile.
 # Author: Carl C. (awsomesawce@github.com)
-# Updated: Monday, May 24, 2021 6:30:53 AM
-# Note: Added `param()` to multiple functions.
+# Updated: Tuesday, July 20, 2021 5:15:19 PM
 
 
 ## Aliases for common Cmdlets
@@ -11,15 +10,9 @@
 Set-Alias cfjs -Value ConvertFrom-Json -Description "Convertfrom json in 4 letters"
 Set-Alias c2json -Value Convertto-Json -Description "Different from ConvertFrom-Json by 2 letters"
 Set-Alias add -Value Add-Content -Description "An alias for Add-Content that just makes sense."
-Set-Alias -Name "sob" -Value "Select-Object" -Description "A shorter select"
+Set-Alias -Name "sel" -Value "Select-Object" -Description "A shorter select"
 Set-Alias ghlp -Value Get-Help -Description "A short get-help"
 Set-Alias -Name "hlp" -Value "Help" -Description "An even shorter help.  One less letter."
-#
-# TODO: Create a function for viewing Get-Help output in a pager.
-# UPDATE: Function isn't needed.  Powershell 7 detects the
-# $env:PAGER variable which was set in the profile.  If it has `less` as the PAGER,
-# then using `Help` will then use `less` as it's pager program.
-# This will allow you to go up or down when viewing the documentation.
 #
 # Aliases for common external commands and programs, like Git
 # INFO: In powershell, Aliases can generally have no arguments.  If you want to add arguments to an alias
@@ -29,6 +22,7 @@ Set-Alias -Name g -Value git -Description "Git in one letter"
 Function GitStatusFunc { git status }
 set-alias -Name gitst -Value GitStatusFunc -Description "Gets git status in one command."
 Set-Alias -Name l -Value Get-ChildItem -Description "List items in directory in one letter"
+Set-Alias -Name:"ll" -Value:Get-ChildItem -Description:"Mimic linux operation of the ll command" -Option AllScope
 Set-Alias -Name np -Value notepad.exe -Description "A simple way to open notepad"
 Function Open-Node-Docs { Start-Process "https://nodejs.org/dist/latest-v14.x/docs/api/" }
 Set-Alias -Name nodedocs -Value Open-Node-Docs -Description "Open NodeJS docs in a browser"
@@ -52,7 +46,7 @@ set-alias nvimconf -Value nvimconfig -Description "Opens nvim init.vim file in n
 # EXPERIMENTAL: Function below is experimental.
 #function Start-PSAdmin {Start-Process pwsh -Verb RunAs}
 # C
-function Start-wtAdminn {
+function Start-wtAdmin {
     <#
     .Definition
     Simply starts Windows Terminal in Admin mode
@@ -64,27 +58,6 @@ function Start-wtAdminn {
     }
 }
 
-# This function serves as an example on how to write advanced functions.
-
-function Send-Greeting {
-  <#
-    .Description
-    Send-Greeting: Gets a greeting if name is supplied.
-    .PARAMETER Name
-    The name of the person you want to greet!
-    #>
-  [CmdletBinding()]
-  Param(
-    [Parameter(Mandatory = $true,
-      HelpMessage = "Enter your name to get a greeting!")]
-    [Alias("greeting", "sendgreet")]
-    [string] $Name
-  )
-
-  Process {
-    Write-Output ("Hello " + $Name + "!")
-  }
-}
 
 function duks {
     param([System.String]$SearchTerm)
@@ -110,12 +83,9 @@ function gitpp { git pull && git push }
 # These are functions that are very helpful but don't require a lot of setup.
 # This is normally sourced by `barebones_pwsh_profile.ps1` and not by itself.
 #
-# psWhich is a function that mimicks the output of the `which` unix command.
-function psWhich { Get-Command $args | Select-Object -ExpandProperty Source }
 # gotoexelocation is a nice command that allows you to chdir right to the directory where 
 # the executable is located.  Pretty neat, huh?
-function gotoexelocation {
-    
+function gotoexelocation {    
     Set-Location (Split-Path -Parent (get-command $args | Select-Object -ExpandProperty Source))
 }
 Set-Alias -Name ExeLocation -Value gotoexelocation -Description "Shorter gotoexelocation"
@@ -134,27 +104,40 @@ function getcommandinfo {
 }
 # End-of-block from barebones_Functions.ps1
 
+function Writeyellow {
+    <#
+    .Description
+    Write to stdout in yellow paint.
+    Wrapper around Write-Host
+    #>
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $false)]
+        [string]$Message
+    )
+
+    #begin {
+    #}
+
+    process {
+        if ($Message) {
+            Write-Host -ForegroundColor Yellow "$Message"
+        } else {
+            return Write-Error "Usage: Writeyellow `"message`""
+        }
+    }
+
+    # end {
+    # }
+}
 
 # Let the user know that this file was sourced
-Write-Output "other_functions file has been loaded from here: $otherFunctionsScript"
-# This function allows for searching apt-cache database from powershell
-# TODO: separate the wsl-specific functions into its own file.
-#       Modules are easier to maintain.
-#### Source WSL-Functions Script
-# IMPORTANT: This must be done from $PROFILE instead of this script!
-# NOTE: All external scripts must be sourced directly from $PROFILE
-# TODO: Fix this up!
+Writeyellow "other_functions file has been loaded from here: $otherFunctionsScript"
 $scrps = "$env:USERPROFILE\gitstuff\scripts-pwsh"
 $wslFuncs = "$scrps\config\wslFunctions.ps1"
 
-if (Test-Path $wslFuncs) {
-    Write-Host -ForegroundColor Yellow "Sourcing wslFunctions.ps1 script"
-    . $wslFuncs
-} else {
-    Write-Error "$wslFuncs file not found"
-}
-
 # BEGIN File-System functions {{{
+# DEPRECIATED
 
 # Some nice functions for listing items and sorting them
 function list-bigfiles {
@@ -175,22 +158,8 @@ Set-Alias lshuge -Value list-hugefiles -Description "Shorter way to list huge fi
 # END File System Functions }}}
 
 # TODO: fix the following two functions
-#set-alias -Name hjson -Value "$PWD\hjson.cmd" -Description "Set hjson alias so that it references the npm binary instead of the scoop binary, which itself i believe is based on Python"
-#set-alias -Name hjson-js -Value "$PWD\hjson.cmd" -Description "Alias for npms hjson which makes it more clear which binary it links to"
 set-alias cygfind -Value "D:\Cygwin\bin\find.exe" -Description "Use a better find than the windows version, Cygwin version."
 # Committo-Git already in different file.
-# This function goes to the parent directory of the named file.
-# Useful for going to the directory of a variable pointing to a file.
-# Try `cdto-filelocation $PROFILE`
-function Set-filelocation {
-    param([string]$Path)
-  if (Test-Path $Path) {
-    set-location (Split-Path -parent "$Path")
-  }
-  else {
-    write-Error "That particular file name has not been found."
-  }
-}
 
 # This function is the same as the one above, but shorter and with no else statement.
 # It also uses `$args` as opposed to the `$Path` positional parameter.
@@ -207,7 +176,7 @@ function cdfile {
 function pschtsh {
     param([string]$SearchTerm)
     if ($SearchTerm) {
-      Invoke-webrequest -Uri "https://cht.sh/$SearchTerm" | select-object -expandProperty content
+      return Invoke-webrequest -Uri "https://cht.sh/$SearchTerm" | select-object -expandProperty content
     } else {
       Write-Error "Need search term"
     }
@@ -217,7 +186,7 @@ function pschtsh {
 
 # The function below starts the MSYS2 version of Zsh in place from the host terminal.
 # Useful for opening MSYS's zsh _inside_ a modern terminal like Windows Terminal.
-# You need to adjust zshrc in order for it to work with msys pathnames instead of cygwin pathnames.
+# UPDATE: These functions are depreciated.  mbash.cmd is available in ~/bin
 function start-MSYS-zsh {
   $script:zshx = "D:\MSYS2\usr\bin\zsh.exe"
   if (Test-Path "$script:zshx") {
@@ -245,15 +214,6 @@ function start-msys-bash {
 
 # Wsl-functions moved to .\wslFunctions.ps1
 
-# This function starts windows terminal in Admin mode
-function start-wtAdmin {
-  if (Get-Command wt -errorAction Ignore) {
-    Start-Process wt -Verb runAs
-  }
-  else {
-    write-error "Windows Terminal executable not found"
-  }
-}
 function gotofile {
   # This function allows cding to the location of a file
   # TODO: Add help message
@@ -282,31 +242,37 @@ function better-chtsh {
     #>
     param([string]$SearchTerm, [switch]$UseCurl)
     if (($SearchTerm) -and ($UseCurl)) {
-	curl "https://cht.sh/$SearchTerm"
+        curl "https://cht.sh/$SearchTerm"
     } elseif ($SearchTerm) {
-	Invoke-RestMethod -Method Get -Uri "https://cht.sh/$SearchTerm"
+        Invoke-RestMethod -Method Get -Uri "https://cht.sh/$SearchTerm"
     } else {
-	write-error "This function requires an argument to look up a term on cht.sh"
+        return write-error "This function requires an argument to look up a term on cht.sh"
     }
 }
 
 Set-Alias -Name chtsh -Value better-chtsh -Description "Using a new function for chtsh"
 function pschtshPage {
-    if ($args) {
-        Invoke-WebRequest -Uri "https://cht.sh/$args" | Select-Object -ExpandProperty Content | less -r
+    param([string]$SearchTerm)
+    if ($SearchTerm) {
+        return Invoke-WebRequest -Uri "https://cht.sh/$SearchTerm" | Select-Object -ExpandProperty Content | less -r
     } else {
-        write-error "Usage: command needs an argument to function"
-        return
+        return write-error "Usage: command needs an argument to function"
     }
 }
 # The above pschtshPage function is the same as the previous chtsh command, but it will
 # page the output thru less instead.
 
 function groffunc {
-    if ((Get-Command groff -ErrorAction ignore) -and ($args)) {
-        groff -man -T utf8 "$args"
+    [CmdletBinding()]
+    param (
+        [Parameter()]
+        [string]
+        $manpage
+    )
+    if ((Get-Command groff -ErrorAction ignore) -and ($manpage)) {
+        groff -man -T utf8 "$manpage"
     } else {
-        Write-Error "Either groff is not available or you typed no args.
+        return Write-Error "Either groff is not available or you typed no args.
         Type in the path of the manpage you want to convert"
     }
 }
@@ -319,10 +285,9 @@ function Sort-ByWriteTime {
 }
 set-alias -Name wh -Value Write-Host
 set-alias -Name cvfm -Value ConvertFrom-Markdown -Description "Easier to type convertfrom-markdown"
-set-alias -Name ll -Value Get-ChildItem -Description "Similar to bash ll"
 # TODO Add this to separate script file:
 # pythondirs {{{
-$listOfPythonDirs = @{
+$PythonDirListHash = @{
 Python38 = @{
 InLocalAppData = "C:\Users\Carl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.8_qbz5n2kfra8p0\LocalCache\local-packages\Python38\Scripts"
 InProgramFiles = "C:\Program Files\Python38\Scripts"
@@ -349,15 +314,10 @@ function get-childitemwide {
     .Description
     Very simple way to list items in wide format
     #>
-
     Get-ChildItem | Format-Wide
-
 }
 set-alias -Name lsw -Value get-childitemwide -Description "New ls format-wide" -Option AllScope
-# TODO: FIX THIS
-#set-alias -Name subl -Value .\subl.exe -Description "Sublime Text 4 alias." -Option AllScope
-# Find wt command...
-(Get-Command wt -ErrorAction Ignore) ? (Write-Output "Windows terminal found as `"wt`"") : (Write-Output "Windows Terminal not found on path.")
+# TODO: Fix this stuff below.
 set-alias -Name pydocwin -Value "C:\Program Files\Python38\Tools\scripts\pydoc3.py" -Description "Location of pydoc3 script installed by python38.  It is not installed to path by default!"
 if ($scrps) {
     Write-Host -ForegroundColor Yellow "psWhich script located here: 
