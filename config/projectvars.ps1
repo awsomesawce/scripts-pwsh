@@ -209,3 +209,4 @@ function gotoPythonSnips {
 }
 # Set alias for sublime text, because it is not in path.
 set-alias subl -Value "D:\Program Files\Sublime Text\subl.exe" -Description "Sublime text executable" -Option None
+$pytoolsdir = 'C:\Program Files\Python38\Tools'

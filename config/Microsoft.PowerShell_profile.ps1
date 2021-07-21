@@ -13,9 +13,17 @@
 
 # Disable Microsoft Telemetry
 $env:POWERSHELL_TELEMETRY_OPTOUT = 1
+$env:DOTNET_INTERACTIVE_CLI_TELEMETRY_OPTOUT = 1
+
+# Import current modules.
+Import-Module posh-git
+Import-Module oh-my-posh
+#Import-Module z
+# Set prompt
+Set-PoshPrompt -Theme zash && Write-Verbose "Set posh prompt to zash"
 
 # Adjust Python Path.
-${env:Python PATH} = "C:\Users\Carl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache"
+#${env:Python PATH} = "C:\Users\Carl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache"
 
 # Add requires statements because I'm using ternary operators.
 #Requires -Version 6.2
@@ -45,12 +53,6 @@ $codepage = $(chcp)
 Write-Output "Codepage is now set to 65001"
 )
 
-# Import current modules.
-Import-Module posh-git
-Import-Module oh-my-posh
-#Import-Module z
-# Set prompt
-Set-PoshPrompt -Theme fish && Write-Verbose "Set posh prompt to fish"
 # Source other_functions script and projectvars script.
 $PSDirectory = (Split-path -Parent $PROFILE)
 
@@ -226,6 +228,3 @@ Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
             [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
          }
  }
-# ScoopInfoFunc alias.  This would usually go in other_functions.
-# It is a link to an external script, so to keep better track of it i am putting it in profile.
-set-alias scinfo -Value C:\Users\Carl\gitstuff\scripts-pwsh\ScriptsAndFunctions\scoopInfoFunc.ps1 -Description "Script for showing `"scoop info`" on multiple queries." -Option AllScope
