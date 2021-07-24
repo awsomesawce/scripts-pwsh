@@ -263,18 +263,37 @@ function pschtshPage {
 # page the output thru less instead.
 
 function groffunc {
+    <#
+    .Description
+    Get content of unformatted manpage and format it using groff.exe
+    .EXAMPLE
+    groffunc bash.1
+    .NOTES
+    Make sure to uncompress the manpage if it is compressed.
+    #>
     [CmdletBinding()]
     param (
         [Parameter()]
         [string]
         $manpage
     )
+
+    begin {
+        if ($manpage.Contains('.gz')) {
+            return Write-Error "You must decompress the file before using this function"
+        }
+    }
+process {
     if ((Get-Command groff -ErrorAction ignore) -and ($manpage)) {
         groff -man -T utf8 "$manpage"
     } else {
         return Write-Error "Either groff is not available or you typed no args.
         Type in the path of the manpage you want to convert"
     }
+}
+end {
+    Write-Output "$($MyInvocation.MyCommand.Name) is done"
+}
 }
 set-alias p6d -Value "C:\Users\Carl\scoop\apps\rakudo-star\current\share\perl6\site\bin\p6doc.bat" -Description "perl6 documentation tool"
 set-alias tar -Value tar.ps1 -Description "Makes sure to reference the updated tar program"
