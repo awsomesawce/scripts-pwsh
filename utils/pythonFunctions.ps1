@@ -46,3 +46,25 @@ process {
 }
 
 }
+
+function getpythonlocations {
+    <#
+    .Description
+    Return locations of all commands on path that start with "py"
+    .PARAMETER strict
+    Looks for only commands that start with "python", "pip", and "idle"
+    .PARAMETER more
+    Gets all commands that have the ".py" file extension"
+    .NOTES
+    There are ways to zero in on the specific commands
+    #>
+    param([switch]$strict, [switch]$more)
+    if ($strict) {
+	return Get-Command -All python*, pip*, idle*
+    } elseif (!($strict) -and ($more)) {
+	return Get-Command -All *.py # Gets all commands that have the ".py" file extension
+    } else {
+	return Get-Command -All py*
+    }
+}
+
