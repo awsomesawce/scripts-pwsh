@@ -213,3 +213,4 @@ $pytoolsdir = 'C:\Program Files\Python38\Tools'
 
 # default path for `py -m pip` (python3.9 windowsstore version)
 $pypathnew = "C:\Users\Carl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\Scripts"
+set-alias cptobackupdirs C:\Users\Carl\gitstuff\scripts-pwsh\utils\cptobackupdirs.ps1
