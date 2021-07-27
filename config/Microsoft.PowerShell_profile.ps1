@@ -228,3 +228,5 @@ Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
             [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
          }
  }
+. $scrps/ScriptsAndFunctions/npm-functions
+# TODO: Adjust profile to source all scripts at the end.
