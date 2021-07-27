@@ -10,15 +10,15 @@ param(
     [switch]$PageOutput
 )
 
-# $getfunc is now a scriptblock.
-$getfunc = [scriptblock]::Create("
+# $function:getfunc is now a scriptblock.
+$function:getfunc = [scriptblock]::Create("
 if (Get-Command $FunctionName -CommandType Function -erroraction ignore) {
     Get-Command $FunctionName -CommandType Function | Select-Object -ExpandProperty Definition
 } else {
     Write-Error `"$FunctionName is not a function`"
 }")
 
-$pager = (Get-Command $env:PAGER -ErrorAction Ignore) ? ("$env:PAGER") : ("less")
+$Alias:pager = (Get-Command $env:PAGER -ErrorAction Ignore) ? ("$env:PAGER") : ("less")
 
 function Beginit {
     if ("$PWD" -eq $MyInvocation.PSScriptRoot) {
@@ -27,18 +27,19 @@ function Beginit {
         Write-Host -ForegroundColor Cyan "The directory you are in is $PWD"
     }
 }
+Beginit
 
     if ($PageOutput) {
         if (Get-Command $FunctionName -CommandType "Function" -ErrorAction Ignore) {
-            Write-Output "`$pager is $pager"
-            & $getfunc
+            Write-Output "`$pager is $Alias:pager"
+            getfunc | pager
         }
         else {
             Write-Error -Category "NotImplemented"
         }
     }
     else {
-        #& $getfunc | & $pager
+        getfunc | pager
     }
 function endit {
     Write-Output @"
@@ -47,5 +48,4 @@ function endit {
 
 }
 
-Beginit
 endit

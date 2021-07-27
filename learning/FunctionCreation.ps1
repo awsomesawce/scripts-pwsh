@@ -9,3 +9,5 @@ $function:gitst = [scriptblock]::Create($gitst)
 Get-Command gitst | select-object *
 # Super cool!
 
+# This method is even more simple than the first
+new-item Function:\gitpp -ItemType Function -Value 'git pull && git push'
