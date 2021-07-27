@@ -24,3 +24,14 @@ else {
 }
 
 }
+function ninfo {
+param([string[]]$arr)
+if ($arr) {
+    foreach ($p in $arr) {
+        npm info $p
+    }
+}
+else {
+    return Write-Error "need args"
+}
+}
