@@ -165,7 +165,7 @@ Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
 
 
 # TODO: Adjust profile to source all scripts at the end.
-$psenv = C:\Users\Carl\gitstuff\my-dotfiles\templates\.psenv.ps1
+$psenv = "C:\Users\Carl\gitstuff\my-dotfiles\templates\.psenv.ps1"
 # If .psenv.ps1 is in current directory, dotsource, else write error
 # TODO: Write alternate non-ternary version
 (get-item .psenv.ps1 -ErrorAction Ignore) ? ( . ./.psenv.ps1) : (Write-error ".psenv.ps1 is not there")
