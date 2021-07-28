@@ -17,3 +17,16 @@ $py38ScriptsList = (Get-ChildItem $py38ScriptsUser)
 # Var pointing to system-site scripts for Windows Store python3.9 -m pip
 # `--user` and regular install both install to this folder (dir).
 $py39Scripts = "C:\Users\Carl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\Scripts"
+
+${msysmingw} = @{
+    mingw = @{
+	lib = @{
+	    py39 = "D:\MSYS2\mingw64\lib\python3.9\"
+	    py38 = "D:\MSYS2\mingw64\lib\python3.8"
+	}
+    }
+    msys = @{
+	lib = "D:\MSYS2\usr\lib\python3.9"
+    }
+}
+return Write-Host -ForegroundColor Yellow "Loaded $PSScriptRoot\pyFileSysLocations.ps1"

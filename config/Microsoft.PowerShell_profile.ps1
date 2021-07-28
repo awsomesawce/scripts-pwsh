@@ -165,7 +165,15 @@ Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
 
 
 # TODO: Adjust profile to source all scripts at the end.
-$psenv = "C:\Users\Carl\gitstuff\my-dotfiles\templates\.psenv.ps1"
+$psenv = if (test-path "C:\Users\Carl\gitstuff\my-dotfiles\templates\.psenv.ps1") {
+    "C:\Users\Carl\gitstuff\my-dotfiles\templates\.psenv.ps1" }
+    else { return Write-Error ".psenv.ps1 not found in my-dotfiles repo"}
 # If .psenv.ps1 is in current directory, dotsource, else write error
 # TODO: Write alternate non-ternary version
-(get-item .psenv.ps1 -ErrorAction Ignore) ? ( . ./.psenv.ps1) : (Write-error ".psenv.ps1 is not there")
+#(get-item .psenv.ps1 -ErrorAction Ignore) ? ( . ./.psenv.ps1) : (Write-error ".psenv.ps1 is not there")
+
+$pyFileSys = (Test-Path "$scrps\utils\pyFileSysLocations.ps1") ? ("$scrps\utils\pyFileSysLocations.ps1") : (Write-Error "pyfilesys script not found")
+$choice = read-host -Prompt "Load psFileSysLocations variables? y or n "
+if ($choice -eq "y") {
+    . $pyFileSys
+} else { Write-Error "Not loading $pyFileSys"}

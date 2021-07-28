@@ -216,3 +216,18 @@ $pypathnew = "C:\Users\Carl\AppData\Local\Packages\PythonSoftwareFoundation.Pyth
 set-alias cptobackupdirs C:\Users\Carl\gitstuff\scripts-pwsh\utils\cptobackupdirs.ps1
 $ddocuments = "D:\Carl\Documents\"
 $nodeclipkg = "D:\Carl\Documents\GitHub\node_cli_package"
+
+$msbuild = "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin\"
+$dotnetDir = "C:\Program Files\dotnet\"
+function importmshash { 
+    $mstools = @{
+	msbuild = $msbuild
+	dotnet = @{
+	    dotnetexe = "C:\Program Files\dotnet\dotnet.exe"
+	    dotnetdir = $dotnetDir
+	}
+    }
+    return $mstools
+}
+
+$mstools = importmshash
