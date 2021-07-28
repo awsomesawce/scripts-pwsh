@@ -68,3 +68,28 @@ function getpythonlocations {
     }
 }
 
+# Invoke pydoc on windows when pydoc is not on path
+function pydocwin {
+<#
+.Description
+Invoke pydoc from the command line
+#>
+$Help = 'pydoc args'
+if ($args) {
+if (Get-Command pydoc -ErrorAction ignore) {
+    pydoc $args
+}
+else {
+    if (Get-Command py -ErrorAction Ignore) {
+	# Most windows python installations have py.exe installed
+        py -m pydoc $args
+    } elseif (get-command python -ErrorAction Ignore) {
+	python -m pydoc $args
+    } else {return Write-Error "py not found on your system" }
+}
+}
+else {
+    Write-Error "Need args
+    Usage: $Help"
+}
+}

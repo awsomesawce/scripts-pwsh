@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Objects>
+<Object Type="System.Collections.Hashtable">
+  <Property Name="Key" Type="System.String">dotsourcable</Property>
+  <Property Name="Value" Type="System.Object[]">
+    <Property Type="System.String">.\pythonFunctions.ps1</Property>
+    <Property Type="System.String">.\ghcli_wrapper.ps1</Property>
+  </Property>
+  <Property Name="Key" Type="System.String">list</Property>
+  <Property Name="Value" Type="System.Object[]">
+    <Property Type="System.String">cptobackupdirs</Property>
+    <Property Type="System.String">expand-def-simple</Property>
+    <Property Type="System.String">expand-definition</Property>
+    <Property Type="System.String">ghcli_wrapper</Property>
+    <Property Type="System.String">newscript</Property>
+    <Property Type="System.String">pythonFunctions</Property>
+    <Property Type="System.String">README</Property>
+  </Property>
+  <Property Name="Key" Type="System.String">dirname</Property>
+  <Property Name="Value" Type="System.IO.DirectoryInfo">
+    <Property Name="PSPath" Type="System.String">Microsoft.PowerShell.Core\FileSystem::C:\Users\Carl\gitstuff\scripts-pwsh\utils</Property>
+    <Property Name="PSParentPath" Type="System.String">Microsoft.PowerShell.Core\FileSystem::C:\Users\Carl\gitstuff\scripts-pwsh</Property>
+    <Property Name="PSChildName" Type="System.String">utils</Property>
+    <Property Name="PSDrive" Type="System.Management.Automation.PSDriveInfo">C</Property>
+    <Property Name="PSProvider" Type="System.Management.Automation.ProviderInfo">Microsoft.PowerShell.Core\FileSystem</Property>
+    <Property Name="PSIsContainer" Type="System.Boolean">True</Property>
+    <Property Name="Mode" Type="System.String">d----</Property>
+    <Property Name="ModeWithoutHardLink" Type="System.String">d----</Property>
+    <Property Name="BaseName" Type="System.String">utils</Property>
+    <Property Name="Target" Type="System.String" />
+    <Property Name="LinkType" Type="System.String" />
+    <Property Name="Parent" Type="System.IO.DirectoryInfo">C:\Users\Carl\gitstuff\scripts-pwsh</Property>
+    <Property Name="Root" Type="System.IO.DirectoryInfo">C:\</Property>
+    <Property Name="FullName" Type="System.String">C:\Users\Carl\gitstuff\scripts-pwsh\utils</Property>
+    <Property Name="Extension" Type="System.String"></Property>
+    <Property Name="Name" Type="System.String">utils</Property>
+    <Property Name="Exists" Type="System.Boolean">True</Property>
+    <Property Name="CreationTime" Type="System.DateTime">7/23/2021 9:27:09 PM</Property>
+    <Property Name="CreationTimeUtc" Type="System.DateTime">7/24/2021 1:27:09 AM</Property>
+    <Property Name="LastAccessTime" Type="System.DateTime">7/27/2021 11:21:30 PM</Property>
+    <Property Name="LastAccessTimeUtc" Type="System.DateTime">7/28/2021 3:21:30 AM</Property>
+    <Property Name="LastWriteTime" Type="System.DateTime">7/27/2021 11:20:15 PM</Property>
+    <Property Name="LastWriteTimeUtc" Type="System.DateTime">7/28/2021 3:20:15 AM</Property>
+    <Property Name="Attributes" Type="System.IO.FileAttributes">Directory</Property>
+  </Property>
+</Object>
+</Objects>

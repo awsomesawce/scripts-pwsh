@@ -1,0 +1,41 @@
+{
+  "dotsourcable": [
+    ".\\pythonFunctions.ps1",
+    ".\\ghcli_wrapper.ps1"
+  ],
+  "list": [
+    "cptobackupdirs",
+    "expand-def-simple",
+    "expand-definition",
+    "ghcli_wrapper",
+    "newscript",
+    "pythonFunctions",
+    "README"
+  ],
+  "dirname": {
+    "Parent": "C:\\Users\\Carl\\gitstuff\\scripts-pwsh",
+    "Root": "C:\\",
+    "FullName": "C:\\Users\\Carl\\gitstuff\\scripts-pwsh\\utils",
+    "Extension": "",
+    "Name": "utils",
+    "Exists": true,
+    "CreationTime": "2021-07-23T21:27:09.8948515-04:00",
+    "CreationTimeUtc": "2021-07-24T01:27:09.8948515Z",
+    "LastAccessTime": "2021-07-27T23:21:30.7181316-04:00",
+    "LastAccessTimeUtc": "2021-07-28T03:21:30.7181316Z",
+    "LastWriteTime": "2021-07-27T23:20:15.5599413-04:00",
+    "LastWriteTimeUtc": "2021-07-28T03:20:15.5599413Z",
+    "Attributes": 16,
+    "PSPath": "Microsoft.PowerShell.Core\\FileSystem::C:\\Users\\Carl\\gitstuff\\scripts-pwsh\\utils",
+    "PSParentPath": "Microsoft.PowerShell.Core\\FileSystem::C:\\Users\\Carl\\gitstuff\\scripts-pwsh",
+    "PSChildName": "utils",
+    "PSDrive": "C",
+    "PSProvider": "Microsoft.PowerShell.Core\\FileSystem",
+    "PSIsContainer": true,
+    "Mode": "d----",
+    "ModeWithoutHardLink": "d----",
+    "BaseName": "utils",
+    "Target": null,
+    "LinkType": null
+  }
+}
