@@ -8,7 +8,7 @@ function Format-Script {
 param([string]$Path)
 if ($Path) {
     $content = (Get-Content -Path $Path -Raw).ToString()
-    Invoke-Formatter -ScriptDefinition "$content" | Out-Host -Paging
+    return Invoke-Formatter -ScriptDefinition "$content"
 }
 else {
     throw "Need to enter path of script file to format."
@@ -20,4 +20,3 @@ function Open-inVim {
 	if ($args) {vim -u "~/.vimrc" "$args"} else {vim -u "~/.vimrc"}
 }
 # Set an alias for this vim function
-
