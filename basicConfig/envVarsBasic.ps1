@@ -33,12 +33,23 @@ $listVarHash = @{
 
 
 # Testing cygwin locations and env vars
-if (test-path Env:\CYGBIN) {
-    Write-Output "`$env:CYGBIN has already been set to $env:CYGBIN"
+#if (test-path Env:\CYGBIN) {
+    #Write-Output "`$env:CYGBIN has already been set to $env:CYGBIN"
+#} else {
+    ## This can be written as $env:CYGBIN = "D:\Cygwin\bin"
+    #set-item Env:\CYGBIN -Value "D:\Cygwin\bin"
+    #write-output "Env:\CYGBIN has been set to $env:CYGBIN."
+#}
+## a slicker way to write the same thing would be this:
+#$env:CYGBIN = if (!(Get-item $env:CYGBIN)) {
+    #"D:\Cygwin\bin"
+#}
+# or an even slicker way:
+# test if $env:CYGBIN is null or whitespace
+$env:CYGBIN = if ([string]::IsNullOrWhiteSpace($env:CYGBIN)) {
+    (Get-Item "D:\Cygwin\bin\").FullName
 } else {
-    # This can be written as $env:CYGBIN = "D:\Cygwin\bin"
-    set-item Env:\CYGBIN -Value "D:\Cygwin\bin"
-    write-output "Env:\CYGBIN has been set to $env:CYGBIN."
+    return Write-Error "Cygwin bin already set to $env:CYGBIN"
 }
 
 $Script:CYGBIN = "D:\Cygwin\bin"
@@ -75,3 +86,8 @@ hashStatus = "Experimental"
 Write-Output "`$importantHash is " + $importantHash
 # I know there is a much better way to do this by using a for loop
 # or something of that nature
+
+
+# If .psenv.ps1 is in current directory, dotsource, else write error
+# TODO: Write alternate non-ternary version
+(get-item .psenv.ps1 -ErrorAction Ignore) ? ( . ./.psenv.ps1) : (Write-error ".psenv.ps1 is not there")

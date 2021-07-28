@@ -113,17 +113,6 @@ if (Test-Path $pathModsScript) {
     Write-Error "PATH_mods.ps1 file not existing"
 }
 
-# Source choco_functions.ps1
-function Source-Chocofuncs {
-    if (Test-Path "$pwshconfigstr\choco_functions.ps1") {
-	Write-Verbose "Sourcing $pwshconfigstr\choco_functions.ps1"
-	. "$pwshconfigstr\choco_functions.ps1"
-    } else {
-	Write-Error "choco_functions script is not where its supposed to be"
-    }
-}
-Source-Chocofuncs
-
 function Source-UsefulNavFunctions {
     $usefulNavFunctions = "C:\Users\Carl\gitstuff\scripts-pwsh\ScriptsAndFunctions\useful-nav-functions.ps1"
     if (Test-Path "$usefulNavFunctions") {
@@ -143,7 +132,7 @@ if (Test-Path $Script:textFunctions) {
 }
 
 # NOTE: Array that lists every script file that is sourced upon pwsh init. INCOMPLETE
-$Script:sourcedPwshFiles = @("$pathModsScript", "$pwshconfigstr\choco_functions.ps1", "$scrps\ScriptsAndFunctions\useful-nav-functions.ps1", "$Script:textFunctions", "$scrps\config\other_functions.ps1")
+$Script:sourcedPwshFiles = @("$pathModsScript", "$scrps\ScriptsAndFunctions\useful-nav-functions.ps1", "$Script:textFunctions", "$scrps\config\other_functions.ps1")
 
 foreach ($i in $Script:sourcedPwshFiles) {
     Write-Output "Sourced $i"
@@ -176,3 +165,7 @@ Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
 
 
 # TODO: Adjust profile to source all scripts at the end.
+$psenv = C:\Users\Carl\gitstuff\my-dotfiles\templates\.psenv.ps1
+# If .psenv.ps1 is in current directory, dotsource, else write error
+# TODO: Write alternate non-ternary version
+(get-item .psenv.ps1 -ErrorAction Ignore) ? ( . ./.psenv.ps1) : (Write-error ".psenv.ps1 is not there")
