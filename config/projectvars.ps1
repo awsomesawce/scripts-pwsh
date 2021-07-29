@@ -231,3 +231,5 @@ function importmshash {
 }
 
 $mstools = importmshash
+$pyscripts = "C:\Users\Carl\gitstuff\my-python-scripts"
+$pyscriptsbackup = "D:/Carl/OneDrive/tarfiles/mypythonscripts2021-07-29.tar.zst"

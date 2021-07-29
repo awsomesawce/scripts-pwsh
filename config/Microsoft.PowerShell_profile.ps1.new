@@ -177,3 +177,5 @@ $choice = read-host -Prompt "Load psFileSysLocations variables? y or n "
 if ($choice -eq "y") {
     . $pyFileSys
 } else { Write-Error "Not loading $pyFileSys"}
+# Adjust path to accept deno bin dir
+$env:Path = "C:\Users\Carl\.deno\bin;$env:Path"
