@@ -48,9 +48,9 @@ param(
     $myStr
 )
 if ($myStr) {
-    $myBytes = [system.text.encoding]::Convert($myStr)
+    $myBytes = [system.text.encoding]::UTF8.GetBytes($myStr)
     $myEncoded = [convert]::ToBase64String($myBytes)
-    return $myEncoded
+    return Write-Output $myEncoded
 }
 else {
     return Write-Error "Nope"
