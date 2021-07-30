@@ -320,7 +320,19 @@ function get-childitemwide {
 }
 set-alias -Name lsw -Value get-childitemwide -Description "New ls format-wide" -Option AllScope
 # TODO: Fix this stuff below.
-set-alias -Name pydocwin -Value "C:\Program Files\Python38\Tools\scripts\pydoc3.py" -Description "Location of pydoc3 script installed by python38.  It is not installed to path by default!"
+
+function pydoc {
+    <#
+    .Description
+    Pydoc shortcut for windows where pydoc binary is not on path
+    #>
+    param([string]$myArg)
+    if (get-command py -erroraction ignore) {
+	py -m pydoc "$myArgs"
+    }
+    else {write-error "py.exe not available or not on path"}
+}
+
 if ($scrps) {
     Write-Host -ForegroundColor Yellow "psWhich script located here: 
     $scrps\ScriptsAndFunctions\stdaloneScripts\psWhich.ps1"
