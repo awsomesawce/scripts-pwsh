@@ -16,8 +16,9 @@ $env:POWERSHELL_TELEMETRY_OPTOUT = 1
 $env:DOTNET_INTERACTIVE_CLI_TELEMETRY_OPTOUT = 1
 
 # Import current modules.
-Import-Module posh-git
-Import-Module oh-my-posh
+# 7/29/2021 - Disabled import-module for posh-git and oh-my-posh, but they are still loading
+#Import-Module posh-git # temp disable
+#Import-Module oh-my-posh # temp disable
 #Import-Module z
 # Set prompt
 Set-PoshPrompt -Theme zash && Write-Verbose "Set posh prompt to zash"
@@ -59,7 +60,7 @@ $PSDirectory = (Split-path -Parent $PROFILE)
 # BEGIN Source Scripts {{{
 # TODO: Clean this up a bit.
 
-
+# Set this value to wherever you have the git repo installed
 $scrps = if ([string]::IsNullOrWhitespace($scrps)) {
     "$env:USERPROFILE\gitstuff\scripts-pwsh"}
 $Script:scriptspwsh = "$scrps\config"
@@ -177,3 +178,5 @@ $choice = read-host -Prompt "Load psFileSysLocations variables? y or n "
 if ($choice -eq "y") {
     . $pyFileSys
 } else { Write-Error "Not loading $pyFileSys"}
+# Adjust path to accept deno bin dir
+$env:Path = "C:\Users\Carl\.deno\bin;$env:Path"
