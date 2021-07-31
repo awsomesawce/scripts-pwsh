@@ -180,3 +180,7 @@ if ($choice -eq "y") {
 } else { Write-Error "Not loading $pyFileSys"}
 # Adjust path to accept deno bin dir
 $env:Path = "C:\Users\Carl\.deno\bin;$env:Path"
+# Source wslFunctions.ps1 script
+(test-path $wslFuncs) ? (. $wslFuncs) : (Write-error "$wslFuncs not found")
+# Source hugo completion script TODO: needs work
+#(test-path "$scrps/completion/_hugo") ? (. "$scrps/completion/_hugo") : (Write-error "hugo completion not found")
