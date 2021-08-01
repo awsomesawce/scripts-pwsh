@@ -342,3 +342,19 @@ if ($scrps) {
     # set-alias -name psWhich -value "$PSScriptRoot/ScriptsAndFunctions/stdaloneScripts/psWhich.ps1" `
     # -Description:"Alternate which using only powershell"
 }
+
+function source-writecolors {
+<#
+.Description
+function that will source the writecolors dependency into the current session
+#>
+$scrps = "C:\Users\Carl\gitstuff\scripts-pwsh"
+$writecolors = "$scrps\ScriptsAndFunctions\dependencies\WriteColors.ps1"
+if (Test-Path $writecolors) {
+    . $writecolors && echoYellow "Writecolors loaded"
+    set-variable WCLoaded -Value $true -Description "Tells external scripts whether or not writecolors.ps1 is loaded" -Option AllScope
+}
+else {
+    Write-Host -ForegroundColor DarkMagenta "Writecolors cannot be found"
+}
+}

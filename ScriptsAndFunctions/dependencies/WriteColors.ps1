@@ -68,3 +68,4 @@ function echoMagenta {
     #>
     return whc Magenta "$args"
 }
+set-variable WCLoaded -value $true -description "Tells other scripts whether writecolors.ps1 is already loaded" -Option AllScope
