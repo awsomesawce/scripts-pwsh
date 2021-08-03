@@ -17,7 +17,7 @@ $env:DOTNET_INTERACTIVE_CLI_TELEMETRY_OPTOUT = 1
 
 # Import current modules.
 # 7/29/2021 - Disabled import-module for posh-git and oh-my-posh, but they are still loading
-#Import-Module posh-git # temp disable
+Import-Module posh-git
 #Import-Module oh-my-posh # temp disable
 #Import-Module z
 # Set prompt
@@ -184,3 +184,5 @@ $env:Path = "C:\Users\Carl\.deno\bin;$env:Path"
 (test-path $wslFuncs) ? (. $wslFuncs) : (Write-error "$wslFuncs not found")
 # Source hugo completion script TODO: needs work
 #(test-path "$scrps/completion/_hugo") ? (. "$scrps/completion/_hugo") : (Write-error "hugo completion not found")
+# Source completions in completion folder
+# TODO

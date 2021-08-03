@@ -1,11 +1,7 @@
 # A list of variables that point to project directories
 # Use `gf` in vim to goto the file at point.
-# TODO: add second script for sourcing functions
 # Author: Carl C (awsomesawce@outlook.com)
-# Date: Mar 28, 2021
-
-# UPDATE: Monday, May 10, 2021 7:05:44 PM
-# TODO: This is getting pretty big and variables are getting redundent.
+# Date: 
 
 # First, set the variable to this script.
 # TODO: Get this variable from $PSScriptRoot
@@ -25,9 +21,9 @@ Set-Variable -Name profileGitTracked -Value "$Script:configDir/Microsoft.PowerSh
 # Then, set the rest of the current project variables.
 
 # NOTE: This is a demonstration on how to create a environment variable using Set-Item.
-# NOTE: Set-Variable only refers to the scope of the Powershell session, and doesn't share vars with other processes.
-Set-Item -Path Env:\UserProfileD -Value (Get-Item "D:\Carl") # This is a variable that leads to my D drive user profile.
-set-variable -Name UserProfileD -Value $env:UserProfileD
+$env:UserProfileD = (Get-Item "D:\Carl").FullName # String representation due to `.FullName` method
+$UserProfileD = $env:UserProfileD
+$ddocuments = (Get-Item "$UserProfileD/Documents").FullName
 
 # TODO: Consolidate some important project vars into arrays or hash tables!  
 #+ Great idea!
@@ -65,10 +61,7 @@ $binDirs = @("$env:OneDrive\Desktop\bin", "$env:USERPROFILE\bin", "D:\Carl\bin")
 # Add perlbin variable on 04/08/2021 17:26:03.
 $perlbin = "C:\Users\Carl\scoop\apps\perl\current\perl\bin"
 
-# Add rakubin variables
-$env:rakubin = "C:\Users\Carl\scoop\apps\rakudo-star\current\share\perl6\site\bin\"
-$rakubin = $env:rakubin
-
+# Remove raku stuff
 function listBinDirs {
   Write-Output "This will list all the bin directories and optionally their contents."
   Write-Output "`$binDirs is an array"
@@ -91,15 +84,12 @@ $barebonesFunctionScript = Get-Item "D:\Carl\OneDrive\snippets\pwsh\barebones\ba
 
 # TODO: Put this function in a _misc_functions.ps1 file or something. :DONE:
 
-set-variable documents -Value "D:\Carl\Documents" -Description "Documents folder that explorer points to.  Powershell folder is also in this folder"
 # dotfileDirs now outputs the full name of the items in question.
 $dotfileDirs = @((Get-Item D:\Carl\OneDrive\dotfiles_backup\).FullName, (Get-Item C:\Users\Carl\gitstuff\my-dotfiles\).FullName) # TODO: Hope that works.
-$zshlovers = get-item D:\Carl\OneDrive\snippets\bash\zsh-only\zsh-lovers-manpage.html
+$zshlovers = (get-item D:\Carl\OneDrive\snippets\bash\zsh-only\zsh-lovers-manpage.html).FullName
 $curSnipFile = Get-Item D:\Carl\OneDrive\snippets\pwsh\powershell_learning_new.ps1
 $editorconfigtemplate = "C:\Users\Carl\gitstuff\my-dotfiles\templates\template.editorconfig"
 # Don't use `Get-Item` for ddownloads.
-$env:ddownloads = "D:\Carl\Downloads\"
-$ddownloads = $env:ddownloads
 
 # List of current document directories for writings:
 $newestDocumentDirs = @{
@@ -140,7 +130,6 @@ $backupDirs = @{
     tarfiles="D:\Carl\OneDrive\tarfiles\configstuff"
     dotfiles_backup="$env:OneDrive\dotfiles_backup"
     windows_dotfiles_backup="$windowsDotfilesBackup"
-
 }
 
 $msysFiles = @{
@@ -184,6 +173,7 @@ function go2perlsnips {
     (Test-Path $perlsnips) ? (Set-Location $perlsnips) : (
     Write-Error "`$snippets\perl not there")
 }
+
 $newestDocumentDirs.Add("json_data_learning", "$PWD")
 # TODO: Correct variable name from rememberfile to todo or todofile.
 $todo = $rememberfile
@@ -209,12 +199,13 @@ function gotoPythonSnips {
 }
 # Set alias for sublime text, because it is not in path.
 set-alias subl -Value "D:\Program Files\Sublime Text\subl.exe" -Description "Sublime text executable" -Option None
-$pytoolsdir = 'C:\Program Files\Python38\Tools'
+#$pytoolsdir = 'C:\Program Files\Python38\Tools' # Old Python tools dir
 
 # default path for `py -m pip` (python3.9 windowsstore version)
-$pypathnew = "C:\Users\Carl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\Scripts"
-set-alias cptobackupdirs C:\Users\Carl\gitstuff\scripts-pwsh\utils\cptobackupdirs.ps1
-$ddocuments = "D:\Carl\Documents\"
+set-alias cptobackupdirs "C:\Users\Carl\gitstuff\scripts-pwsh\utils\cptobackupdirs.ps1"
+
+# Moved ddocuments to beginning of script.
+$documents = "$env:USERPROFILE/Documents"
 $nodeclipkg = "D:\Carl\Documents\GitHub\node_cli_package"
 
 $msbuild = "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin\"
@@ -233,5 +224,5 @@ function importmshash {
 $mstools = importmshash
 
 $pyscripts = "C:\Users\Carl\gitstuff\my-python-scripts" # Important
-$pyscriptsbackup = "D:/Carl/OneDrive/tarfiles/mypythonscripts2021-07-29.tar.zst" # Not important
 $hugodoc = "C:\Users\Carl\dumps\hugodoc" # Important
+$basesnips = "D:\Carl\OneDrive\snippets\javascript"
