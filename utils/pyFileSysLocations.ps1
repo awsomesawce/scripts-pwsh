@@ -36,3 +36,5 @@ ${msysmingw} = @{
 # Source WriteColor.ps1 from dependencies
 . "$scrps\ScriptsAndFunctions\dependencies\WriteColors.ps1"
 echoDarkYellow "Loaded $PSScriptRoot\pyFileSysLocations.ps1"
+# Add location to msys home
+$msysmingw.home = "D:\MSYS2\home\"
