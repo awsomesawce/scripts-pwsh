@@ -26,12 +26,12 @@ Outputs both the base64 encoded string and the sha512/base64 string
 	$chashtob64 = [convert]::ToBase64String($chash)
 
 	return @"
-    Unshaed base64 = $([convert]::ToBase64String($bytes))
-    Shaed = $chashtob64
-    "@
+Unshaed base64 = $([convert]::ToBase64String($bytes))
+Shaed = $chashtob64
+"@
     }
     else {
-	Write-Error "You did not enter a value"
+    Write-Error "You did not enter a value"
     }
 
 }

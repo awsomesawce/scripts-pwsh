@@ -4,15 +4,22 @@
 # OriginalLocation: ~/gitstuff/scripts-pwsh/Scripts
 
 function Format-Script {
-
-param([string]$Path)
-if ($Path) {
-    $content = (Get-Content -Path $Path -Raw).ToString()
-    return Invoke-Formatter -ScriptDefinition "$content"
-}
-else {
-    throw "Need to enter path of script file to format."
-}
+<#
+.Description
+Formats the script in place and prints to stdout
+.NOTES
+Must be a file
+#>
+    param([string]$Path)
+    # 
+    if (test-path $Path) {
+	$content = (Get-Content -Path $Path -Raw).ToString()
+	return Invoke-Formatter -ScriptDefinition "$content"
+    }
+    # TODO: Add option for if path is a scriptblock
+    else {
+	throw "Path does not exist on file system"
+    }
 }
 
 function Open-inVim {
