@@ -358,3 +358,4 @@ else {
     Write-Host -ForegroundColor DarkMagenta "Writecolors cannot be found"
 }
 }
+set-alias psformat -Value invoke-formatter

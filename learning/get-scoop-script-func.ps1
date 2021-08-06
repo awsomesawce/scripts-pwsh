@@ -26,7 +26,10 @@ function Change-this-dir {
     }
     
     process {
-       Set-Location $Path && Write-Output "That seemed to work!" || Write-Error "That place doesnt exist"
+	if (test-path $Path) {
+       Set-Location $Path && Write-Output "That seemed to work!"
+	} else {
+	    write-error "Error: Path change did not work"
     }
     
     end {
