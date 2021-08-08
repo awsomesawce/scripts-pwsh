@@ -226,4 +226,3 @@ $mstools = importmshash
 $pyscripts = "C:\Users\Carl\gitstuff\my-python-scripts" # Important
 $hugodoc = "C:\Users\Carl\dumps\hugodoc" # Important
 $basesnips = "D:\Carl\OneDrive\snippets\javascript"
-set-alias joplin -Value .\JoplinPortable.exe -Description "Joplin portable location"

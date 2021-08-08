@@ -33,8 +33,12 @@ ${msysmingw} = @{
 	lib = "D:\MSYS2\usr\lib\python3.9"
     }
 }
-# Source WriteColor.ps1 from dependencies
-. "$scrps\ScriptsAndFunctions\dependencies\WriteColors.ps1"
-echoDarkYellow "Loaded $PSScriptRoot\pyFileSysLocations.ps1"
+# Source WriteColor.psm1 from dependencies as module
+# TODO: figure out why this ends up in the global scope...
+function Write-MySuccess {
+    import-module "$scrps\ScriptsAndFunctions\dependencies\WriteColors.psm1"
+    echoDarkYellow "Loaded $PSScriptRoot\pyFileSysLocations.ps1"
+}
+Write-MySuccess
 # Add location to msys home
 $msysmingw.home = "D:\MSYS2\home\"

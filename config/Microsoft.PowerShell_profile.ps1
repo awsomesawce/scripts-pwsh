@@ -27,14 +27,9 @@ Set-PoshPrompt -Theme zash && Write-Verbose "Set posh prompt to zash"
 #${env:Python PATH} = "${env:Python PATH};C:\Users\Carl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\Scripts"
 
 # Add requires statements because I'm using ternary operators.
+# TODO: Create a profile version for use with Powershell 5
 #Requires -Version 6.2
 #Requires -PSEdition Core
-
-### IMPORTANT ENV VARIABLES ###
-# Set `$env:PAGER` if it is null or empty, otherwise leave it alone.
-#([string]::IsNullOrWhiteSpace($env:PAGER)) ? ($env:PAGER = "less" && Write-Output "Set `$env:PAGER to $env:PAGER.") : (Write-Output "`$env:PAGER already set to $env:PAGER")
-# Set `$env:EDITOR` if it is null or empty, otherwise leave it alone and report back.
-#([string]::IsNullOrWhitespace($env:EDITOR)) ? ($env:EDITOR = "vim" && Write-Output "Set `$env:EDITOR to $env:EDITOR.") : (Write-Output "`$env:EDITOR already set to $env:EDITOR")
 
 # This little block of code tests whether Env:\PAGER has the correct
 # value, then it acts accordingly .
@@ -55,7 +50,7 @@ Write-Output "Codepage is now set to 65001"
 )
 
 # Source other_functions script and projectvars script.
-$PSDirectory = (Split-path -Parent $PROFILE)
+$PSDirectory = $PSScriptRoot
 
 # BEGIN Source Scripts {{{
 # TODO: Clean this up a bit.
@@ -104,9 +99,9 @@ $globalAppData="D:/Carl/Appdata"
 
 
 # Source PATH_mods.ps1
-$Script:pwshconfig = (Get-Item "C:\Users\Carl\gitstuff\scripts-pwsh\config")
-$Script:pwshconfigstr = "C:\Users\Carl\gitstuff\scripts-pwsh\config"
-$Script:pathModsScript = "$pwshconfigstr\PATH_mods.ps1"
+$pwshconfig = (Get-Item "C:\Users\Carl\gitstuff\scripts-pwsh\config")
+$pwshconfigstr = if ($pwshconfig) {$pwshconfig.FullName}
+$pathModsScript = "$pwshconfigstr\PATH_mods.ps1"
 if (Test-Path $pathModsScript) {
     Write-Verbose "Sourcing $pathModsScript"
     . "$pathModsScript"
@@ -132,7 +127,8 @@ if (Test-Path $Script:textFunctions) {
     Write-Error "$Script:textFunctions not found"
 }
 
-# NOTE: Array that lists every script file that is sourced upon pwsh init. INCOMPLETE
+# NOTE: Array that lists every script file that is sourced upon pwsh init.
+# TODO: Implement modules for each file that involves base functions that don't require other files. INCOMPLETE
 $Script:sourcedPwshFiles = @("$pathModsScript", "$scrps\ScriptsAndFunctions\useful-nav-functions.ps1", "$Script:textFunctions", "$scrps\config\other_functions.ps1")
 
 foreach ($i in $Script:sourcedPwshFiles) {
