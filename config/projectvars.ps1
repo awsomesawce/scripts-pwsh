@@ -80,7 +80,7 @@ $snippets = "$env:OneDrive\snippets"
 
 # Set barebones profile variables for easy navigation.
 $barebonesDir = "D:\Carl\OneDrive\snippets\pwsh\barebones\"
-$barebonesFunctionScript = Get-Item "D:\Carl\OneDrive\snippets\pwsh\barebones\barebones_Functions.ps1"
+$barebonesFunctionScript = Get-Item "D:\Carl\OneDrive\snippets\pwsh\barebones\barebones_Functions.psm1" # notice psm1
 
 # TODO: Put this function in a _misc_functions.ps1 file or something. :DONE:
 
@@ -226,3 +226,4 @@ $mstools = importmshash
 $pyscripts = "C:\Users\Carl\gitstuff\my-python-scripts" # Important
 $hugodoc = "C:\Users\Carl\dumps\hugodoc" # Important
 $basesnips = "D:\Carl\OneDrive\snippets\javascript"
+$hugoposts = "C:\Users\Carl\gitstuff\husite\content\posts\"
