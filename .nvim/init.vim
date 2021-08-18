@@ -5,6 +5,9 @@ source ~/_vimrc
 
 "" My nvim init.vim file
 
+"" Let miniconda3 python be the python
+let g:python3_host_prog = "C:/Users/Carl/miniconda3/python.exe"
+
 set shiftwidth=4 expandtab
 "set shellslash " Makes forward-slash paths instead of Windows' back-slashes
 "set shell=pwsh.exe " Shellslash does not work when cmd.exe is shell.
@@ -34,13 +37,14 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "" INFO: coc extensions are installed in localAppData on Windows.
 ""       Location is: ~/AppData/Local/coc/extensions
 "" INFO: This might be bulk because fzf is installed elsewhere in the system!
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+""Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'https://github.com/junegunn/fzf.vim'
-Plug 'https://github.com/junegunn/vim-github-dashboard.git'
+""Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 Plug 'https://github.com/plasticboy/vim-markdown/'
-Plug 'https://github.com/pangloss/vim-javascript.git'
+Plug 'https://github.com/pangloss/vim-javascript'
+Plug 'evanleck/vim-svelte', {'branch': 'main'}
 "" INFO: Might be bulk since ack is installed elsewhere in the system!
-Plug 'mileszs/ack.vim'
+""Plug 'mileszs/ack.vim'
 Plug 'https://github.com/PProvost/vim-ps1'
 ""Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 "" Begin Windows only plugin list
@@ -59,12 +63,13 @@ Plug 'preservim/nerdtree', {'branch': 'master'}
 Plug 'vim-airline/vim-airline', {'branch': 'master'}
 Plug 'vim-airline/vim-airline-themes'
 Plug 'https://github.com/tpope/vim-fugitive.git'
-Plug 'https://github.com/vifm/vifm.vim'
+""Plug 'https://github.com/vifm/vifm.vim'
 Plug 'https://github.com/z0mbix/vim-shfmt'
-" Add jedi-vim 2/26/2021
-Plug 'davidhalter/jedi-vim'
+""Plug 'davidhalter/jedi-vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+"" Installed haxe plugin today Monday, July 26, 2021 4:54:52 AM
+Plug 'https://github.com/jdonaldson/vaxe'
 """" Install next plugin as an alternative to coc.nvim
 ""Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'make release'}.
 "" End Windows only plugin list.
@@ -278,6 +283,7 @@ let g:airline_filetype_overrides = {
 " Start ALE Settings 
 " Turn off LSP when coc-nvim is active
 " TODO: make it so Coc-nvim turns off and only use ALE on pwsh files.
+let g:ale_linters = {'javascript': ["eslint"]}
 let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_insert_leave = 0
 let g:ale_lint_on_enter = 0
@@ -285,4 +291,8 @@ let g:ale_lint_on_save = 1
 let g:ale_lint_on_filetype_changed = 1
 "" Disable ALE lsp interaction when Coc-nvim is active.
 "" TODO: add if statement so it is active only on ps1 filetype.
-let g:ale_disable_lsp = 1
+let g:ale_disable_lsp = 0
+
+"" Svelte specific settings
+"" Use this when using typescript
+let g:svelte_preprocessors = ['typescript']
