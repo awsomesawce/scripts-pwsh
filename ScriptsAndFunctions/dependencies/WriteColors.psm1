@@ -13,14 +13,29 @@ in homemade scripts and functions, including PROFILE
 .Author Carl C.
 #>
 
-Set-Alias whc -Value Write-Host -Description "Shortening of Write-Host's command"
+# Make sure whc is not already an alias
+if (get-alias whc -ErrorAction Ignore) { Remove-Alias whc }
+
+function whc {
+    <#
+    .SYNOPSIS
+    whc color "message"
+    .Description
+    A small wrapper around Write-Host with different params.
+    .Example
+    whc Cyan "This is a message"
+    # => writes "This is a message" in Cyan to stdout.
+    #>
+    param([string]$color, [string]$msg)
+    return Write-Host -ForegroundColor $color $msg
+}
 
 function echoCyan {
     <#
     .Description
     Wrapper around write-host to output text in cyan
     #>
-    return whc -Foregroundcolor Cyan -msg "$args"
+    return whc -color Cyan -msg "$args"
 }
 
 function echoYellow {
@@ -28,7 +43,7 @@ function echoYellow {
     .Description
     Wrapper around write-host to output text in Yellow
     #>
-    return whc -foregroundcolor Yellow -msg "$args"
+    return whc -color Yellow -msg "$args"
 }
 
 function echoRed {
@@ -65,5 +80,8 @@ function echoMagenta {
     Wrapper around write-host to output text in Magenta
     #>
     return whc Magenta "$args"
+}
+function echoDarkMagenta ([string]$msg) {
+    return whc DarkMagenta "$msg"
 }
 set-variable WCLoaded -value $true -description "Tells other scripts whether writecolors.ps1 is already loaded" -Option AllScope
