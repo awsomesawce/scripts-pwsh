@@ -1,0 +1,28 @@
+{
+  "name": "scripts-pwsh",
+  "version": "1.0.0",
+  "description": "This git repo contains my personal collection of **Powershell** shell scripts.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/awsomesawce/scripts-pwsh.git"
+  },
+  "keywords": [],
+  "author": "Carl C. (https://github.com/awsomesawce)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/awsomesawce/scripts-pwsh/issues"
+  },
+  "homepage": "https://github.com/awsomesawce/scripts-pwsh#readme",
+  "dependencies": {
+    "fs-extra": "^10.0.0",
+    "node-powershell": "^4.0.0"
+  }
+}
