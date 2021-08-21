@@ -1,11 +1,13 @@
 # A list of variables that point to project directories
-# Use `gf` in vim to goto the file at point.
 # Author: Carl C (awsomesawce@outlook.com)
 # Date: 
 
+# Use `gf` in vim to goto the file at point.
+
 # First, set the variable to this script.
 # TODO: Get this variable from $PSScriptRoot
-Set-Variable -Name projectVarsScript -Value "C:\Users\Carl\gitstuff\scripts-pwsh\config\projectvars.ps1" -Description "Variable pointing to the script."
+Get-Item -Path $(join-path -Path $PSScriptRoot -ChildPath "./projectvars.ps1" | Set-Variable -Name "projectVarsScript" -Description "Testing piping to set-variable"
+
 # NOTE: Ignore warnings based on method of setting pwsh variables.
 # BEGIN Added Mar 29, 2021
 $gitstuffC = Get-Item "$env:USERPROFILE\gitstuff"

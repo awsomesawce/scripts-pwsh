@@ -21,7 +21,7 @@ Import-Module posh-git
 #Import-Module oh-my-posh # temp disable
 #Import-Module z
 # Set prompt
-Set-PoshPrompt -Theme zash && Write-Verbose "Set posh prompt to zash"
+#Set-PoshPrompt -Theme zash && Write-Verbose "Set posh prompt to zash"
 
 # Adjust Python Path.
 #${env:Python PATH} = "${env:Python PATH};C:\Users\Carl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\Scripts"
@@ -60,7 +60,6 @@ $scrps = if ([string]::IsNullOrWhitespace($scrps)) {
     "$env:USERPROFILE\gitstuff\scripts-pwsh"}
 $Script:scriptspwsh = "$scrps\config"
 $otherFunctionsScript = "$Script:scriptspwsh\other_functions.ps1"
-$mainConfigScripts = @("$projectvarsScript", "$PROFILE", "$otherFunctionsScript")
 
 # Try ternary operation.
 # TODO: Add a failsafe so it works with Windows Powershell too.
@@ -88,11 +87,6 @@ $oneDrive="$env:OneDrive"
 $localAppData="C:/Users/Carl/AppData/Local"
 $globalAppData="D:/Carl/Appdata"
 # END set psdir variable to local powershell directory, and set other variables.
-# The environment variable below sets XDG_CONFIG_HOME, which then tells nvim to look for it's
-# init file in that directory instead of AppData/local/nvim
-# That is bad, we have no configuration in ~/.config.
-# If you want to start nvim without having any config, set the $env:XDG_CONFIG_HOME variable.
-#$env:XDG_CONFIG_HOME="C:\Users\Carl\.config"
 
 ### BEGIN SOURCING PROFILE SCRIPTS
 ### TODO: Make this a sourcable module for easy maintainability.
@@ -129,7 +123,8 @@ if (Test-Path $Script:textFunctions) {
 
 # NOTE: Array that lists every script file that is sourced upon pwsh init.
 # TODO: Implement modules for each file that involves base functions that don't require other files. INCOMPLETE
-$Script:sourcedPwshFiles = @("$pathModsScript", "$scrps\ScriptsAndFunctions\useful-nav-functions.ps1", "$Script:textFunctions", "$scrps\config\other_functions.ps1")
+$mainConfigScripts = @("$projectvarsScript", "$PROFILE", "$otherFunctionsScript")
+$Script:sourcedPwshFiles = @( $mainConfigScripts, "$pathModsScript", "$scrps\ScriptsAndFunctions\useful-nav-functions.ps1", "$Script:textFunctions", "$scrps\config\other_functions.ps1")
 
 foreach ($i in $Script:sourcedPwshFiles) {
     Write-Output "Sourced $i"
