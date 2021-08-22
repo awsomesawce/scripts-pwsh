@@ -21,7 +21,7 @@ Import-Module posh-git
 #Import-Module oh-my-posh # temp disable
 #Import-Module z
 # Set prompt
-#Set-PoshPrompt -Theme zash && Write-Verbose "Set posh prompt to zash"
+Set-PoshPrompt -Theme zash && Write-Verbose "Set posh prompt to zash"
 
 # Adjust Python Path.
 #${env:Python PATH} = "${env:Python PATH};C:\Users\Carl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\Scripts"
@@ -53,7 +53,6 @@ Write-Output "Codepage is now set to 65001"
 $PSDirectory = $PSScriptRoot
 
 # BEGIN Source Scripts {{{
-# TODO: Clean this up a bit.
 
 # Set this value to wherever you have the git repo installed
 $scrps = if ([string]::IsNullOrWhitespace($scrps)) {
