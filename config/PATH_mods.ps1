@@ -25,20 +25,22 @@ set-alias -Name msysbashalias -Value "$msysbin\bash.exe"
 function checkNPMPath {
 <#
     .Description
+    Adjusts PATH so that NPM is first in line.
     Adjusts/appends PATH so that globally installed npm packages are accessible from
     the command line.
     .NOTES
     Copied from Notable/notes/npm_append_path.ps1
     Also in ../ScriptsAndFunctions/npm_append_path.ps1
+    TODO: Make cross platform code
 #>
 
-    if ($env:PATH.Contains('npm')) {
-        Write-Host -ForegroundColor Cyan "Success! ``npm`` global prefix is already in path!"
+    if ($env:Path.Split(';')[0].contains('npm')) {
+        Write-Host -ForegroundColor Cyan "Success! ``npm`` global prefix is first in path!"
     }
     else {
         Write-Host -ForegroundColor Yellow "$(npm prefix -g) is not in `$env:PATH.  Attempting to append path"
-        $env:PATH = "$(npm prefix -g);$env:PATH"
-        ($env:PATH.Contains('npm')) ? (Write-Host -ForegroundColor Cyan "Success!  Appended path with npm global prefix") : (Write-Error -Category InvalidOperation -Message "Unsuccessful attempt at appending PATH with npm global prefix.")
+        $env:PATH = "$env:APPDATA\npm;$env:PATH"
+        ($env:Path.Split(';')[0].contains('npm')) ? (Write-Host -ForegroundColor Cyan "Success!  Appended path with npm global prefix") : (Write-Error -Category InvalidOperation -Message "Unsuccessful attempt at appending PATH with npm global prefix.")
     }
 }
 checkNPMPath

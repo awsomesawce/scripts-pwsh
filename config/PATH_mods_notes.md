@@ -1,5 +1,9 @@
 # PATH_mods notes
 
+## NPM globally installed needs to be first in PATH...OR ELSE!
+
+Shit hits the fan when I accidentally use old npm...old npm actually deleted ALL OF MY GLOBAL PACKAGES!
+
  TODO: How to get rid of a PATH entry before loading wsl:
  TLDR: I ended up installing nodejs to WSL using the default way.
  Here's the situation:
