@@ -33,13 +33,8 @@ $ddocuments = (Get-Item "$UserProfileD/Documents").FullName
 Set-Variable -Name GitDirectoryD -Value $UserProfileD\Documents\GitHub -Description "Main directory for github hosted projects"
 Set-Variable -Name nodeschool -Value "D:\Carl\Documents\GitHub\node-school\" -Description "node-school directory"
 # TODO: fix labscurrent variable
-#set-variable -Name labscurrent -Value "~/Downloads/labs-node/labs-jan-5-2021/labs" -Description "Current labs"
-Set-Variable -Name nodewebpackproj -Value "D:\Carl\Documents\GitHub\my-webpack-demo" -Description "My webpack demo git dir"
-Set-Variable -Name pwshSnippetsFile -Value "D:\Carl\OneDrive\snippets\pwsh\powershell_snippets.txt" -Description "out-file for writing quick powershell snippets from the command line"
-Set-Variable -Name pwshSnippetsDir -Value (Split-Path -Parent "$pwshSnippetsFile")
 Set-Variable -Name NVIMINITVIM -Value C:\Users\Carl\AppData\Local\nvim\init.vim -Description "Main config file for neovim"
 Set-Variable -Name DESKTOP -Value $env:OneDrive\Desktop\ -Description "Shortcut to the Desktop folder"
-Set-Variable -Name randomnotes -Value $env:OneDrive\TODO\randomoutput.md -Description "A place to pipe output from pwsh"
 
 # This is a redo of the nodesch function that was previously here.
 function Goto-NodeSchool {
@@ -62,17 +57,6 @@ $perlcbin = Get-item $env:USERPROFILE\scoop\apps\perl\current\c\bin\
 $binDirs = @("$env:OneDrive\Desktop\bin", "$env:USERPROFILE\bin", "D:\Carl\bin")
 # Add perlbin variable on 04/08/2021 17:26:03.
 $perlbin = "C:\Users\Carl\scoop\apps\perl\current\perl\bin"
-
-# Remove raku stuff
-function listBinDirs {
-  Write-Output "This will list all the bin directories and optionally their contents."
-  Write-Output "`$binDirs is an array"
-  Write-Output "`$binDirs = $binDirs"
-  Write-Output "`$perlcbin = $perlcbin"
-  # IN-PROGRESS: Add more directories to these variables.
-  Write-Output "`$perlbin = $perlbin"
-  Write-Output "`$rakubin = $rakubin"
-}
 
 # Common Spelling mistakes
 set-alias -Name dotent -Value dotnet -Description "Start dotnet on spelling error"
@@ -229,3 +213,4 @@ $pyscripts = "C:\Users\Carl\gitstuff\my-python-scripts" # Important
 $hugodoc = "C:\Users\Carl\dumps\hugodoc" # Important
 $basesnips = "D:\Carl\OneDrive\snippets\javascript"
 $hugoposts = "C:\Users\Carl\gitstuff\husite\content\posts\"
+$ddownloads = "D:\Carl\Downloads"
