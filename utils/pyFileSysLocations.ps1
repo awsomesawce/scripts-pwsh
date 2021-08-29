@@ -27,17 +27,20 @@
 $miniconda = "$env:USERPROFILE\miniconda3"
 
 $pylibs = @{
-msysmingw = @{
-    mingw = @{
-	lib = @{
-	    py39 = "D:\MSYS2\mingw64\lib\python3.9"
-	    py38 = "D:\MSYS2\mingw64\lib\python3.8"
+    windows = @{
+	conda = $miniconda
+    }
+    msysmingw = @{
+	mingw = @{
+	    lib = @{
+		py39 = "D:\MSYS2\mingw64\lib\python3.9"
+		py38 = "D:\MSYS2\mingw64\lib\python3.8"
+	    }
+	}
+	msys = @{
+	    lib = "D:\MSYS2\usr\lib\python3.9"
 	}
     }
-    msys = @{
-	lib = "D:\MSYS2\usr\lib\python3.9"
-    }
-}
 }
 # Source WriteColor.psm1 from dependencies as module
 # TODO: figure out why this ends up in the global scope...

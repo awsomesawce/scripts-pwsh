@@ -1,5 +1,12 @@
 # Scripts and Functions
 
+## 8/29/2021
+
+- Changes to Profile to make more concise.
+
+- projectvars.ps1 in config directory is NOT WORKING.
+  > Use `../config/newProjVars.ps1`
+
 ## Wednesday, July 28, 2021 12:43:57 AM
 
 - Changes to `config\Microsoft.PowerShell_profile.ps1`  Going to make it source all relevant files and keep the profile itself

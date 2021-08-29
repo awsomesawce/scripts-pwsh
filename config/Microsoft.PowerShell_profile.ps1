@@ -15,21 +15,16 @@
 $env:POWERSHELL_TELEMETRY_OPTOUT = 1
 $env:DOTNET_INTERACTIVE_CLI_TELEMETRY_OPTOUT = 1
 
-# Import current modules.
-# 7/29/2021 - Disabled import-module for posh-git and oh-my-posh, but they are still loading
 Import-Module posh-git
 #Import-Module oh-my-posh # temp disable
 #Import-Module z
 # Set prompt
-Set-PoshPrompt -Theme zash && Write-Verbose "Set posh prompt to zash"
+#Set-PoshPrompt -Theme zash && Write-Verbose "Set posh prompt to zash"
 
 # Adjust Python Path.
 #${env:Python PATH} = "${env:Python PATH};C:\Users\Carl\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\Scripts"
 
-# Add requires statements because I'm using ternary operators.
 # TODO: Create a profile version for use with Powershell 5
-#Requires -Version 6.2
-#Requires -PSEdition Core
 
 # This little block of code tests whether Env:\PAGER has the correct
 # value, then it acts accordingly .
@@ -42,7 +37,7 @@ $env:EDITOR = "vim"
 # Sets the windows code page to UTF8 if it is not set, and reports back if it is correctly set.
 # TODO: Fix this.
 $codepage = $(chcp)
-($codepage.EndsWith("65001")) ? (Write-Output "codepage is correctly set") : $(
+($codepage.EndsWith("65001")) ? (Write-Output "codepage is correctly set") : (
 Write-Output "Setting codepage"
 chcp 65001 | Out-Null
 $codepage = $(chcp)
@@ -50,7 +45,7 @@ Write-Output "Codepage is now set to 65001"
 )
 
 # Source other_functions script and projectvars script.
-$PSDirectory = $PSScriptRoot
+$PSDirectory = 'D:/Carl/Documents/Powershell'
 
 # BEGIN Source Scripts {{{
 
@@ -58,42 +53,45 @@ $PSDirectory = $PSScriptRoot
 $scrps = if ([string]::IsNullOrWhitespace($scrps)) {
     "$env:USERPROFILE\gitstuff\scripts-pwsh"}
 $Script:scriptspwsh = "$scrps\config"
-$otherFunctionsScript = "$Script:scriptspwsh\other_functions.ps1"
+$otherFunctionsScript = "$scriptspwsh\other_functions.ps1"
+$projectvarsScript = "$scriptspwsh\projectvars.ps1"
+$newProjVarsScript = "$scriptspwsh\newProjVars.ps1"
 
 # Try ternary operation.
 # TODO: Add a failsafe so it works with Windows Powershell too.
 if (Test-Path "$otherFunctionsScript") {
     . "$otherFunctionsScript"
-    Write-Verbose "`$otherFunctionsScript has been loaded.  Its path = $otherFunctionsScript"
+    Write-Output "`$otherFunctionsScript has been loaded.  Its path = $otherFunctionsScript"
 } else {
     Write-Error "$otherFunctionsScript file not found."
 }
 
-$projectvarsScript = "$Script:scriptspwsh\projectvars.ps1"
-if ($PSVersionTable.PSVersion.Major -gt 5) {
-    # Use ternary operator
-    (Test-Path $projectvarsScript) ? (. $projectvarsScript) : (Write-Output "projectvars.ps1 not found")
+# ProjectvarsScript not working, use newProjVars.ps1 instead
+if (test-path $projectvarsScript) {
+    Write-Host -Fore yellow "Loading projectvars script"
+    . $projectvarsScript
 } else {
-    if (Test-Path "$projectvarsScript") {
-	. "$projectvarsScript"
-    } else {
-	Write-Error "Could not find $projectvarsScript"
-    }
+    Write-Host -Fore red "`$projectvarsScript not found!"
 }
+
+if (test-path $newProjVarsScript) {
+    . $newProjVarsScript
+    write-host -fore cyan "Loaded $newProjVarsScript"
+} else { Write-Error "$newProjVarsScript not found" }
+
 # BEGIN set psdir variable to local powershell directory, and set other variables.
 $gitDir="D:/Carl/Documents/GitHub"
 $oneDrive="$env:OneDrive"
-$localAppData="C:/Users/Carl/AppData/Local"
-$globalAppData="D:/Carl/Appdata"
+$localAppData="$env:LOCALAPPDATA"
+$globalAppData="$env:APPDATA"
 # END set psdir variable to local powershell directory, and set other variables.
 
-### BEGIN SOURCING PROFILE SCRIPTS
 ### TODO: Make this a sourcable module for easy maintainability.
 
-
-# Source PATH_mods.ps1
 $pwshconfig = (Get-Item "C:\Users\Carl\gitstuff\scripts-pwsh\config")
 $pwshconfigstr = if ($pwshconfig) {$pwshconfig.FullName}
+
+# Source PATH_mods.ps1
 $pathModsScript = "$pwshconfigstr\PATH_mods.ps1"
 if (Test-Path $pathModsScript) {
     Write-Verbose "Sourcing $pathModsScript"
@@ -122,8 +120,14 @@ if (Test-Path $Script:textFunctions) {
 
 # NOTE: Array that lists every script file that is sourced upon pwsh init.
 # TODO: Implement modules for each file that involves base functions that don't require other files. INCOMPLETE
+# 	NOTE on projectvarsscript: Temporarily using $newProjVarsScript instead.
 $mainConfigScripts = @("$projectvarsScript", "$PROFILE", "$otherFunctionsScript")
-$Script:sourcedPwshFiles = @( $mainConfigScripts, "$pathModsScript", "$scrps\ScriptsAndFunctions\useful-nav-functions.ps1", "$Script:textFunctions", "$scrps\config\other_functions.ps1")
+$Script:sourcedPwshFiles = @( $mainConfigScripts,
+"$pathModsScript", 
+"$scrps\ScriptsAndFunctions\useful-nav-functions.ps1", 
+"$Script:textFunctions", 
+"$scrps\config\other_functions.ps1"
+"$newProjVarsScript")
 
 foreach ($i in $Script:sourcedPwshFiles) {
     Write-Output "Sourced $i"
@@ -133,7 +137,7 @@ foreach ($i in $Script:sourcedPwshFiles) {
 $DOTFILESGIT = "$env:USERPROFILE\gitstuff\my-dotfiles"
 # TODO: In progress: Moving Set-Alias declarations to separate
 # file. other_functions.ps1 in config dir.
-Set-Alias -Name lsc -Value Get-ChildItemColorFormatWide -Description "A better color ls"
+Set-Alias -Name lscolor -Value Get-ChildItemColorFormatWide -Description "A better color ls"
 
 ## Source Profile_Extra.ps1
 ## Profile_Extra.ps1 contains a bunch of aliases and quick functions that may or may not still be necessary, but we're

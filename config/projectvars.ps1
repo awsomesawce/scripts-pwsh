@@ -1,18 +1,18 @@
 # A list of variables that point to project directories
+# NOT WORKING!  Use ./newProjVars.ps1 for now
 # Author: Carl C (awsomesawce@outlook.com)
-# Date: 
+# Date: 8/29/2021
 
 # Use `gf` in vim to goto the file at point.
 
 # First, set the variable to this script.
 # TODO: Get this variable from $PSScriptRoot
-Get-Item -Path $(join-path -Path $PSScriptRoot -ChildPath "./projectvars.ps1" | Set-Variable -Name "projectVarsScript" -Description "Testing piping to set-variable"
+#Get-Item -Path $(join-path -Path $PSScriptRoot -ChildPath "./projectvars.ps1" | Set-Variable -Name "projectVarsScript" -Description "Testing piping to set-variable"
 
 # NOTE: Ignore warnings based on method of setting pwsh variables.
 # BEGIN Added Mar 29, 2021
 $gitstuffC = Get-Item "$env:USERPROFILE\gitstuff"
 $env:myDotfiles = Get-Item "$gitstuffC\my-dotfiles" # Exported this variable to environment
-$myDotfiles = $env:myDotfiles
 # END Added Mar 29, 2021
 $Local:scriptspwshDir = "$gitstuffC\scripts-pwsh"
 $script:configDir = "$Local:scriptspwshDir/config"
@@ -77,69 +77,8 @@ $curSnipFile = Get-Item D:\Carl\OneDrive\snippets\pwsh\powershell_learning_new.p
 $editorconfigtemplate = "C:\Users\Carl\gitstuff\my-dotfiles\templates\template.editorconfig"
 # Don't use `Get-Item` for ddownloads.
 
-# List of current document directories for writings:
-$newestDocumentDirs = @{
-    Name = "List of New Document Dirs"
-    NameOfHashTable = "`$newestDocumentDirs"
-    NotableNotes="$env:OneDrive\Notable\notes"
-    MDBook= Get-Item "$env:USERPROFILE\gitstuff\mdbook_test"
-    bashSnippets = Get-item "$env:OneDrive\snippets\bash"
-    pwshSnippets = "$pwshSnippetsDir"
-    OneDriveDocuments = "$env:OneDrive\Documents"
-    DESKTOP = "$env:OneDrive\Desktop"
-    CurrentSnippetFile = "$curSnipFile"
-    Downloads = @{
-        CDownloads = Get-Item "~/Downloads"
-        DDownloads = "$ddownloads"
-    }
-    UsefulVars = @("`$documents", "`$zshlovers", "`$editorconfigtemplate", "`$dotfileDirs")
-}
+
 # functions are allowed in this file as long as they relate to project variables.
-# NOTE: It might be better to offload certain functions as a script file. 
-# NOTE: Functions are sourced and are executed from memory while the PSSession is active.
-# NOTE: Powershell Scripts, however, are executed from the filesystem.
-function ListDocumentDirs {
-    if ($args) {
-        write-error "This function does not need args.
-        Try again."
-    } else {
-        Write-Output "List of new Document Dirs:"
-        Write-Output $newestDocumentDirs
-    }
-}
-# TODO: Shorten this script and make it so it is not so big.
-# IMPORTANT: this is the preferred way of naming project variables.  Be specific.
-$windowsDotfilesBackup = "$($dotfileDirs[0])windows"
-# TODO: backupDirs and dotfileDirs are very similar, might just remove one.
-$backupDirs = @{
-# This is a list of backup directories relating to shell config
-    tarfiles="D:\Carl\OneDrive\tarfiles\configstuff"
-    dotfiles_backup="$env:OneDrive\dotfiles_backup"
-    windows_dotfiles_backup="$windowsDotfilesBackup"
-}
-
-$msysFiles = @{
-    description = "Hash table consisting of deterministic way of finding msys files."
-    msysDotfilesGitDir = if ($env:myDotfiles) {"$env:myDotfiles\msys2"} else {"$env:USERPROFILE\gitstuff\my-dotfiles\msys2"}
-    msysDotfilesBackupDir = if (Test-Path $dotfileDirs[0]) {"$($dotfileDirs[0])\msys2"}
-    msysShellFiles = @{
-	msysBashRc = (Test-Path "~/.bashrc") ? ("$env:HOME\.bashrc") : ($null && Write-Error "bashrc not found")
-	msysZshRc = if (Test-Path "~/.zshrc.local") {"$env:USERPROFILE\.zshrc.local"}
-	msysEntryFile = if (Test-Path "~/.msysEntry") {"$env:USERPROFILE\.msysEntry"}
-	msysEnvFile = "$($msysFiles.msysDotfilesGitDir)\.msysEnv" || ($env:myDotfiles) ? `
-	    ("$env:myDotfiles\msys2\.msysenv") : (Write-Error "Something is wrong")
-    }
-}
-
-# ImportantHash hash table
-# EXPERIMENTAL: This is for testing nested hash tables
-
-$ImportantHashHash = @{
-    backupDirs = $backupDirs
-    newDocDirs = $newestDocumentDirs
-}
-
-$ImportantHashArr = @($backupDirs, $newestDocumentDirs)
 
 # This is the simplest function for listing powershell notes in my Notable
 #+ directory.
@@ -153,16 +92,7 @@ function listPowershellNotes {
     return $pwshNotes = @((Get-Childitem "$env:OneDrive\Notable\notes\Powershell*"), (gci "$env:UserProfile\gitstuff\scripts-pwsh-wiki"))
 }
 
-# This function goes to the specific directory
-function go2perlsnips {
-    $perlsnips = "$snippets\perl"
-    (Test-Path $perlsnips) ? (Set-Location $perlsnips) : (
-    Write-Error "`$snippets\perl not there")
-}
-
-$newestDocumentDirs.Add("json_data_learning", "$PWD")
 # TODO: Correct variable name from rememberfile to todo or todofile.
-$todo = $rememberfile
 $nodedocs = "C:\Users\Carl\dumps\nodedocs\latest-fermium\api" # TODO: move nodedocs somewhere else (D:)
 $templates = "C:\Users\Carl\gitstuff\my-dotfiles\templates\"
 $pipxPath = "C:\Users\Carl\.local\bin\"
@@ -187,7 +117,6 @@ function gotoPythonSnips {
 set-alias subl -Value "D:\Program Files\Sublime Text\subl.exe" -Description "Sublime text executable" -Option None
 #$pytoolsdir = 'C:\Program Files\Python38\Tools' # Old Python tools dir
 
-# default path for `py -m pip` (python3.9 windowsstore version)
 set-alias cptobackupdirs "C:\Users\Carl\gitstuff\scripts-pwsh\utils\cptobackupdirs.ps1"
 
 # Moved ddocuments to beginning of script.
@@ -196,18 +125,6 @@ $nodeclipkg = "D:\Carl\Documents\GitHub\node_cli_package"
 
 $msbuild = "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin\"
 $dotnetDir = "C:\Program Files\dotnet\"
-function importmshash { 
-    $mstools = @{
-	msbuild = $msbuild
-	dotnet = @{
-	    dotnetexe = "C:\Program Files\dotnet\dotnet.exe"
-	    dotnetdir = $dotnetDir
-	}
-    }
-    return $mstools
-}
-
-$mstools = importmshash
 
 $pyscripts = "C:\Users\Carl\gitstuff\my-python-scripts" # Important
 $hugodoc = "C:\Users\Carl\dumps\hugodoc" # Important
