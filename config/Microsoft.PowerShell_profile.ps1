@@ -33,16 +33,16 @@ Import-Module posh-git
 $env:PAGER = if (Get-Command less -ErrorAction ignore) {"less"} else {"more"}
 # TODO: add if statements for env var declaration.
 $env:EDITOR = "vim"
-# Nifty code block:
 # Sets the windows code page to UTF8 if it is not set, and reports back if it is correctly set.
-# TODO: Fix this.
 $codepage = $(chcp)
-($codepage.EndsWith("65001")) ? (Write-Output "codepage is correctly set") : (
-Write-Output "Setting codepage"
-chcp 65001 | Out-Null
-$codepage = $(chcp)
-Write-Output "Codepage is now set to 65001"
-)
+if ($codepage.EndsWith("65001")) {
+    Write-Output "codepage is correctly set"
+} else {
+    Write-Output "Setting codepage"
+    chcp 65001
+    $codepage = $(chcp)
+    Write-Output "Codepage is now set to 65001"
+}
 
 # Source other_functions script and projectvars script.
 $PSDirectory = 'D:/Carl/Documents/Powershell'
