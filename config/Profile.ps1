@@ -42,4 +42,10 @@ Function localappdata {Set-Location -Path C:\Users\Carl\AppData}
 
 ## TODO and NOTE
 
-<placeholder>PH</placeholder>
+#<placeholder>PH</placeholder>
+
+#region conda initialize
+# !! Contents within this block are managed by 'conda init' !!
+(& "C:\Users\Carl\miniconda3\Scripts\conda.exe" "shell.powershell" "hook") | Out-String | Invoke-Expression
+#endregion
+

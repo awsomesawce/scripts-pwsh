@@ -3,7 +3,9 @@
 # Author: Carl C (awsomesawce@outlook.com)
 # Date: 8/29/2021
 
-# Use `gf` in vim to goto the file at point.
+# NOTE: Use `gf` in vim to goto the file at point.
+
+$global:projectvarsloaded = $true
 
 # First, set the variable to this script.
 # TODO: Get this variable from $PSScriptRoot

@@ -20,6 +20,27 @@ $msysbin = "D:\MSYS2\usr\bin"
     Write-Error -Category ObjectNotFound -Message "Cannot find MSYS2 install dir, not setting `$msysbin"}
 set-alias -Name msysbashalias -Value "$msysbin\bash.exe"
 
+
+function Set-LocationToDHome {
+
+    <#
+    .Synopsis
+    Go to Home dir on D drive
+    .Description
+    Simple function that goes to the D drive.
+    This will be aliased to a short command (probably dcd)
+#>
+    $dHome = "D:\Carl"
+    if ((Test-Path $dHome) -and ("$PWD" -ne "D:\Carl")) {
+        Set-Location -Path $dHome -Verbose && Write-Output "We're here!"
+    }
+    else {
+        Write-Verbose "We are already at $dHome"
+    }
+
+}
+Set-Alias -Name 'dcd' -Value 'Set-LocationToDHome' -Description "A short alias for changing to D:/Carl quickly"
+
 # Check for npm global prefix to be on $env:PATH:
 
 function checkNPMPath {
@@ -42,4 +63,5 @@ function checkNPMPath {
     }
 }
 checkNPMPath
+
 

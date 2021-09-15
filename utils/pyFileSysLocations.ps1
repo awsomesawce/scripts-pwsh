@@ -28,26 +28,61 @@ $miniconda = "$env:USERPROFILE\miniconda3"
 
 $pylibs = @{
     windows = @{
-	conda = $miniconda
+	    conda = @{
+            basedir = $miniconda
+            scripts = (Get-ChildItem "$miniconda/Scripts")
+            scriptsNames = (Get-ChildItem "$miniconda/Scripts").FullName
+            condaCommand = (Get-Command "$env:USERPROFILE\miniconda3\shell\condabin\Conda.psm1")
+            mostUsedScripts = @(
+                    @{
+                        name = 'yapf'
+                        location = (Get-Item "$miniconda/Scripts/yapf.exe")
+                    },
+                    @{
+                        name = 'black'
+                        location = Get-Item "$miniconda/Scripts/black.exe"
+                        description = "A highly used and good opinionated python code formatter."
+                        cmdline = $True
+                    },
+                    @{
+                        name = 'pygmentize'
+                        location = Get-Item "~/miniconda3/Scripts/pygmentize-script.py"
+                        description = "Colorize code text in HTML or terminal"
+                        cmdline = $True
+                    },
+                    @{
+                        name = 'pyjson5'
+                        location = Get-Item "$miniconda/Scripts/pyjson5.exe"
+                        description = "An evolution of json that allows comments along with other stuff"
+                        cmdline = $True
+                    },
+                    @{
+                        name = 'pyflakes'
+                        location = Get-ChildItem "$miniconda/Scripts/pyflakes-script.py"
+                        description = "Python code checker, lite edition"
+                    }
+            )
+        }
     }
     msysmingw = @{
 	mingw = @{
 	    lib = @{
-		py39 = "D:\MSYS2\mingw64\lib\python3.9"
-		py38 = "D:\MSYS2\mingw64\lib\python3.8"
+            py39 = "D:\MSYS2\mingw64\lib\python3.9"
+            py38 = "D:\MSYS2\mingw64\lib\python3.8"
 	    }
 	}
-	msys = @{
-	    lib = "D:\MSYS2\usr\lib\python3.9"
-	}
+        msys = @{
+            lib = "D:\MSYS2\usr\lib\python3.9"
+        }
     }
 }
 # Source WriteColor.psm1 from dependencies as module
 # TODO: figure out why this ends up in the global scope...
 function Write-MySuccess {
-    import-module "$scrps\ScriptsAndFunctions\dependencies\WriteColors.psm1"
+    
+    import-module "$scrps\ScriptsAndFunctions\dependencies\WriteColors.psm1" -Verbose
     echoDarkYellow "Loaded $PSScriptRoot\pyFileSysLocations.ps1"
 }
-Write-MySuccess
+#Write-MySuccess
 # Add location to msys home
 $pylibs.msysmingw.home = "D:\MSYS2\home\"

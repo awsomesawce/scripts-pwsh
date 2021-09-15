@@ -321,12 +321,14 @@ function get-childitemwide {
 set-alias -Name lsw -Value get-childitemwide -Description "New ls format-wide" -Option AllScope
 # TODO: Fix this stuff below.
 
-function pydoc {
+function mypydoc {
     <#
     .Description
     Pydoc shortcut for windows where pydoc binary is not on path
+    .NOTES
+    Changed name to "mypydoc" to avoid intersection with the real pydoc binary.
     #>
-    param([string]$myArg)
+    param([string[]]$myArgs)
     if (get-command py -erroraction ignore) {
 	py -m pydoc "$myArgs"
     }
@@ -347,9 +349,11 @@ function source-writecolors {
 <#
 .Description
 function that will source the writecolors dependency into the current session
+.NOTES
+This is getting a complete overhaul.
 #>
-$scrps = "C:\Users\Carl\gitstuff\scripts-pwsh"
-$writecolors = "$scrps\ScriptsAndFunctions\dependencies\WriteColors.ps1"
+$local:scrps = "$env:USERPROFILE\gitstuff\scripts-pwsh"
+$writecolors = "$scrps\ScriptsAndFunctions\dependencies\WriteColors.psm1"
 if (Test-Path $writecolors) {
     . $writecolors && echoYellow "Writecolors loaded"
     set-variable WCLoaded -Value $true -Description "Tells external scripts whether or not writecolors.ps1 is loaded" -Option AllScope

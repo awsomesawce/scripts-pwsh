@@ -17,3 +17,8 @@ Shit hits the fan when I accidentally use old npm...old npm actually deleted ALL
 + Ubuntu.
  Basically I have to write a function that automatically adjusts the PATH before invoking wsl.
  I'm going to try and do this from inside wslFunctions.ps1 instead of here.
+
+## Add Set-LocationToDHome Shortcut
+
+Added a function that changes working dir to `D:/Carl`.
+It is aliased to `dcd`.
