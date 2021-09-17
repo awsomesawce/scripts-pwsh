@@ -37,3 +37,5 @@ function listPowershellNotes {
 	return write-error "Error finding powershell notes"
     }
 }
+# New Python project using conda
+$currentPyProj = 'D:\Carl\Documents\PythonProjs'
