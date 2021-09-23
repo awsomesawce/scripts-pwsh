@@ -7,9 +7,9 @@ nice utility functions for the average script-worker.
 I intend for it to be similar to chalk for nodejs.
 #>
 $scrps = "C:\Users\Carl\gitstuff\scripts-pwsh"
-$writecolors = "$scrps\ScriptsAndFunctions\dependencies\WriteColors.ps1"
+$writecolors = "$scrps\ScriptsAndFunctions\dependencies\WriteColors.psm1"
 if (Test-Path $writecolors) {
-    . $writecolors && echoYellow "Writecolors loaded"
+    import-module $writecolors && echoYellow "Writecolors loaded"
     set-variable WCLoaded -Value $true -Description "Tells external scripts whether or not writecolors.ps1 is loaded" -Option AllScope
 }
 else {

@@ -1,6 +1,6 @@
 # Taken from Anaconda start-menu shortcut on Windows.
 # This allows the user to start the conda env from the current powershell session.
-<#PSScriptInfo
+<#
 .Description
 Starts Conda environment from console
 .NOTES
