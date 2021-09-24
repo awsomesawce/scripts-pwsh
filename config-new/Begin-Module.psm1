@@ -52,3 +52,19 @@ function gitst {
 }
 
 write-output "Loaded Begin-Module.psm1" # FIXME: this does not show up
+
+
+function setNpmToBeginning {
+    <#
+    .Description
+    Set npm to beginning of path if it is not
+    #>
+    param()
+    if ($env:Path.Split(";")[0] -ne "*npm*") {
+    $OLD_PATH = $env:PATH
+    $env:PATH = "$(npm -g bin);$env:PATH"
+    write-host -fore Cyan "Set npm to beginning of path"
+    } else {
+    Write-Host -fore Cyan "NPM is already at beginning of path"
+    }
+}

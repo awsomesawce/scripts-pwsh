@@ -5,8 +5,9 @@
 $env:PAGER = (get-command 'less' -erroraction ignore) ? ('less') : ('more')
 $env:DOTNET_CLI_TELEMETRY_OPTOUT = 1
 $newconfig = "C:\Users\Carl\OneDrive\dotfiles_backup\config-new" # Path to OneDrive backup for new-config
-$env:Path = "C:\Users\Carl\gitstuff\scripts-pwsh\bin\;$env:Path"
-$scrps = (Get-Item "~\gitstuff\scripts-pwsh")
+# Set npm -g bin to beginning of path.
+$env:Path = "C:\Users\Carl\AppData\Roaming\npm;C:\Users\Carl\gitstuff\scripts-pwsh\bin\;$env:Path"
+$scrps = (Get-Item "~\gitstuff\scripts-pwsh").FullName
 
 if (get-command start-condaenv -ErrorAction Ignore) {
     start-condaenv
@@ -51,3 +52,7 @@ $env:OLD_PATH = $env:Path
 $env:Path = "C:\Users\Carl\.cargo\bin;$env:Path"
 $OLD_PATH = $env:path
 $env:path = "$codebin;$env:path"
+
+# Use command from Begin-Module
+setNpmToBeginning
+# End of File: vim sw=4;
