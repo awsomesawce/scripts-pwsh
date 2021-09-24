@@ -1,6 +1,9 @@
+#!/usr/bin/env pwsh
 # Beginner Functions Module
 # Starting module for new powershell setup
+# Author: Carl Capodice
 
+$_AUTHOR = "Carl Capodice"
 function duks {
 
     <#
@@ -23,14 +26,14 @@ function get-commandlocation {
     An updated which command
     #>
 
-param([string]$Name)
-if ($Name) {
-    if ([string]::IsNullOrWhiteSpace((Get-Command $name).Source)) {
-        return (Get-Command $Name)
+    param([string]$Name)
+    if ($Name) {
+        if ([string]::IsNullOrWhiteSpace((Get-Command $name).Source)) {
+            return (Get-Command $Name)
+        }
+        return (Get-Command $Name).Source
     }
-    return (Get-Command $Name).Source
-}
-else { Write-Error "need name arg" }
+    else { Write-Error "need name arg" }
 
 }
 set-alias which -Value get-commandlocation -Description "Standard which program"
@@ -48,4 +51,4 @@ function gitst {
     }
 }
 
-write-output "Loaded Begin-Module.psm1"
+write-output "Loaded Begin-Module.psm1" # FIXME: this does not show up

@@ -4,7 +4,7 @@
 # Set env vars
 $env:PAGER = (get-command 'less' -erroraction ignore) ? ('less') : ('more')
 $env:DOTNET_CLI_TELEMETRY_OPTOUT = 1
-$newconfig = "C:\Users\Carl\OneDrive\dotfiles_backup\config-new"
+$newconfig = "C:\Users\Carl\OneDrive\dotfiles_backup\config-new" # Path to OneDrive backup for new-config
 $env:Path = "C:\Users\Carl\gitstuff\scripts-pwsh\bin\;$env:Path"
 $scrps = (Get-Item "~\gitstuff\scripts-pwsh")
 
@@ -33,3 +33,21 @@ if ($loadgitconfig) {
 } else {
 	write-host -fore red "`$loadgitconfig = `$False"
 }
+$env:OLD_PATH = $env:PATH
+$env:Path = "C:\Program Files\dotnet\;$env:path"
+$changeenvpath = '$env:Path = "C:\Program Files\Go\bin\;$env:Path"'
+$Old_path = $env:Path
+iex $changeenvpath
+write-output "Go has been added to PATH"
+
+# PowerShell parameter completion shim for the dotnet CLI
+Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
+     param($commandName, $wordToComplete, $cursorPosition)
+         dotnet complete --position $cursorPosition "$wordToComplete" | ForEach-Object {
+            [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
+         }
+}
+$env:OLD_PATH = $env:Path
+$env:Path = "C:\Users\Carl\.cargo\bin;$env:Path"
+$OLD_PATH = $env:path
+$env:path = "$codebin;$env:path"
