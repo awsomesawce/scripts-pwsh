@@ -15,9 +15,12 @@ if (get-command start-condaenv -ErrorAction Ignore) {
     Write-Warning "start-condaenv not on path."
 }
 
+
 import-module posh-git
 # Begin-Module has beginning functions for new setup
 import-module "$scrps\config-new\Begin-Module.psm1"
+# MySetup has some interesting functions
+if (test-path "$scrps\config-new\MySetup.psm1") {import-module "$scrps/config-new/MySetup.psm1"}
 $utilFuncs = "$env:OneDrive\snippets\pwsh\utilFuncs\UtilFuncs.psd1"
 import-module "$utilFuncs"
 
@@ -60,3 +63,8 @@ $env:OLD_PATH = $env:PATH
 $env:Path = "C:\Users\Carl\AppData\Roaming\Python\Python39\Scripts;$env:Path"
 # Source rustup completion script
 . $scrps\completion\_rustup.ps1
+# FIXME: Add this variable to Begin-Module
+# Add var for psenv used in npm projects
+$psenv = "$env:USERPROFILE\gitstuff\my-dotfiles\templates\.psenv.ps1"
+# Automatic gh completion
+Invoke-Expression -Command $(gh completion -s powershell | out-string)

@@ -4,6 +4,25 @@
 # Author: Carl Capodice
 
 $_AUTHOR = "Carl Capodice"
+
+function Get-ModuleFiles {
+    <#
+    .Description
+    Simply gets all psm1 files in the directory
+    #>
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $False)]
+        [string]
+        $Path
+    )
+    if ($Path) {
+        Get-ChildItem "$Path/*.psm1"
+    } else {
+        get-childitem "*.psm1"
+    } 
+}
+
 function duks {
 
     <#
