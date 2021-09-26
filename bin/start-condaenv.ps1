@@ -7,7 +7,7 @@ Starts Conda environment from console
 Taken from "Anaconda Powershell Prompt" start menu shortcut
 #>
 if ($env:CONDA_EXE) {
-    Write-Error "Conda environment is already loaded"
+    Write-Warning "Conda environment is already loaded"
 } else {
     & 'C:\Users\Carl\miniconda3\shell\condabin\conda-hook.ps1' ; conda activate 'C:\Users\Carl\miniconda3' 
 }
