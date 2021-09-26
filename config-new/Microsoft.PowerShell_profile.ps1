@@ -56,3 +56,5 @@ $env:path = "$codebin;$env:path"
 # Use command from Begin-Module
 setNpmToBeginning
 # End of File: vim sw=4;
+$env:OLD_PATH = $env:PATH
+$env:Path = "C:\Users\Carl\AppData\Roaming\Python\Python39\Scripts;$env:Path"
