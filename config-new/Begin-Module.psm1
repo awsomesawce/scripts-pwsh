@@ -87,3 +87,6 @@ function setNpmToBeginning {
     Write-Host -fore Cyan "NPM is already at beginning of path"
     }
 }
+
+# Source completion scripts
+. ./completions.ps1
