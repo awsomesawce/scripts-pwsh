@@ -89,4 +89,5 @@ function setNpmToBeginning {
 }
 
 # Source completion scripts
-. ./completions.ps1
+$script:completionScript = Get-Item "$scrps/config-new/completions.ps1"
+. "$completionScript"
