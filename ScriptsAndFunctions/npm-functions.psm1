@@ -22,7 +22,7 @@ function whichPager {
 	    }
 	}
     }
-    return $PAGER
+    return $PAGER.ToString()
 }
 
 $PAGER = whichPager -AltPager "bat"
