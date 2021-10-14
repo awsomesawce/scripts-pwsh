@@ -1,7 +1,9 @@
 #!/usr/bin/env -S pwsh -nop
 # Functions relating to npm for Powershell
 # OriginalLocation: ~/gitstuff/scripts-pwsh/ScriptsAndFunctions/npm-functions.psm1
-# Related files: ../utils/npm_append_path.ps1
+# OnlineLocation: https://github.com/awsomesawce/scripts-pwsh
+# Related files: ../utils/npm_append_path.ps1, 
+#   https://github.com/awsomesawce/my-dotfiles/templates/.psenv.ps1
 
 function whichPager {
     <#
@@ -54,6 +56,12 @@ function ninfo {
     <#
     .Synopsis
     Show info about multiple npm packages at once
+    .Description
+    Returns `npm info` on each string passed to the `$arr` parameter.
+    .NOTES
+    I got tired of using foreach to pipe multiple package names to `npm info` at once,
+    so I made this sweet function.
+    Remember to separate each string with a comma!
     #>
 param([string[]]$arr)
 if ($arr) {
