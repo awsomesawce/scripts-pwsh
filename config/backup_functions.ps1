@@ -1,11 +1,13 @@
 # Backup functions for Powershell
 # Author: Carl C. (awsomesawce at outlook dot com)
 
+### CHANGELOG ###
+# 10/12/2021: Reopened for editing in VSCode.
 # This function will back up the .emacs file to both my dotfiles
 # TODO: turn this into an array
 function backup_dotemacs {
     if (test-path C:\Users\Carl\.emacs) {
-	echo "Copying ~/.emacs to backup folders"
+	Write-Output "Copying ~/.emacs to backup folders"
 	Copy-Item C:\Users\Carl\.emacs -Destination "$($myDotfilesGit.toString())\windows" -Confirm
 	Copy-Item ~/.emacs -Destination "$oneDrive\dotfiles_backup\windows" -Confirm
     } else {

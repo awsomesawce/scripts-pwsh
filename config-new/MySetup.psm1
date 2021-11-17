@@ -1,3 +1,7 @@
+using namespace System
+using namespace System.Collections
+using namespace System.IO
+
 function Get-ImportantCommands {
     <#
     .Description
@@ -10,7 +14,7 @@ function Get-ImportantCommands {
     # Getting the basename of command can be done like this:
     # $name = (Get-item $(get-command vim).source).BaseName
     $hash = @{}
-    $commands = @('git', 'rg', 'scoop', 'choco', 'vim', 'nvim', 'wsl', 'where', 'xz', 'tar')
+    $commands = @('git', 'rg', 'scoop', 'choco', 'vim', 'nvim', 'wsl', 'where', 'xz', 'tar', "cmd")
     $commands | ForEach-Object {
         if (Get-Command $_ -ErrorAction ignore) {
             $comObj = Get-Command $_
@@ -28,4 +32,21 @@ function Get-ImportantCommands {
         }
     }
     return $hash
+}
+
+function Get-ImportantModules {
+    <#
+    .SYNOPSIS
+    Gets important modules
+    #>
+    param()
+    $Local:moduleDirs = @(
+        "$env:OneDrive/PSModules",
+        "$env:USERPROFILE/gitstuff/scripts-pwsh",
+        "$env:OneDrive/snippets/utilFunc"
+    )
+    foreach ($i in $Local:moduleDirs) {
+        Write-Output $(get-item $i)
+    }
+    return $moduleDirs | Get-Member
 }
