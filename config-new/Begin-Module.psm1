@@ -5,6 +5,23 @@
 
 $_AUTHOR = "Carl Capodice"
 
+function Get-ChildItemNames {
+<#
+.DESCRIPTION
+Get Child items names as list of strings
+.NOTES
+Located in `$scrps\bin\`
+#>
+    [cmdletbinding()]
+    param(
+	[Parameter(Mandatory = $false, HelpMessage = "helpmsg", ValueFromPipeline = $true)]
+	[string]$Path,
+	[Parameter(ParameterSetName = "set1")]
+	[string]$Separator = " "
+    )
+    return Get-ChildItem $Path | Join-String -Property Name -Separator $Separator
+}
+
 function Get-ModuleFiles {
     <#
     .Description
@@ -12,14 +29,13 @@ function Get-ModuleFiles {
     #>
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory = $False)]
-        [string]
-        $Path
+        [Parameter(Mandatory = $False,HelpMessage="Help Message",Position=0)]
+        [string]$Path = "$env:OneDrive/PSModules"
     )
-    if ($Path) {
-        Get-ChildItem "$Path/*.psm1"
+    if (!($Path)) {
+        return get-childitem "*.psm1"
     } else {
-        get-childitem "*.psm1"
+        return Get-ChildItem "$Path/*.psm1"
     } 
 }
 
@@ -80,14 +96,16 @@ function setNpmToBeginning {
     #>
     param()
     if ($env:Path.Split(";")[0] -ne "*npm*") {
-    $OLD_PATH = $env:PATH
-    $env:PATH = "$(npm -g bin);$env:PATH"
-    write-host -fore Cyan "Set npm to beginning of path"
+        $OLD_PATH = $env:PATH
+        $env:PATH = "$(npm -g bin);$env:PATH"
+        write-host -fore Cyan "Set npm to beginning of path"
     } else {
-    Write-Host -fore Cyan "NPM is already at beginning of path"
+        Write-Host -fore Cyan "NPM is already at beginning of path"
     }
 }
 
 # Source completion scripts
-$script:completionScript = Get-Item "$scrps/config-new/completions.ps1"
-. "$completionScript"
+if ($scrps) {
+    $script:completionScript = Get-Item "$scrps/config-new/completions.ps1"
+    . "$completionScript"
+}
