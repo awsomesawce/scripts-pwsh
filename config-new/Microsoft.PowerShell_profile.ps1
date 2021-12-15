@@ -29,7 +29,7 @@ import-module "$utilFuncs"
 
 
 
-$loadgitconfig = $False
+$Script:loadgitconfig = $False
 
 if ($loadgitconfig) {
     if (test-path $scrps) {
@@ -67,9 +67,27 @@ $env:OLD_PATH = $env:PATH
 $env:Path = "C:\Users\Carl\AppData\Roaming\Python\Python39\Scripts;$env:Path"
 # Source rustup completion script
 . $scrps\completion\_rustup.ps1
+# Source gh completion present on filesystem.
+if (test-path $scrps\completion\_gh.ps1) {
+    . "$scrps\completion\_gh.ps1"
+} else {
+    write-output "Initializing gh completion by using gh"
+    Invoke-Expression -Command $(gh completion -s powershell | out-string)
+}
 # FIXME: Add this variable to Begin-Module
 # Add var for psenv used in npm projects
 $psenv = "$env:USERPROFILE\gitstuff\my-dotfiles\templates\.psenv.ps1"
 # Automatic gh completion
-Invoke-Expression -Command $(gh completion -s powershell | out-string)
+#Invoke-Expression -Command $(gh completion -s powershell | out-string)
 set-alias l -Value get-childitem -Description "Super small ls"
+set-alias '..' -Value cd..
+# This is not working...
+<#set-alias ImportAllModules -Value $(get-command "$env:OneDrive/PSModules/importAll.ps1") -Description @"
+This alias will import all modules in the `$env:OneDrive/PSModules dir
+"@
+#>
+set-alias gj Get-Job
+Set-Alias -Name f8 -Value flake8 -Description "flake8 is a python checker/linter"
+
+# Set default conda env
+conda activate pyscriptenv
