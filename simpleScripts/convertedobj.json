@@ -1,0 +1,21 @@
+{
+  "od": {
+    "result1": "I forget what I was gonna do",
+    "result2": "another thing"
+  },
+  "description": "Description of class",
+  "o": [
+    {
+      "Key": "k2",
+      "Value": "C:\\Users\\Carl\\scoop\\shims\\vim.ps1"
+    },
+    {
+      "Key": "description",
+      "Value": "String Dict where keys and values can only be [string]s."
+    },
+    {
+      "Key": "k1",
+      "Value": "v1"
+    }
+  ]
+}
