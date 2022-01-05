@@ -13,3 +13,5 @@
 *.cmd           text eol=crlf
 .git*          text eol=lf
 *.md    text eol=lf
+*.asciidoc      text eol=lf
+*.adoc          text eol=lf

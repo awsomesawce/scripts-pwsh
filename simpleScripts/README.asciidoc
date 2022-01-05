@@ -1,0 +1,34 @@
+= Simple scripts
+:title: Simple Powershell Scripts
+:author: Carl Capodice
+:proglang: Powershell
+
+These are scripts that can be implemented in a very small amount of lines of code.
+
+[source,powershell]
+---------------------------
+$function:getwebcontent = {
+    return Invoke-WebRequest $args[0] | select-object -expand content | out-string
+}
+---------------------------
+
+=== Wsl interaction in powershell
+I processed this asciidoc by using this function
+
+[source,pwsh]
+---------------------------
+function asciidoctor {
+<#
+.DESCRIPTION
+Returns an html document from processing a txt file using asciidoctor in Windows Subsystem for Linux
+.NOTES
+Put a check to make sure there is only one argument to this function...
+#>
+    if ($args.count -eq 1){
+        # Returns output as a string instead of an array of strings.
+        return wsl asciidoctor -o - $args[0] | out-string
+    } else {
+        write-error "Too many args"
+    }
+}
+---------------------------
