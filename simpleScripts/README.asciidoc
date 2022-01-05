@@ -32,3 +32,24 @@ Put a check to make sure there is only one argument to this function...
     }
 }
 ---------------------------
+
+=== Nested Functions example
+Here is an example for using nested functions to (hopefully) make it more simple to implement a process.
+
+[source,powershell]
+-----
+function adoctor1 {
+<#
+.DESCRIPTION
+Uses nested functions to hopefully simplify the process
+#>
+param([string]$File)
+    function base {
+        param([string]$f)
+        return (get-Item $f).Name
+    }
+return wsl asciidoctor -o - $(base $File)
+}
+-----
+
+Using +Get-Item+ on the filename will return the filename without any leading slashes or backslashes.
