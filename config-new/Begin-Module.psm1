@@ -109,3 +109,20 @@ if ($scrps) {
     $script:completionScript = Get-Item "$scrps/config-new/completions.ps1"
     . "$completionScript"
 }
+function Get-ScoopInfo {
+<#
+.DESCRIPTION
+Scoop info but allows array of strings
+#>
+[CmdletBinding()]
+param(
+    [Parameter()]
+    [string[]]$Params
+)
+if (-not $Params) {
+    Write-Error "No params entered"
+    return 1
+}
+return $Params | ForEach-Object {scoop info $_}
+}
+Set-Alias scoopinfo Get-ScoopInfo -Description:"A shorter scoop info that accepts an array of strings"
