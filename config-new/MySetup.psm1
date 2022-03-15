@@ -43,7 +43,7 @@ function Get-ImportantModules {
     $Local:moduleDirs = @(
         "$env:OneDrive/PSModules",
         "$env:USERPROFILE/gitstuff/scripts-pwsh",
-        "$env:OneDrive/snippets/utilFunc"
+        "$env:OneDrive/snippets/pwsh/utilFuncs"
     )
     foreach ($i in $Local:moduleDirs) {
         Write-Output $(get-item $i)

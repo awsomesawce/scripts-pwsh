@@ -5,6 +5,28 @@
 
 $_AUTHOR = "Carl Capodice"
 
+# TODO: Move this function to scoop_functions.ps*1
+
+function Get-ScoopInfo {
+    <#
+    .DESCRIPTION
+    Foreach loop for multiple scoop infos
+    #>
+    [CmdletBinding()]
+    param(
+    [Parameter(Mandatory)]
+    [string[]]$Params
+    )
+    return ($Params | ForEach-Object {
+        scoop info $_
+    })
+}
+if (!(Get-Command sinfo -ErrorAction ignore)) {
+    set-alias sinfo -Value "Get-ScoopInfo"
+} else {
+    Write-Warning "Command 'sinfo' exists, use 'Get-ScoopInfo' for scoop infos"
+}
+
 function Get-ChildItemNames {
 <#
 .DESCRIPTION
@@ -109,20 +131,8 @@ if ($scrps) {
     $script:completionScript = Get-Item "$scrps/config-new/completions.ps1"
     . "$completionScript"
 }
-function Get-ScoopInfo {
-<#
-.DESCRIPTION
-Scoop info but allows array of strings
-#>
-[CmdletBinding()]
-param(
-    [Parameter()]
-    [string[]]$Params
-)
-if (-not $Params) {
-    Write-Error "No params entered"
-    return 1
+
+if (!(Get-Command fzf -ErrorAction Ignore)) {
+    Write-Host "fzf not on path" -ForegroundColor Red
 }
-return $Params | ForEach-Object {scoop info $_}
-}
-Set-Alias scoopinfo Get-ScoopInfo -Description:"A shorter scoop info that accepts an array of strings"
+
