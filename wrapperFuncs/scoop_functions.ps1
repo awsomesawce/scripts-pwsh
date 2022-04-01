@@ -1,4 +1,3 @@
-function sinfo {
 
 <#
 .Description
@@ -28,4 +27,3 @@ Process {
     }
 }
 
-}
