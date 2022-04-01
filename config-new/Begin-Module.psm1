@@ -17,9 +17,10 @@ function Get-ScoopInfo {
     [Parameter(Mandatory)]
     [string[]]$Params
     )
-    return ($Params | ForEach-Object {
-        scoop info $_
-    })
+    if ($Params.Count -eq 1) {
+        return $Params.Split(" ").ForEach({scoop info $_})
+    }
+    return $Params | ForEach-Object {scoop info $_} 
 }
 if (!(Get-Command sinfo -ErrorAction ignore)) {
     set-alias sinfo -Value "Get-ScoopInfo"
