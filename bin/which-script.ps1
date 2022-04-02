@@ -5,11 +5,19 @@
 
 <#
 .DESCRIPTION
-Which command in a powershell script
+Which command as a powershell script
 .PARAMETER CommandName
 Name of command to query with `which`.
 .PARAMETER ScoopInfo
 Query scoop package manager for CommandName if installed by `scoop install`
+.NOTES
+This returns different data depending on what kind of command is queried.
+.EXAMPLE
+./which-script -CommandName vim
+    Return the location of the executable on PATH (C:\Users\Carl\scoop\shims\vim.exe)
+.EXAMPLE
+./which-script Get-GitStatus
+    Returns the definition of Get-GitStatus function from the `posh-git` module.
 #>
 
 [CmdletBinding()]
@@ -27,7 +35,10 @@ switch ($CommType) {
         Write-Debug "$CommandName is an application"
          return "$($Local:CommInfo.Source)" 
         }
-    "Function" { return "Command is a function" }
+    "Function" {
+         Write-Verbose "Command is a function, returning function definition:"
+         return $Local:CommInfo.Definition
+        }
     default {
         Write-Output "Default response"
         return $CommInfo
