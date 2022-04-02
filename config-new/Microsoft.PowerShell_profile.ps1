@@ -1,11 +1,12 @@
 # Carl's New Powershell Profile
 # Date: 9/22/2021
+# Update: 4-2-2022
 
 # Set env vars
 $env:PAGER = (get-command 'less' -erroraction ignore) ? ('less') : ('more')
 $env:DOTNET_CLI_TELEMETRY_OPTOUT = 1
 $env:MYPY_CACHE_DIR = "$env:USERPROFILE/.mypycache"
-#$env:PSMODULEPATH += ";$env:OneDrive/PSModules"
+$env:PSMODULEPATH = "$env:PSMODULEPATH;$env:OneDrive/PSModules"
 
 $newconfig = "C:\Users\Carl\OneDrive\dotfiles_backup\config-new" # Path to OneDrive backup for new-config
 # Set npm -g bin to beginning of path. FIXME: this is done twice in this file
@@ -13,6 +14,7 @@ $env:Path = "C:\Users\Carl\AppData\Roaming\npm;C:\Users\Carl\gitstuff\scripts-pw
 $scrps = (Get-Item "~\gitstuff\scripts-pwsh").FullName
 
 if (get-command start-condaenv -ErrorAction Ignore) {
+    Write-Verbose "Starting conda env"
     start-condaenv
 } else {
     Write-Warning "start-condaenv not on path."
@@ -91,3 +93,6 @@ Set-Alias -Name f8 -Value flake8 -Description "flake8 is a python checker/linter
 
 # Set default conda env
 conda activate pyscriptenv
+$ubuntu_home = "Microsoft.PowerShell.Core\FileSystem::\\wsl$\Ubuntu-20.04\home\carlc"
+$env:VCPKG_DISABLE_METRICS = $true
+$env:RUBY_BIN = "C:\Ruby31-x64\bin"
