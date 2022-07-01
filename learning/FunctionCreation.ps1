@@ -1,6 +1,9 @@
-# Ways of Creating Functions
-
-# Found awesome new way of creating simple functions without using the `function` keyword.
+<#
+.SYNOPSIS
+Ways of Creating Functions
+.DESCRIPTION
+Found awesome new way of creating simple functions without using the `function` keyword.
+#>
 
 # You can just use the `$function:` variable prefix, or `New-Item Function:\function_name`
 $gitst = "git status"

@@ -44,10 +44,10 @@ if ($loadgitconfig) {
 }
 $env:OLD_PATH = $env:PATH
 $env:Path = "C:\Program Files\dotnet\;$env:path"
-$changeenvpath = '$env:Path = "C:\Program Files\Go\bin\;$env:Path"'
-$Old_path = $env:Path
-iex $changeenvpath
-write-output "Go has been added to PATH"
+#$changeenvpath = '$env:Path = "C:\Program Files\Go\bin\;$env:Path"'
+#$Old_path = $env:Path
+#iex $changeenvpath
+#write-output "Go has been added to PATH"
 
 # PowerShell parameter completion shim for the dotnet CLI
 Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
@@ -96,3 +96,4 @@ conda activate pyscriptenv
 $ubuntu_home = "Microsoft.PowerShell.Core\FileSystem::\\wsl$\Ubuntu-20.04\home\carlc"
 $env:VCPKG_DISABLE_METRICS = $true
 $env:RUBY_BIN = "C:\Ruby31-x64\bin"
+$nvimconfig = "$env:LOCALAPPDATA\nvim\"
