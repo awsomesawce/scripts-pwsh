@@ -1,6 +1,6 @@
 # Carl's New Powershell Profile
 # Date: 9/22/2021
-# Update: 4-2-2022
+# Update: 7-4-2022
 
 # Set env vars
 $env:PAGER = (get-command 'less' -erroraction ignore) ? ('less') : ('more')
@@ -25,7 +25,7 @@ import-module posh-git
 # Begin-Module has beginning functions for new setup
 import-module "$scrps\config-new\Begin-Module.psm1"
 # MySetup has some interesting functions
-if (test-path "$scrps\config-new\MySetup.psm1") {import-module "$scrps/config-new/MySetup.psm1"}
+import-module "$scrps/config-new/MySetup.psm1"
 $utilFuncs = "$env:OneDrive\snippets\pwsh\utilFuncs\UtilFuncs.psd1"
 import-module "$utilFuncs"
 
