@@ -37,6 +37,8 @@ New-Alias @aliasParams
 
 Write-Host -fore red "End ./aliases.ps1"
 
+
+# TODO: Separate this region into it's own file.
 Write-Host -fore cyan "
 ====== BEGIN Testing aliasParams object ======
 "
@@ -52,3 +54,4 @@ Write-Output "variable description: $(get-variable aliasParams -scope Script | s
 Write-Output "Variable value: ", (get-variable -Scope Script -Verbose -Name aliasParams | select-object -expa value)
 
 Write-Host -fore cyan "====== END Testing aliasParams object ======"
+# End testing region
