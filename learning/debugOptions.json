@@ -1,0 +1,7 @@
+{
+  "description": "debug options for testing powershell scripts",
+  "verbose": "continue",
+  "fileName": "debugOptions.json",
+  "information": "continue",
+  "debug": "Inquire"
+}
