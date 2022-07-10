@@ -22,7 +22,10 @@
   },
   "homepage": "https://github.com/awsomesawce/scripts-pwsh#readme",
   "dependencies": {
+    "execa": "^6.1.0",
+    "fast-glob": "^3.2.11",
     "fs-extra": "^10.0.0",
+    "globby": "^13.1.2",
     "node-powershell": "^4.0.0"
   }
 }

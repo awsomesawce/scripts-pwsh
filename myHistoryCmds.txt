@@ -1,0 +1,11 @@
+
+[32;1mCommandLine[0m
+[32;1m-----------[0m
+cat .\written.json -raw | convertfrom-json
+cat .\written.json -raw | convertfrom-json -AsHashtable | fl
+$ht = cat .\written.json -raw | convertfrom-json -AsHashtable 
+$ht.mainModules
+$ht.mainModules.ForEach({get-childitem $_})
+$ht.mainModules.ForEach({get-childitem "node_modules/$_"})
+$ht.mainModulesChildren = $ht.mainModules.ForEach({get-childitem "node_modules/$_"})
+
