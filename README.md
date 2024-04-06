@@ -1,5 +1,9 @@
 # scripts-pwsh
 
+## STATUS
+
+In need of major overhaul.
+
 This git repo contains my personal collection of **Powershell** shell scripts.
 
 It also includes `.bat` files which are similar.
